@@ -27,7 +27,7 @@ public class User {
     @Column(name = "profile_picture")
     private String profilePicture;
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 }
 
