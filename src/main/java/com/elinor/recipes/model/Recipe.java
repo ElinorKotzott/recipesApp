@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -41,6 +39,9 @@ public class Recipe {
     private Date createdAt;
 
     @ManyToMany(mappedBy = "favoriteRecipes")
-    private Set<User> favoritedByUser = new HashSet<>();
+    private List<User> favoritesList;
+
+    @ManyToMany(mappedBy = "tags")
+    private List<Tag> tagList;
 }
 

@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -40,7 +41,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(name = "favorite_recipes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private Set<Recipe> favoriteRecipes = new HashSet<>();
+    private List<Recipe> favoriteRecipesList;
 }
 
 
