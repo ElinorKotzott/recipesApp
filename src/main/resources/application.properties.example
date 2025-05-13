@@ -1,6 +1,6 @@
 spring.application.name=recipes
 
-spring.datasource.url=jdbc:postgresql://localhost:5432/myrecipedatabase
+spring.datasource.url=jdbc:postgresql://localhost:5432/YOUR_DB_NAME
 spring.datasource.username=YOUR_DB_USERNAME
 spring.datasource.password=YOUR_DB_PASSWORD
 spring.datasource.driver-class-name=org.postgresql.Driver
