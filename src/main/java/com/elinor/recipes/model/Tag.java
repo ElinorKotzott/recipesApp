@@ -17,7 +17,7 @@ public class Tag {
     private String text;
 
     @ManyToMany
-    @JoinTable(name = "recipe_tags", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+    @JoinTable(name = "recipes_tags", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
     private List<Recipe> recipes;
 }
 
