@@ -38,10 +38,10 @@ public class Recipe {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
-    @ManyToMany(mappedBy = "favoriteRecipes")
+    @ManyToMany(mappedBy = "favoriteRecipesList")
     private List<User> favoritesList;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "recipes")
     private List<Tag> tagList;
 }
 

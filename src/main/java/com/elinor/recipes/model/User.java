@@ -1,15 +1,12 @@
 package com.elinor.recipes.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
