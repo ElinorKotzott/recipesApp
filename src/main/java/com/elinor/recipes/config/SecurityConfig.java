@@ -1,7 +1,7 @@
 package com.elinor.recipes.config;
 
 import com.elinor.recipes.filter.JwtAuthFilter;
-import com.elinor.recipes.service.UserDetailsServiceImp;
+import com.elinor.recipes.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserDetailsServiceImp userDetailsServiceImp;
+    private final UserService userService;
     private final JwtAuthFilter jwtAuthFilter;
 
 
@@ -34,7 +34,7 @@ public class SecurityConfig {
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
-                ).userDetailsService(userDetailsServiceImp)
+                ).userDetailsService(userService)
                 .sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
