@@ -2,8 +2,6 @@ package com.elinor.recipes.config;
 
 import com.elinor.recipes.filter.JwtAuthFilter;
 import com.elinor.recipes.service.UserDetailsServiceImp;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

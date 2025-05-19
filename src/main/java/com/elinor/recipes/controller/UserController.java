@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/all")
     public List<User> getAllUsers() {
         List<User> userList = userService.allUsers();
         userList.get(0).setUsername("Alice");
