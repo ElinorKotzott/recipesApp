@@ -1,7 +1,7 @@
 package com.elinor.recipes.filter;
 
 import com.elinor.recipes.service.JwtService;
-import com.elinor.recipes.service.UserDetailsImp;
+import com.elinor.recipes.service.UserDetailsServiceImp;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +10,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,10 +20,10 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserDetailsImp userDetailsService;
+    private final UserDetailsServiceImp userDetailsService;
 
 
-    public JwtAuthFilter(JwtService jwtService, UserDetailsImp userDetails, UserDetailsImp userDetailsService) {
+    public JwtAuthFilter(JwtService jwtService, UserDetailsServiceImp userDetails, UserDetailsServiceImp userDetailsService) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
