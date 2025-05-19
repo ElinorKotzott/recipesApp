@@ -1,5 +1,6 @@
 package com.elinor.recipes.model;
 
+import com.elinor.recipes.model.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
