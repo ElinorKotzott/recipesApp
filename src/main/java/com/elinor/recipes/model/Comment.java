@@ -22,7 +22,7 @@ public class Comment {
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 
-    @Column(name = "text")
+    @Column(name = "text", length = 500)
     private String text;
 
     @CreationTimestamp
