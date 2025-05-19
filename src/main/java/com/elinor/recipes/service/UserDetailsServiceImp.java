@@ -1,18 +1,16 @@
 package com.elinor.recipes.service;
 
 import com.elinor.recipes.repository.UserRepository;
+import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+@Data
 @Service
 public class UserDetailsServiceImp implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final UserRepository repository;
-
-    public UserDetailsServiceImp(UserRepository repository) {
-        this.repository = repository;
-    }
 
 
     @Override

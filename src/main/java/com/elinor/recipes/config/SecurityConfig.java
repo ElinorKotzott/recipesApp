@@ -2,6 +2,9 @@ package com.elinor.recipes.config;
 
 import com.elinor.recipes.filter.JwtAuthFilter;
 import com.elinor.recipes.service.UserDetailsServiceImp;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,18 +18,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     private final UserDetailsServiceImp userDetailsServiceImp;
-
     private final JwtAuthFilter jwtAuthFilter;
-
-    public SecurityConfig(UserDetailsServiceImp userDetailsServiceImp, JwtAuthFilter jwtAuthFilter) {
-        this.userDetailsServiceImp = userDetailsServiceImp;
-        this.jwtAuthFilter = jwtAuthFilter;
-    }
 
 
     @Bean
