@@ -1,7 +1,7 @@
 function Header() {
 
     return(
-        <div class="header-container-class">
+        <div className="header-container-class">
             <header>
                 <h1>My website</h1>
                 <nav class="my-nav">
