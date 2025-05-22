@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { request } from './axiosHelper';
+import { request } from '../axiosHelper';
 
 export default class AuthContent extends React.Component {
 
@@ -14,7 +14,7 @@ export default class AuthContent extends React.Component {
     componentDidMount() {
         request(
             "GET",
-            "/messages",
+            "/register",
             {}
         ).then((response) => {
             this.setState({data : response.data})
