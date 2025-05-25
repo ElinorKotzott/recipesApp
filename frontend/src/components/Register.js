@@ -15,6 +15,7 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('POST', '/register', { username, password });
         try {
             await request('post', '/register', { username, password });
             alert('Registered successfully!');
