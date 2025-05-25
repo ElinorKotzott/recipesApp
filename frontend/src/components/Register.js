@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from './axiosHelper';
+import { request } from '../axiosHelper';
 
 function Register() {
     const [username, setUsername] = useState("");
@@ -16,10 +16,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/register', {
-                username,
-                password,
-            });
+            await request('post', '/register', { username, password });
             alert('Registered successfully!');
        } catch (error) {
             if (error.response) {
@@ -31,7 +28,6 @@ function Register() {
      };
 
 
-
 return (
     <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label><br />
@@ -41,7 +37,7 @@ return (
             name="username"
             required
             value={username}
-            onChange={handleUsernameChange}
+            onChange={handleUsernameChange}/>
 
         <br/><br/>
 
@@ -52,9 +48,9 @@ return (
             name="password"
             required
             value={password}
-            onChange={handlePasswordChange}
+            onChange={handlePasswordChange}/>
 
-        <br /><br />
+        <br/><br/>
 
         <input type="submit" value="Register" />
     </form>
