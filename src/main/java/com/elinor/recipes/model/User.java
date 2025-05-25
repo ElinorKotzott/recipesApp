@@ -54,7 +54,7 @@ public class User implements UserDetails {
     private List<Recipe> favoriteRecipesList;
 
     @Enumerated(value = EnumType.STRING)
-    private Role role;
+    private Role role = Role.USER;
 
     @Override
     public String getUsername() {
