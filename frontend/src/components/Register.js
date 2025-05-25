@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import { request } from '../axiosHelper';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
-      };
+    };
 
-      const handlePasswordChange = (e) => {
+    const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-      };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('POST', '/register', { username, password });
         try {
             await request('post', '/register', { username, password });
-            alert('Registered successfully!');
+            navigate('/login');
        } catch (error) {
             if (error.response) {
             alert('Registration failed: ' + error.response.data.message);
@@ -26,7 +28,7 @@ function Register() {
                 alert('Error: ' + error.message);
             }
         }
-     };
+    };
 
 
 return (
