@@ -32,7 +32,7 @@ function Login() {
 
             <br/><br/>
 
-            <input type="submit" value="Register" />
+            <input type="submit" value="Login" />
         </form>
       );
 

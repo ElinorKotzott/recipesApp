@@ -7,14 +7,6 @@ function Register() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleUsernameChange = (e) => {
-        setUsername(e.target.value);
-    };
-
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('POST', '/register', { username, password });
@@ -40,7 +32,7 @@ return (
             name="username"
             required
             value={username}
-            onChange={handleUsernameChange}/>
+            onChange={e => setUsername(e.target.value)}/>
 
         <br/><br/>
 
@@ -51,7 +43,7 @@ return (
             name="password"
             required
             value={password}
-            onChange={handlePasswordChange}/>
+            onChange={e => setPassword(e.target.value)}/>
 
         <br/><br/>
 
