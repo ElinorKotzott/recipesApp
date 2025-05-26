@@ -9,13 +9,12 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('POST', '/register', { username, password });
         try {
             await request('post', '/register', { username, password });
             navigate('/login');
        } catch (error) {
             if (error.response) {
-            alert('Registration failed: ' + error.response.data.message);
+                alert('Registration failed: ' + error.response.data.message);
             } else {
                 alert('Error: ' + error.message);
             }
