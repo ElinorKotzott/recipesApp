@@ -1,4 +1,4 @@
-//cares for the register logic, sends props to register component and gets the full html back
+//displays homepage to logged in users only
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';

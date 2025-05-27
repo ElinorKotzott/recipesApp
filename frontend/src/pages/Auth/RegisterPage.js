@@ -16,6 +16,7 @@ const RegisterPage = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
+            //not sending auth header for register
             await request('post', '/register', { firstName, lastName, email, username, password }, false);
             navigate('/login');
         } catch (error) {

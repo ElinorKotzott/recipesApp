@@ -2,6 +2,8 @@ import React from 'react';
 
 const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEmail, username, setUsername, password, setPassword, handleRegister }) => {
     return (
+        <div className="auth">
+        <h2>Register</h2>
         <form onSubmit={handleRegister}>
             <label htmlFor="firstName">First name:</label><br />
                 <input
@@ -60,6 +62,7 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
 
             <input type="submit" value="Register" />
         </form>
+        </div>
       );
 
 }
