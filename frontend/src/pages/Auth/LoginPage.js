@@ -12,7 +12,7 @@ const LoginPage = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await request('post', '/login', { username, password });
+            const response = await request('post', '/login', { username, password }, false);
             localStorage.setItem('token', response.data.token);
             navigate('/');
         } catch (error) {

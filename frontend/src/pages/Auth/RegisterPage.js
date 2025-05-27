@@ -16,7 +16,7 @@ const RegisterPage = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await request('post', '/register', { username, password, firstName, lastName, email });
+            await request('post', '/register', { firstName, lastName, email, username, password }, false);
             navigate('/login');
         } catch (error) {
             if (error.response) {

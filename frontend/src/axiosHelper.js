@@ -3,16 +3,18 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8080'
 axios.defaults.headers.post["Content-type"] = 'application/json'
 
-const token = localStorage.getItem('token');
-if (token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
 
-export const request = (method, url, data) => {
-    return axios({
-        method: method,
-        url: url,
-        data: data
-    });
+export const request = (method, url, data, includeAuth = true) => {
+    const headers = {};
+
+    //only if includeAuth is true the token will be sent in the header - for register, it is false
+    if (includeAuth) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+    }
+
+    return axios({ method, url, data, headers });
 };
 
