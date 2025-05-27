@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import SubmitButton from './SubmitButton.js'
 
 function Header() {
 
@@ -24,7 +25,7 @@ function Header() {
                     {' | '}
                     <Link to="/">Profile</Link>
                     {' | '}
-                    <button onClick={handleLogout}>Logout</button>
+                    <SubmitButton onClick={handleLogout}>Logout</SubmitButton>
                 </nav>
                 <hr></hr>
             </header>

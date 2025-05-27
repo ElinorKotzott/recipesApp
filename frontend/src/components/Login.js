@@ -1,6 +1,7 @@
 //this form accepts username, password, the setter functions and handleLogin as props from the LoginPage
 
 import React from 'react';
+import SubmitButton from './SubmitButton.js'
 
 const Login = ({ username, setUsername, password, setPassword, handleLogin }) => {
     return (
@@ -29,7 +30,7 @@ const Login = ({ username, setUsername, password, setPassword, handleLogin }) =>
 
             <br /><br />
 
-            <input type="submit" value="Login" />
+            <SubmitButton>Login</SubmitButton>
         </form>
         </div>
     );

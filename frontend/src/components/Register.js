@@ -1,4 +1,5 @@
 import React from 'react';
+import SubmitButton from './SubmitButton.js'
 
 const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEmail, username, setUsername, password, setPassword, handleRegister }) => {
     return (
@@ -60,7 +61,7 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
 
             <br/><br/>
 
-            <input type="submit" value="Register" />
+            <SubmitButton>Register</SubmitButton>
         </form>
         </div>
       );
