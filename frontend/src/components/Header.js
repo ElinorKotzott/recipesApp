@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 function Header() {
 
     const navigate = useNavigate();
-    //will be true if there is a token
-    const isLoggedIn = !!localStorage.getItem('token');
-
-
 
     //logs user out by removing their token and redirects to login page
     const handleLogout = () => {
@@ -27,18 +23,14 @@ function Header() {
                     <Link to="/">Favorites</Link>
                     {' | '}
                     <Link to="/">Profile</Link>
-                    {isLoggedIn && (
-                        <>
-                            {' | '}
-                            <button onClick={handleLogout}>Logout</button>
-                        </>
-                    )}
+                    {' | '}
+                    <button onClick={handleLogout}>Logout</button>
                 </nav>
-            <hr></hr>
+                <hr></hr>
             </header>
         </div>
     );
 }
 
 
-export default Header
+export default Header;
