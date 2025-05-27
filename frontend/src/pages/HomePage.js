@@ -5,6 +5,11 @@ import Footer from '../components/Footer';
 
 
 function HomePage () {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        return <p>You must be logged in to view this page!</p>;
+    }
 
     return (
         <>
