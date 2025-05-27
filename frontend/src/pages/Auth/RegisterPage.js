@@ -6,6 +6,9 @@ import Register from '../../components/Register';
 
 
 const RegisterPage = () => {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -13,7 +16,7 @@ const RegisterPage = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await request('post', '/register', { username, password });
+            await request('post', '/register', { username, password, firstName, lastName, email });
             navigate('/login');
         } catch (error) {
             if (error.response) {
@@ -30,6 +33,12 @@ const RegisterPage = () => {
             setUsername={setUsername}
             password={password}
             setPassword={setPassword}
+            firstName={firstName}
+            setFirstName={setFirstName}
+            lastName={lastName}
+            setLastName={setLastName}
+            email={email}
+            setEmail={setEmail}
             handleRegister={handleRegister}/>
     );
 }

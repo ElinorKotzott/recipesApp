@@ -23,20 +23,20 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", length = 30)
+    @Column(name = "username", length = 30, nullable = false, unique = true)
     private String username;
 
-    @Column(name = "first_name", length = 30)
+    @Column(name = "first_name", length = 30, nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", length = 30)
+    @Column(name = "last_name", length = 30, nullable = false)
     private String lastName;
 
     @ToString.Exclude
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Column(name = "email", length = 40, unique = true)
+    @Column(name = "email", length = 40, nullable = false, unique = true)
     private String email;
 
     @Column(name = "bio")
