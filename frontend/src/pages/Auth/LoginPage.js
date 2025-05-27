@@ -10,7 +10,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
      useEffect(() => {
-         document.body.style.backgroundImage = "url('/veggies1.jpg')";
+         document.body.style.backgroundImage = "url('/veggies2.jpg')";
          document.body.style.backgroundSize = 'cover';
          document.body.style.backgroundRepeat = 'no-repeat';
 
