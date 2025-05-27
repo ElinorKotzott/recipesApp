@@ -1,14 +1,38 @@
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 function Header() {
+
+    const navigate = useNavigate();
+    //will be true if there is a token
+    const isLoggedIn = !!localStorage.getItem('token');
+
+
+
+    //logs user out by removing their token and redirects to login page
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
 
     return(
         <div id="header-container-id">
             <header>
                 <h1>My website</h1>
                 <nav id="nav-id">
-                    <a href="#">Home</a>
-                    <a href="#">Create</a>
-                    <a href="#">Favorites</a>
-                    <a href="#">Profile</a>
+                    <Link to="/">Home</Link>
+                    {' | '}
+                    <Link to="/">Create</Link>
+                    {' | '}
+                    <Link to="/">Favorites</Link>
+                    {' | '}
+                    <Link to="/">Profile</Link>
+                    {isLoggedIn && (
+                        <>
+                            {' | '}
+                            <button onClick={handleLogout}>Logout</button>
+                        </>
+                    )}
                 </nav>
             <hr></hr>
             </header>

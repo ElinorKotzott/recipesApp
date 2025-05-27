@@ -33,7 +33,6 @@ function Login() {
                 name="username"
                 required
                 value={username}
-                //this will call the use state setter to set username to what the user entered in the input form
                 onChange={e => setUsername(e.target.value)}/>
 
             <br/><br/>
