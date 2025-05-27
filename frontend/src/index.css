@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 body {
     background-color: #F4E7E1;
     font-family: 'Raleway', sans-serif;
@@ -5,14 +9,16 @@ body {
     color: #333333;
     height: 100%;
     margin: 0;
+    display: flex;
+    align-items: center;
 }
 
 
 .auth {
     display: inline-block;
     background-color: #F2F2F2;
-    margin: 20px;
-    padding: 20px 50px;
+    margin: 60px;
+    padding: 60px 60px;
     border-radius: 25px;
 }
 
@@ -27,6 +33,5 @@ body {
 
 .button:hover {
     background-color: #EDEDED;
+    border: 1px solid #000000;
 }
-
-.form
