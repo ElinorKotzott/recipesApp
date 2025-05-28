@@ -5,6 +5,7 @@ import SubmitButton from './SubmitButton.js'
 
 const Login = ({ username, setUsername, password, setPassword, handleLogin }) => {
     return (
+        <div className="auth-container">
         <div className="auth">
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
@@ -32,6 +33,7 @@ const Login = ({ username, setUsername, password, setPassword, handleLogin }) =>
 
             <SubmitButton>Login</SubmitButton>
         </form>
+        </div>
         </div>
     );
 };

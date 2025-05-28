@@ -3,6 +3,7 @@ import SubmitButton from './SubmitButton.js'
 
 const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEmail, username, setUsername, password, setPassword, handleRegister }) => {
     return (
+        <div className="auth-container">
         <div className="auth">
         <h2>Register</h2>
         <form onSubmit={handleRegister}>
@@ -63,6 +64,7 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
 
             <SubmitButton>Register</SubmitButton>
         </form>
+        </div>
         </div>
       );
 
