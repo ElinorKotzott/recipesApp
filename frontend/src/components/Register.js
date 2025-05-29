@@ -1,5 +1,7 @@
 import React from 'react';
 import SubmitButton from './SubmitButton.js';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = ({
     firstName,
@@ -14,6 +16,7 @@ const Register = ({
     setPassword,
     handleRegister,
 }) => {
+    const navigate = useNavigate();
 
     return (
         <div className="auth-container">
@@ -81,6 +84,8 @@ const Register = ({
             <br/><br/>
 
             <SubmitButton>Register</SubmitButton>
+            <p>Already have an account?</p>
+            <SubmitButton onClick={() => navigate('/login')}>Login</SubmitButton>
         </form>
         </div>
         </div>

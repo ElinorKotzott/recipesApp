@@ -1,9 +1,19 @@
 //this form accepts username, password, the setter functions and handleLogin as props from the LoginPage
 
 import React from 'react';
-import SubmitButton from './SubmitButton.js'
+import SubmitButton from './SubmitButton.js';
+import LogoutButton from './LogoutButton.js';
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({ username, setUsername, password, setPassword, handleLogin }) => {
+const Login = ({
+    username,
+    setUsername,
+    password,
+    setPassword,
+    handleLogin
+}) => {
+    const navigate = useNavigate();
+
     return (
         <div className="auth-container">
         <div className="auth">
@@ -32,6 +42,9 @@ const Login = ({ username, setUsername, password, setPassword, handleLogin }) =>
             <br /><br />
 
             <SubmitButton>Login</SubmitButton>
+            <p>Don''t have an account yet?</p>
+            <SubmitButton onClick={() => navigate('/register')}>Register</SubmitButton>
+
         </form>
         </div>
         </div>
