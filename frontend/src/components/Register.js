@@ -1,7 +1,20 @@
 import React from 'react';
-import SubmitButton from './SubmitButton.js'
+import SubmitButton from './SubmitButton.js';
 
-const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEmail, username, setUsername, password, setPassword, handleRegister }) => {
+const Register = ({
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    email,
+    setEmail,
+    username,
+    setUsername,
+    password,
+    setPassword,
+    handleRegister,
+}) => {
+
     return (
         <div className="auth-container">
         <div className="auth">
@@ -14,7 +27,8 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
                 name="firstName"
                 required
                 value={firstName}
-                onChange={e => setFirstName(e.target.value)}/>
+                onChange={e => setFirstName(e.target.value)}
+            />
 
             <br/><br/>
 
@@ -25,7 +39,8 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
                 name="lastName"
                 required
                 value={lastName}
-                onChange={e => setLastName(e.target.value)}/>
+                onChange={e => setLastName(e.target.value)}
+            />
 
             <br/><br/>
 
@@ -36,7 +51,8 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
                 name="email"
                 required
                 value={email}
-                onChange={e => setEmail(e.target.value)}/>
+                onChange={e => setEmail(e.target.value)}
+            />
 
             <br/><br/>
 
@@ -47,7 +63,8 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
                 name="username"
                 required
                 value={username}
-                onChange={e => setUsername(e.target.value)}/>
+                onChange={e => setUsername(e.target.value)}
+            />
 
             <br/><br/>
 
@@ -58,7 +75,8 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
                 name="password"
                 required
                 value={password}
-                onChange={e => setPassword(e.target.value)}/>
+                onChange={e => setPassword(e.target.value)}
+            />
 
             <br/><br/>
 
@@ -66,7 +84,7 @@ const Register = ({ firstName, setFirstName, lastName, setLastName, email, setEm
         </form>
         </div>
         </div>
-      );
+    );
 
 }
 export default Register;

@@ -7,13 +7,13 @@ function Header() {
             <header>
                 <h1>My website</h1>
                 <nav id="nav-id">
-                    <Link to="/">Home</Link>
+                    <Link to="/home">Home</Link>
                     {' | '}
                     <Link to="/">Create</Link>
                     {' | '}
                     <Link to="/">Favorites</Link>
                     {' | '}
-                    <Link to="/">Profile</Link>
+                    <Link to="/profile">Profile</Link>
                 </nav>
                 <hr></hr>
             </header>

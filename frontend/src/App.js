@@ -3,6 +3,9 @@ import LoginPage from './pages/Auth/LoginPage'
 import RegisterPage from './pages/Auth/RegisterPage'
 import HomePage from './pages/HomePage'
 import LandingPage from './pages/LandingPage'
+import ProfilePage from './pages/ProfilePage'
+import FavoritesPage from './pages/FavoritesPage'
+import CreatePage from './pages/CreatePage'
 
 
 function App() {
@@ -14,6 +17,9 @@ function App() {
                 <Route path="/login" element={<LoginPage/>} />
                 <Route path="/" element={<LandingPage/>} />
                 <Route path="/home" element={<HomePage/>} />
+                <Route path="/profile" element={<ProfilePage/>} />
+                <Route path="/create" element={<CreatePage/>} />
+                <Route path="/favorites" element={<FavoritesPage/>} />
             </Routes>
         </>
         </Router>
