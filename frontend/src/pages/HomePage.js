@@ -2,6 +2,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import LogoutButton from '../components/LogoutButton';
 
 
 function HomePage () {
@@ -14,6 +15,7 @@ function HomePage () {
     return (
         <>
             <Header/>
+            <LogoutButton/>
             <Footer/>
         </>
     );
