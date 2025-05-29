@@ -16,7 +16,7 @@ public class ProfileController {
     private UserRepository userRepository;
 
     @GetMapping("/profile")
-    public ResponseEntity<User> getProfile(Authentication authentication) {
+    public ResponseEntity<User> getUserInfo(Authentication authentication) {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
