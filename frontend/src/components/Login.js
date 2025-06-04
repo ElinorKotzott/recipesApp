@@ -2,7 +2,6 @@
 
 import React from 'react';
 import SubmitButton from './SubmitButton.js';
-import LogoutButton from './LogoutButton.js';
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({
@@ -42,7 +41,7 @@ const Login = ({
             <br /><br />
 
             <SubmitButton>Login</SubmitButton>
-            <p>Don''t have an account yet?</p>
+            <p>Don't have an account yet?</p>
             <SubmitButton onClick={() => navigate('/register')}>Register</SubmitButton>
 
         </form>

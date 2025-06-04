@@ -1,5 +1,6 @@
 package com.elinor.recipes.controller;
 
+import com.elinor.recipes.dto.UserDTO;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class ProfileController {
 
@@ -16,11 +18,15 @@ public class ProfileController {
     private UserRepository userRepository;
 
     @GetMapping("/profile")
-    public ResponseEntity<User> getUserInfo(Authentication authentication) {
+    public ResponseEntity<UserDTO> getUserInfo(Authentication authentication) {
         String username = authentication.getName();
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return ResponseEntity.ok(user);
+        UserDTO userDTO = new UserDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getBio());
+        return ResponseEntity.ok(userDTO);
     }
-
 }
+
+
+
