@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { request } from '../axiosHelper';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function ProfilePage() {
     const [username, setUsername] = useState('');
@@ -12,6 +12,7 @@ function ProfilePage() {
     const [bio, setBio] = useState('');
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -30,7 +31,7 @@ function ProfilePage() {
         };
 
         fetchProfile();
-    }, [token]);
+    }, [token, location.state]);
 
     if (!token) {
         return <p>You must be logged in to view this page!</p>;
