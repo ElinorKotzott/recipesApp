@@ -28,11 +28,7 @@ function ProfilePage() {
     }
 
     return (
-        <>
-            <Header />
-            <p>Welcome to your personal profile, {username}</p>
-            <Footer />
-        </>
+
     );
 }
 
