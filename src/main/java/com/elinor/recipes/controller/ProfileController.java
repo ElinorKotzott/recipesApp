@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -25,6 +27,23 @@ public class ProfileController {
 
         UserDTO userDTO = new UserDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getBio());
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping("/profile/change")
+    public ResponseEntity<String> updateUserInfo(@RequestBody UserDTO updatedUser, Authentication authentication) {
+        String currentUsername = authentication.getName();
+        User user = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        user.setUsername(updatedUser.getUsername());
+        user.setEmail(updatedUser.getEmail());
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setBio(updatedUser.getBio());
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok("Profile updated successfully!");
     }
 }
 

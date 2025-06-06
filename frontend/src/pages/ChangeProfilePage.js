@@ -33,7 +33,7 @@ function ChangeProfilePage() {
     const handleProfileUpdate = async (e) => {
         e.preventDefault();
         try {
-            await request('put', '/changeProfile', {
+            await request('put', '/profile/change', {
                 username,
                 firstName,
                 lastName,
