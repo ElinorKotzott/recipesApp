@@ -41,13 +41,13 @@ function ProfilePage() {
             <Header/>
             <div className="profile-container">
                 <h2>My Profile</h2>
-                <p><Username: {username}</p>
+                <p>Username: {username}</p>
                 <p>Email: {email}</p>
-                <p>firstName: {firstName}</p>
-                <p>lastName: {lastName}</p>
-                <p>Bio: {bio}</p>
+                <p>First Name: {firstName}</p>
+                <p>Last Name: {lastName}</p>
+                <p>Bio: {bio || "Tell us something about yourself!"}</p>
 
-                <button onClick={() => navigate('/change-profile')}>
+                <button onClick={() => navigate('/changeProfile')}>
                     Edit Profile
                 </button>
             </div>

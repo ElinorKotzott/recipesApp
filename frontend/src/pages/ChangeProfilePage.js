@@ -27,63 +27,82 @@ function ChangeProfilePage() {
             }
         };
 
+        fetchProfile();
+    }, [token]);
+
+    const handleProfileUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            await request('put', '/changeProfile', {
+                username,
+                firstName,
+                lastName,
+                email,
+                bio
+            }, true);
+
+            alert('Profile updated successfully!');
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('Update failed!');
+        }
+    };
 
     return (
         <div className="profile-container">
-                    <h2>Welcome to your profile, {username}</h2>
-                    <form onSubmit={handleProfileUpdate}>
+            <Header/>
+            <h2>Welcome to your profile, {username}</h2>
+            <form onSubmit={handleProfileUpdate}>
 
-                        <label htmlFor="Username">Username</label>
-                        <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            required
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+                <label htmlFor="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    required
+                    onChange={(e) => setUsername(e.target.value)}
+                />
 
+                <label htmlFor="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
-                        <label htmlFor="Email">Email</label>
-                        <textarea
-                            id="email"
-                            value={email}
-                            required
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                <label htmlFor="firstName">First Name</label>
+                <input
+                    type="text"
+                    id="firstName"
+                    value={firstName}
+                    required
+                    onChange={(e) => setFirstName(e.target.value)}
+                />
 
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    required
+                    onChange={(e) => setLastName(e.target.value)}
+                />
 
-                        <label htmlFor="firstName">First Name</label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            value={firstName}
-                            required
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
+                <label htmlFor="bio">Bio</label>
+                <input
+                    type="text"
+                    id="bio"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                />
 
-
-                        <label htmlFor="lastName">Last Name</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            value={lastName}
-                            required
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-
-
-                        <label htmlFor="bio">Bio</label>
-                        <input
-                            type="text"
-                            id="bio"
-                            value={bio}
-                            onChange={(e) => setBio(e.target.value)}
-                        />
-
-                        <SubmitButton>Save Changes</SubmitButton>
-                    </form>
+                <SubmitButton>Save Changes</SubmitButton>
+            </form>
+            <Footer/>
         </div>
-
     );
-
 }
+
+export default ChangeProfilePage;
