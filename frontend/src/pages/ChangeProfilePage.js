@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { request } from '../axiosHelper';
 import SubmitButton from '../components/SubmitButton';
+import { useNavigate } from 'react-router-dom';
 
 function ChangeProfilePage() {
     const [username, setUsername] = useState('');
@@ -11,6 +12,7 @@ function ChangeProfilePage() {
     const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
     const token = localStorage.getItem('token');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -40,8 +42,8 @@ function ChangeProfilePage() {
                 email,
                 bio
             }, true);
-
-            alert('Profile updated successfully!');
+            navigate('/profile');
+            alert("Profile updated successfully!");
         } catch (error) {
             console.error('Error updating profile:', error);
             alert('Update failed!');

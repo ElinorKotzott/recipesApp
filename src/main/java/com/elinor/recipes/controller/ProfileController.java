@@ -43,7 +43,7 @@ public class ProfileController {
 
         userRepository.save(user);
 
-        return ResponseEntity.ok("Profile updated successfully!");
+        return ResponseEntity.ok().build();
     }
 }
 
