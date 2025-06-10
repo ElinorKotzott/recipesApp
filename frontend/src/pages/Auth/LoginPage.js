@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { request } from '../../axiosHelper';
 import Login from '../../components/Login';
 
+//TODO there is a bug where after a failed login, clicking register will trigger another alert that the login failed
+
 const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");

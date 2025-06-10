@@ -9,7 +9,7 @@ function Header() {
                 <nav id="nav-id">
                     <Link to="/home">Home</Link>
                     {' | '}
-                    <Link to="/">Create</Link>
+                    <Link to="/create">Create</Link>
                     {' | '}
                     <Link to="/">Favorites</Link>
                     {' | '}

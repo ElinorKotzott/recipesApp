@@ -1,5 +1,6 @@
 //create component - input form for the user to create and submit their own recipe
 import React from 'react';
+import SubmitButton from './SubmitButton.js';
 
 const Create = ({
     title,
@@ -67,7 +68,7 @@ const Create = ({
                     onChange={(e) => setImage(e.target.value)}
                 />
 
-                <button type="submit">Create</button>
+                <SubmitButton>Create</SubmitButton>
             </form>
         </div>
     );

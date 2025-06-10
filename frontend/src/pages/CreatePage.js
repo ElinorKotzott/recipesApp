@@ -6,14 +6,14 @@ import Create from '../components/Create';
 const CreatePage = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [prepTime, setPrepTime] = useState("");
-    const [cookingTime, setCookingTime] = useState("");
+    const [prepTime, setPrepTime] = useState(0);
+    const [cookingTime, setCookingTime] = useState(0);
     const [image, setImage] = useState("");
 
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
-            await request('post', '/create', { title, description, prepTime, cookingTime, image}, true);
+            await request('post', '/create', { title, description, prepTime, cookingTime, image }, true);
         } catch (error) {
             if (error.response) {
                 alert('Submission failed: ' + error.response.data.message);
