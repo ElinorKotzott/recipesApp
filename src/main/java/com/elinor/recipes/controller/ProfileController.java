@@ -25,7 +25,7 @@ public class ProfileController {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        UserDTO userDTO = new UserDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getBio());
+        UserDTO userDTO = new UserDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getBio(), user.getProfilePicture());
         return ResponseEntity.ok(userDTO);
     }
 

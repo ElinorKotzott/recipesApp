@@ -12,5 +12,4 @@ public class RecipeDTO {
     private String description;
     private Integer prepTime;
     private Integer cookingTime;
-    private String image;
 }

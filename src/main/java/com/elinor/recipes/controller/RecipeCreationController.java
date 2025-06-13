@@ -33,7 +33,6 @@ public class RecipeCreationController {
         recipe.setDescription(newRecipe.getDescription());
         recipe.setPrepTime(newRecipe.getPrepTime());
         recipe.setCookingTime(newRecipe.getCookingTime());
-        recipe.setImage(newRecipe.getImage());
         recipe.setUser(user);
 
         recipeRepository.save(recipe);
