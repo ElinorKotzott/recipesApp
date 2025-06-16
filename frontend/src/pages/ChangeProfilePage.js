@@ -11,7 +11,7 @@ function ChangeProfilePage() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const navigate = useNavigate();
 
     useEffect(() => {

@@ -26,7 +26,7 @@ const LoginPage = () => {
         try {
             //not sending an auth header for the login
             const response = await request('post', '/login', { username, password }, false);
-            localStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('token', response.data.token);
             navigate('/home');
         } catch (error) {
             if (error.response) {

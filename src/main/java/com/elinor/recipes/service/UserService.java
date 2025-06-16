@@ -18,7 +18,6 @@ public class UserService implements UserDetailsService {
 
     public List<User> allUsers() {
         List<User> users = userRepository.findAll();
-        System.out.println(users);
         return users;
     }
 

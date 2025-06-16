@@ -9,6 +9,11 @@ const CreatePage = () => {
     const [prepTime, setPrepTime] = useState(0);
     const [cookingTime, setCookingTime] = useState(0);
     const [image, setImage] = useState("");
+    const token = sessionStorage.getItem('token');
+
+    if (!token) {
+            return <p>You must be logged in to view this page!</p>;
+        }
 
     const handleCreate = async (e) => {
         e.preventDefault();
