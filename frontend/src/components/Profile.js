@@ -17,7 +17,6 @@ const Profile = ({
 }) => {
     return(
         <div className="profile-container">
-                <Header/>
                 <h2>Welcome to your profile, {username}</h2>
                 <form onSubmit={handleProfileUpdate}>
 
@@ -67,7 +66,6 @@ const Profile = ({
 
                     <SubmitButton>Save Changes</SubmitButton>
                 </form>
-                <Footer/>
             </div>
     );
 }

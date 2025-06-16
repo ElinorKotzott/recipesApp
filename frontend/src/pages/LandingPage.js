@@ -10,10 +10,8 @@ function LandingPage () {
     const navigate = useNavigate();
     return (
         <>
-            <Header/>
             <SubmitButton onClick={() => navigate('/login')}>Login</SubmitButton>
             <SubmitButton onClick={() => navigate('/register')}>Register</SubmitButton>
-            <Footer/>
         </>
     );
 }

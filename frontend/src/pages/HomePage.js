@@ -6,9 +6,7 @@ import LogoutButton from '../components/LogoutButton';
 function HomePage () {
     return (
         <>
-            <Header/>
             <LogoutButton/>
-            <Footer/>
         </>
     );
 }

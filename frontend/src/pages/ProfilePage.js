@@ -35,7 +35,6 @@ function ProfilePage() {
 
     return (
         <>
-            <Header/>
             <div className="profile-container">
                 <h2>My Profile</h2>
                 <p>Username: {username}</p>
@@ -48,7 +47,6 @@ function ProfilePage() {
                     Edit Profile
                 </button>
             </div>
-            <Footer/>
         </>
     );
 }
