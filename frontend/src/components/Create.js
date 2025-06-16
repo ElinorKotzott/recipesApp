@@ -10,8 +10,6 @@ const Create = ({
     setPrepTime,
     cookingTime,
     setCookingTime,
-    image,
-    setImage,
     handleCreate
 }) => {
 
@@ -56,15 +54,6 @@ const Create = ({
                     value={cookingTime}
                     required
                     onChange={(e) => setCookingTime(e.target.value)}
-                />
-
-
-                <label htmlFor="image">Image URL</label>
-                <input
-                    type="text"
-                    id="image"
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
                 />
 
                 <SubmitButton>Create</SubmitButton>

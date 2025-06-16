@@ -30,18 +30,18 @@ public class Recipe {
     @Column(name = "cooking_time")
     private Integer cookingTime;
 
-    @Lob
+    /*@Lob
     @Column(name = "image")
-    private String image;
+    private String image;*/
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
     @ManyToMany(mappedBy = "favoriteRecipesList")
-    private List<User> favoritesList;
+    private List<User> favoritesList = new ArrayList<>();
 
     @ManyToMany(mappedBy = "recipes")
-    private List<Tag> tagList;
+    private List<Tag> tagList = new ArrayList<>();
 }
 

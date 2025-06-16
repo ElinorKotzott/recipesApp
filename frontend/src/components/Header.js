@@ -5,7 +5,7 @@ function Header() {
     return(
         <div id="header-container-id">
             <header>
-                <h1>My website</h1>
+                <h1>My recipes app</h1>
                 <nav id="nav-id">
                     <Link to="/home">Home</Link>
                     {' | '}
