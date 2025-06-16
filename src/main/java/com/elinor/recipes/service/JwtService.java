@@ -18,9 +18,10 @@ public class JwtService {
     private final String SECRET_KEY = "3c7e626c8007351408b125511ea1f9a4e92127f40aae951bd556ef2decb53e34";
 
     public boolean isValid(String token, UserDetails user) {
-        String username = extractUsername(token);
-        return username.equalsIgnoreCase(user.getUsername()) && !isTokenExpired(token);
+        String userIdFromToken = extractUserId(token);
+        return userIdFromToken.equals(String.valueOf(((User) user).getId())) && !isTokenExpired(token);
     }
+
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
@@ -30,7 +31,7 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public String extractUsername(String token) {
+    public String extractUserId(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -51,7 +52,7 @@ public class JwtService {
     public String generateToken(User user) {
         String token = Jwts
                 .builder()
-                .subject(user.getUsername())
+                .subject(String.valueOf(user.getId()))
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+ 24*60*60*1000))
                 .signWith(getSigninKey())
