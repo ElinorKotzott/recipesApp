@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -9,7 +8,7 @@ function LogoutButton() {
 
     //logs user out by removing their token and redirects to login page
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         navigate('/login');
     };
 

@@ -1,5 +1,3 @@
-import React from 'react';
-
 function SubmitButton({ children, onClick }) {
     return (
         <button type="submit" className="button" onClick={onClick}>

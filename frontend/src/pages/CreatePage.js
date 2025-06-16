@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { request } from '../axiosHelper';
 import Create from '../components/Create';
 

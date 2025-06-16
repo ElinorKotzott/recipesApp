@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Profile from '../components/Profile';
 import { request } from '../axiosHelper';
 import { useNavigate } from 'react-router-dom';

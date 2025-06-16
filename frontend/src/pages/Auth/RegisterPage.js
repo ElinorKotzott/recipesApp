@@ -1,5 +1,5 @@
 //cares for the register logic, sends props to register component and gets the full html back
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { request } from '../../axiosHelper';
 import Register from '../../components/Register';

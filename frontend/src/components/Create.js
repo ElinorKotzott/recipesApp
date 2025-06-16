@@ -1,5 +1,4 @@
 //create component - input form for the user to create and submit their own recipe
-import React from 'react';
 import SubmitButton from './SubmitButton.js';
 
 const Create = ({

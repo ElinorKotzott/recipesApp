@@ -1,6 +1,5 @@
 //this form accepts username, password, the setter functions and handleLogin as props from the LoginPage
 
-import React from 'react';
 import SubmitButton from './SubmitButton.js';
 import { useNavigate } from 'react-router-dom';
 
