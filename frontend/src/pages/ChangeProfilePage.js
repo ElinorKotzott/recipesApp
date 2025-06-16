@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Profile from '../components/Profile';
 import { request } from '../axiosHelper';
-import SubmitButton from '../components/SubmitButton';
 import { useNavigate } from 'react-router-dom';
 
 function ChangeProfilePage() {
@@ -49,6 +47,21 @@ function ChangeProfilePage() {
             alert('Update failed!');
         }
     };
+
+    return (
+            <Profile
+                username={username}
+                setUsername={setUsername}
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+                email={email}
+                setEmail={setEmail}
+                bio={bio}
+                setBio={setBio}
+                handleProfileUpdate={handleProfileUpdate}/>
+        );
 }
 
 export default ChangeProfilePage;

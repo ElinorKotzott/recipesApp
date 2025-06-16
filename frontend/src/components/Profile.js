@@ -1,9 +1,23 @@
 import React from 'react';
+import Header from './Header.js';
+import Footer from './Footer.js';
 import SubmitButton from './SubmitButton';
 
-function Profile () {
-    return (
-            <div className="profile-container">
+const Profile = ({
+     username,
+     setUsername,
+     email,
+     setEmail,
+     firstName,
+     setFirstName,
+     lastName,
+     setLastName,
+     bio,
+     setBio,
+     handleProfileUpdate
+}) => {
+    return(
+        <div className="profile-container">
                 <Header/>
                 <h2>Welcome to your profile, {username}</h2>
                 <form onSubmit={handleProfileUpdate}>
@@ -56,5 +70,7 @@ function Profile () {
                 </form>
                 <Footer/>
             </div>
-        );
+    );
 }
+
+export default Profile;

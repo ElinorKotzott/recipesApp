@@ -9,7 +9,7 @@ export const request = (method, url, data, includeAuth = true) => {
 
     //only if includeAuth is true the token will be sent in the header - for register and login, it will be false
     if (includeAuth) {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
         }
