@@ -10,7 +10,6 @@ function ProfilePage() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [bio, setBio] = useState('');
-    const token = sessionStorage.getItem('token');
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -32,10 +31,6 @@ function ProfilePage() {
 
         fetchProfile();
     }, [token, location.state]);
-
-    if (!token) {
-        return <p>You must be logged in to view this page!</p>;
-    }
 
     return (
         <>
