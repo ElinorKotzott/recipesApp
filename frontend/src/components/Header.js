@@ -11,7 +11,7 @@ function Header() {
                     {' | '}
                     <Link to="/create">Create</Link>
                     {' | '}
-                    <Link to="/">Favorites</Link>
+                    <Link to="/favorites">Favorites</Link>
                     {' | '}
                     <Link to="/profile">Profile</Link>
                 </nav>

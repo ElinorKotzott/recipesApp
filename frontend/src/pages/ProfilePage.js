@@ -12,6 +12,7 @@ function ProfilePage() {
     const [bio, setBio] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
+    const token = sessionStorage.getItem('token');
 
     useEffect(() => {
         const fetchProfile = async () => {
