@@ -8,6 +8,7 @@ import FavoritesPage from './pages/FavoritesPage';
 import CreatePage from './pages/CreatePage';
 import ChangeProfilePage from './pages/ChangeProfilePage';
 import PrivateRoute from './components/PrivateRoute';
+import Layout from './components/Layout';
 
 function App() {
     return (
@@ -18,19 +19,33 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
 
                 <Route path="/home" element={
-                    <PrivateRoute><HomePage /></PrivateRoute>
+                    <PrivateRoute>
+                        <Layout><HomePage /></Layout>
+                    </PrivateRoute>
                 } />
+
                 <Route path="/profile" element={
-                    <PrivateRoute><ProfilePage /></PrivateRoute>
+                    <PrivateRoute>
+                        <Layout><ProfilePage /></Layout>
+                    </PrivateRoute>
                 } />
+
                 <Route path="/create" element={
-                    <PrivateRoute><CreatePage /></PrivateRoute>
+                    <PrivateRoute>
+                        <Layout><CreatePage /></Layout>
+                    </PrivateRoute>
                 } />
+
                 <Route path="/favorites" element={
-                    <PrivateRoute><FavoritesPage /></PrivateRoute>
+                    <PrivateRoute>
+                        <Layout><FavoritesPage /></Layout>
+                    </PrivateRoute>
                 } />
+
                 <Route path="/changeProfile" element={
-                    <PrivateRoute><ChangeProfilePage /></PrivateRoute>
+                    <PrivateRoute>
+                        <Layout><ChangeProfilePage /></Layout>
+                    </PrivateRoute>
                 } />
             </Routes>
         </Router>
