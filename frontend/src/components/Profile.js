@@ -1,3 +1,5 @@
+import SubmitButton from './SubmitButton.js';
+
 const Profile = ({
     username,
     setUsername,
