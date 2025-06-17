@@ -15,6 +15,20 @@ const Create = ({
     setImage
 }) => {
 
+    const handleImageChange = (e) => {
+            const file = e.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64String = reader.result.split(',')[1];
+                setImage(base64String);
+            };
+            reader.readAsDataURL(file);
+    };
+
     return (
         <div className="create-container">
             <h2>Create New Recipe</h2>
@@ -67,6 +81,14 @@ const Create = ({
                     value={image}
                     required
                     onChange={(e) => setImage(e.target.value)}
+                />
+
+                <label htmlFor="image">Profile Picture</label>
+                    <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    onChange={handleImageChange}
                 />
 
                 <SubmitButton>Create</SubmitButton>
