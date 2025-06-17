@@ -10,7 +10,9 @@ const Create = ({
     setPrepTime,
     cookingTime,
     setCookingTime,
-    handleCreate
+    handleCreate,
+    image,
+    setImage
 }) => {
 
     return (
@@ -56,6 +58,15 @@ const Create = ({
                     onChange={(e) => setCookingTime(e.target.value)}
                 />
 
+                <label htmlFor="image">Image</label>
+                                <input
+                                    type="file"
+                                    id="image"
+                                    value={image}
+                                    required
+                                    onChange={(e) => setImage(e.target.value)}
+                                />
+
                 <SubmitButton>Create</SubmitButton>
             </form>
         </div>
@@ -63,3 +74,4 @@ const Create = ({
 };
 
 export default Create;
+
