@@ -9,6 +9,7 @@ function ChangeProfilePage() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
+    const [image, setImage] = useState('');
     const token = sessionStorage.getItem('token');
     const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ function ChangeProfilePage() {
                 setLastName(response.data.lastName);
                 setEmail(response.data.email);
                 setBio(response.data.bio);
+                setImage(response.data.image);
             } catch (error) {
                 console.error('Error fetching profile:', error);
             }
@@ -38,7 +40,8 @@ function ChangeProfilePage() {
                 firstName,
                 lastName,
                 email,
-                bio
+                bio,
+                image
             }, true);
             navigate('/profile');
             alert("Profile updated successfully!");
