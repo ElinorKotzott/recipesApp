@@ -16,18 +16,21 @@ const Create = ({
 }) => {
 
     const handleImageChange = (e) => {
-            const file = e.target.files[0];
-            if (!file) {
-                return;
-            }
+        const file = e.target.files[0];
+        if (!file) return;
 
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64String = reader.result.split(',')[1];
-                setImage(base64String);
-            };
-            reader.readAsDataURL(file);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64String = reader.result.split(',')[1];
+            setImage({
+                data: base64String,
+                type: file.type
+            });
+        };
+
+        reader.readAsDataURL(file);
     };
+
 
     return (
         <div className="create-container">

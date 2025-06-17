@@ -10,6 +10,8 @@ function ProfilePage() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [bio, setBio] = useState('');
+    const [profilePictureData, setProfilePictureData] = useState('');
+    const [profilePictureType, setProfilePictureType] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const token = sessionStorage.getItem('token');
@@ -25,6 +27,8 @@ function ProfilePage() {
                 setFirstName(data.firstName);
                 setLastName(data.lastName);
                 setBio(data.bio);
+                setProfilePictureData(data.profilePicture?.data || '');
+                setProfilePictureType(data.profilePicture?.type || '');
             } catch (error) {
                 console.error('Error fetching profile:', error);
             }
@@ -42,6 +46,16 @@ function ProfilePage() {
                 <p>First Name: {firstName}</p>
                 <p>Last Name: {lastName}</p>
                 <p>Bio: {bio || "Tell us something about yourself!"}</p>
+
+                {profilePictureData && profilePictureType && (
+                    <div>
+                        <p>Profile Picture:</p>
+                        <img
+                            src={`data:${profilePictureType};base64,${profilePictureData}`}
+                            alt="The user's profile picture"
+                        />
+                    </div>
+                )}
 
                 <button onClick={() => navigate('/changeProfile')}>
                     Edit Profile

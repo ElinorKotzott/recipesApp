@@ -9,7 +9,8 @@ function ChangeProfilePage() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
-    const [image, setImage] = useState('');
+    const [profilePictureData, setProfilePictureData] = useState('');
+    const [profilePictureType, setProfilePictureType] = useState('');
     const token = sessionStorage.getItem('token');
     const navigate = useNavigate();
 
@@ -23,7 +24,7 @@ function ChangeProfilePage() {
                 setLastName(response.data.lastName);
                 setEmail(response.data.email);
                 setBio(response.data.bio);
-                setImage(response.data.image);
+                setProfilePicture(response.data.profilePicture);
             } catch (error) {
                 console.error('Error fetching profile:', error);
             }
@@ -41,7 +42,8 @@ function ChangeProfilePage() {
                 lastName,
                 email,
                 bio,
-                image
+                profilePicture: profilePictureData,
+                profilePictureType: profilePictureType
             }, true);
             navigate('/profile');
             alert("Profile updated successfully!");
@@ -63,6 +65,10 @@ function ChangeProfilePage() {
                 setEmail={setEmail}
                 bio={bio}
                 setBio={setBio}
+                profilePictureData={profilePictureData}
+                setProfilePictureData={setProfilePictureData}
+                profilePictureType={profilePictureType}
+                setProfilePictureType={setProfilePictureType}
                 handleProfileUpdate={handleProfileUpdate}/>
         );
 }

@@ -11,24 +11,27 @@ const Profile = ({
     setLastName,
     bio,
     setBio,
-    image,
-    setImage,
+    profilePictureData,
+    setProfilePictureData,
+    profilePictureType,
+    setProfilePictureType,
     handleProfileUpdate
 }) => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        if (!file) {
-            return;
-        }
+        if (!file) return;
 
         const reader = new FileReader();
         reader.onloadend = () => {
             const base64String = reader.result.split(',')[1];
-            setImage(base64String);
+            setProfilePictureData(base64String);
+            setProfilePictureType(file.type);
         };
+
         reader.readAsDataURL(file);
     };
+
 
     return (
         <div className="profile-container">
