@@ -13,7 +13,7 @@ const CreatePage = () => {
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
-            await request('post', '/create', { title, description, prepTime, cookingTime }, true);
+            await request('post', '/create', { title, description, prepTime, cookingTime, image }, true);
         } catch (error) {
             if (error.response) {
                 alert('Submission failed: ' + error.response.data.message);
@@ -33,7 +33,9 @@ const CreatePage = () => {
             setPrepTime={setPrepTime}
             cookingTime={cookingTime}
             setCookingTime={setCookingTime}
-            handleCreate={handleCreate}/>
+            handleCreate={handleCreate}
+            image={image}
+            setImage={setImage}/>
     );
 }
 

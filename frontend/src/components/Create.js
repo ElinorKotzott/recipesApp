@@ -42,6 +42,7 @@ const Create = ({
                 <label htmlFor="prepTime">Preparation Time (mins)</label>
                 <input
                     type="number"
+                    min="0"
                     id="prepTime"
                     value={prepTime}
                     required
@@ -52,6 +53,7 @@ const Create = ({
                 <label htmlFor="cookingTime">Cooking Time (mins)</label>
                 <input
                     type="number"
+                    min="0"
                     id="cookingTime"
                     value={cookingTime}
                     required
@@ -59,13 +61,13 @@ const Create = ({
                 />
 
                 <label htmlFor="image">Image</label>
-                                <input
-                                    type="file"
-                                    id="image"
-                                    value={image}
-                                    required
-                                    onChange={(e) => setImage(e.target.value)}
-                                />
+                <input
+                    type="file"
+                    id="image"
+                    value={image}
+                    required
+                    onChange={(e) => setImage(e.target.value)}
+                />
 
                 <SubmitButton>Create</SubmitButton>
             </form>

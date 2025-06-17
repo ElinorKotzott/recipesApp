@@ -30,9 +30,9 @@ public class Recipe {
     @Column(name = "cooking_time")
     private Integer cookingTime;
 
-    /*@Lob
+    @Lob
     @Column(name = "image")
-    private String image;*/
+    private String image;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
