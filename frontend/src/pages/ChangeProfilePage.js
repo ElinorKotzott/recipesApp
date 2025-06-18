@@ -24,7 +24,8 @@ function ChangeProfilePage() {
                 setLastName(response.data.lastName);
                 setEmail(response.data.email);
                 setBio(response.data.bio);
-                setProfilePicture(response.data.profilePicture);
+                setProfilePictureData(response.data.profilePicture);
+                setProfilePictureType(response.data.profilePictureType);
             } catch (error) {
                 console.error('Error fetching profile:', error);
             }

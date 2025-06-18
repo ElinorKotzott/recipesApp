@@ -23,7 +23,8 @@ public class ProfileService {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getBio(),
-                user.getProfilePicture()
+                user.getProfilePicture(),
+                user.getProfilePictureType()
         );
     }
 

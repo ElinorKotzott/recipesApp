@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { request } from '../axiosHelper';
 import { useNavigate, useLocation } from 'react-router-dom';
 
