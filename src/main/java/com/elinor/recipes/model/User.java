@@ -42,8 +42,7 @@ public class User implements UserDetails {
     @Column(name = "bio")
     private String bio;
 
-    @Lob
-    @Column(name = "profile_picture_data")
+    @Column(name = "profile_picture_data", columnDefinition = "TEXT")
     private String profilePictureData;
 
     @Column(name = "profile_picture_type", length = 50)

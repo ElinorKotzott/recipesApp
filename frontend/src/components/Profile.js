@@ -25,6 +25,8 @@ const Profile = ({
         const reader = new FileReader();
         reader.onloadend = () => {
             const base64String = reader.result.split(',')[1];
+            console.log("Base64 preview:", base64String.substring(0, 30));
+            console.log("Base64 length:", base64String.length);
             setProfilePictureData(base64String);
             setProfilePictureType(file.type);
         };

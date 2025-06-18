@@ -16,8 +16,8 @@ public class ProfileController {
     @GetMapping("/profile")
     public ResponseEntity<UserDTO> getUserInfo(Authentication authentication) {
         String username = authentication.getName();
-        UserDTO userDTO = profileService.getUserProfile(username);
-        return ResponseEntity.ok(userDTO);
+        UserDTO currentUser = profileService.getUserProfile(username);
+        return ResponseEntity.ok(currentUser);
     }
 
     @PutMapping("/profile/change")

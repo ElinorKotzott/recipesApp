@@ -30,8 +30,7 @@ public class Recipe {
     @Column(name = "cooking_time")
     private Integer cookingTime;
 
-    @Lob
-    @Column(name = "image_data")
+    @Column(name = "image_data", columnDefinition = "TEXT")
     private String imageData;
 
     @Column(name = "image_type", length = 50)
