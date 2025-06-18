@@ -25,8 +25,8 @@ function ProfilePage() {
                 setFirstName(data.firstName);
                 setLastName(data.lastName);
                 setBio(data.bio);
-                setProfilePictureData(data.profilePicture?.data || '');
-                setProfilePictureType(data.profilePicture?.type || '');
+                setProfilePictureData(data.profilePictureData);
+                setProfilePictureType(data.profilePictureType);
             } catch (error) {
                 console.error('Error fetching profile:', error);
             }
