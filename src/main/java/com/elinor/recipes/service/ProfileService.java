@@ -23,7 +23,7 @@ public class ProfileService {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getBio(),
-                user.getProfilePicture(),
+                user.getProfilePictureData(),
                 user.getProfilePictureType()
         );
     }
@@ -37,7 +37,8 @@ public class ProfileService {
         user.setFirstName(updatedUser.getFirstName());
         user.setLastName(updatedUser.getLastName());
         user.setBio(updatedUser.getBio());
-        user.setProfilePicture(updatedUser.getProfilePicture()); // don't forget this!
+        user.setProfilePictureData(updatedUser.getProfilePictureData());
+        user.setProfilePictureType(updatedUser.getProfilePictureType());
 
         userRepository.save(user);
     }

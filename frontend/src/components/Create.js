@@ -11,8 +11,10 @@ const Create = ({
     cookingTime,
     setCookingTime,
     handleCreate,
-    image,
-    setImage
+    imageData,
+    setImageData,
+    imageType,
+    setImageType
 }) => {
 
     const handleImageChange = (e) => {
@@ -22,10 +24,8 @@ const Create = ({
         const reader = new FileReader();
         reader.onloadend = () => {
             const base64String = reader.result.split(',')[1];
-            setImage({
-                data: base64String,
-                type: file.type
-            });
+            setImageData(base64String);
+            setImageType(file.type);
         };
 
         reader.readAsDataURL(file);
@@ -78,15 +78,6 @@ const Create = ({
                 />
 
                 <label htmlFor="image">Image</label>
-                <input
-                    type="file"
-                    id="image"
-                    value={image}
-                    required
-                    onChange={(e) => setImage(e.target.value)}
-                />
-
-                <label htmlFor="image">Profile Picture</label>
                     <input
                     type="file"
                     id="image"

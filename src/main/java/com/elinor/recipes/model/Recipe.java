@@ -31,8 +31,11 @@ public class Recipe {
     private Integer cookingTime;
 
     @Lob
-    @Column(name = "image")
-    private String image;
+    @Column(name = "image_data")
+    private String imageData;
+
+    @Column(name = "image_type", length = 50)
+    private String imageType;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

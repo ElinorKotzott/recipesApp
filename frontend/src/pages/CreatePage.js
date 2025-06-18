@@ -8,12 +8,14 @@ const CreatePage = () => {
     const [description, setDescription] = useState("");
     const [prepTime, setPrepTime] = useState(0);
     const [cookingTime, setCookingTime] = useState(0);
-    const [image, setImage] = useState("");
+    const [imageData, setImageData] = useState("");
+    const [imageType, setImageType] = useState("");
 
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
-            await request('post', '/create', { title, description, prepTime, cookingTime, image }, true);
+            await request('post', '/create', { title, description, prepTime, cookingTime, imageData, imageType }, true);
+            alert("Recipe submitted successfully!");
         } catch (error) {
             if (error.response) {
                 alert('Submission failed: ' + error.response.data.message);
@@ -34,8 +36,11 @@ const CreatePage = () => {
             cookingTime={cookingTime}
             setCookingTime={setCookingTime}
             handleCreate={handleCreate}
-            image={image}
-            setImage={setImage}/>
+            imageData={imageData}
+            setImageData={setImageData}
+            imageType={imageType}
+            setImageType={setImageType}
+        />
     );
 }
 

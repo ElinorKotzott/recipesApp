@@ -42,10 +42,11 @@ public class User implements UserDetails {
     @Column(name = "bio")
     private String bio;
 
-    @Column(name = "profile_picture")
-    private String profilePicture;
+    @Lob
+    @Column(name = "profile_picture_data")
+    private String profilePictureData;
 
-    @Column(name = "profile_picture_type")
+    @Column(name = "profile_picture_type", length = 50)
     private String profilePictureType;
 
     @CreationTimestamp
