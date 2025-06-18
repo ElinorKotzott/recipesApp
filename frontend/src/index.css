@@ -40,3 +40,12 @@ body {
     background-color: #EDEDED;
     border: 1px solid #000000;
 }
+
+.profile-picture {
+    height: 4em;
+    width: 4em;
+    border-radius: 50%;
+}
+
+
+/*TODO add styling, add media query for flexibility over different devices*/
