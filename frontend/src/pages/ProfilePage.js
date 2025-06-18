@@ -39,21 +39,20 @@ function ProfilePage() {
         <>
             <div className="profile-container">
                 <h2>My Profile</h2>
+
+                <img
+                    src={
+                    profilePictureData ? `data:${profilePictureType};base64,${profilePictureData}`: '/default-profile-picture-all-grey.png'
+                    }
+                    alt="Profile"
+                    className="profile-picture"
+                />
+
                 <p>Username: {username}</p>
                 <p>Email: {email}</p>
                 <p>First Name: {firstName}</p>
                 <p>Last Name: {lastName}</p>
                 <p>Bio: {bio || "Tell us something about yourself!"}</p>
-
-                <img
-                  src={
-                    profilePictureData
-                      ? `data:${profilePictureType};base64,${profilePictureData}`
-                      : '/default-profile-picture.jpeg'
-                  }
-                  alt="Profile"
-                  className="profile-picture"
-                />
 
                 <button onClick={() => navigate('/changeProfile')}>
                     Edit Profile

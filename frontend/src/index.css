@@ -8,7 +8,7 @@ body {
     font-weight: 100;
     color: #333333;
     height: 100vh;
-    margin: 0;
+    margin: 20px;
 }
 
 .auth-container {
@@ -45,6 +45,7 @@ body {
     height: 4em;
     width: 4em;
     border-radius: 50%;
+    border: solid white 2px;
 }
 
 
