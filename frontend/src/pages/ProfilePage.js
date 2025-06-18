@@ -45,15 +45,15 @@ function ProfilePage() {
                 <p>Last Name: {lastName}</p>
                 <p>Bio: {bio || "Tell us something about yourself!"}</p>
 
-                {profilePictureData && profilePictureType && (
-                    <div>
-                        <p>Profile Picture:</p>
-                        <img
-                            src={`data:${profilePictureType};base64,${profilePictureData}`}
-                            alt="The user's profile picture"
-                        />
-                    </div>
-                )}
+                <img
+                  src={
+                    profilePictureData
+                      ? `data:${profilePictureType};base64,${profilePictureData}`
+                      : '/default-profile-picture.jpeg'
+                  }
+                  alt="Profile"
+                  className="profile-picture"
+                />
 
                 <button onClick={() => navigate('/changeProfile')}>
                     Edit Profile
