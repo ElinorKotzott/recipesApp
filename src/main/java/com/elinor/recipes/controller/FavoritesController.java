@@ -2,6 +2,7 @@ package com.elinor.recipes.controller;
 
 
 import com.elinor.recipes.dto.RecipeDTO;
+import com.elinor.recipes.model.Recipe;
 import com.elinor.recipes.service.FavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class FavoritesController {
     @GetMapping("/favorites")
     public ResponseEntity<List<RecipeDTO>> getUsersFavorites(Authentication authentication) {
         String username = authentication.getName();
-        List<RecipeDTO> favorites = favoritesService.getFavoriteRecipes(username);
+        List<Recipe> favorites = favoritesService.getFavoriteRecipes(username);
 
         return ResponseEntity.ok(favorites);
     }
