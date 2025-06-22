@@ -1,5 +1,6 @@
 package com.elinor.recipes.model;
 
+import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.model.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -54,7 +55,7 @@ public class User implements UserDetails {
 
     @ManyToMany
     @JoinTable(name = "favorite_recipes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private List<Recipe> favoriteRecipesList;
+    private List<RecipeDTO> favoriteRecipesList;
 
     @Enumerated(value = EnumType.STRING)
     private Role role = Role.USER;

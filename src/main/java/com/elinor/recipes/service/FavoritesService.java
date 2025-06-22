@@ -1,6 +1,6 @@
 package com.elinor.recipes.service;
 
-import com.elinor.recipes.model.Recipe;
+import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class FavoritesService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Recipe> getFavoriteRecipes(String username) {
+    public List<RecipeDTO> getFavoriteRecipes(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
