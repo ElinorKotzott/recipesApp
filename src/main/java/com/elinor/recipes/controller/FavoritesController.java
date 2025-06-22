@@ -20,8 +20,7 @@ public class FavoritesController {
     @GetMapping("/favorites")
     public ResponseEntity<List<RecipeDTO>> getUsersFavorites(Authentication authentication) {
         String username = authentication.getName();
-        List<Recipe> favorites = favoritesService.getFavoriteRecipes(username);
-
+        List<RecipeDTO> favorites = favoritesService.getFavoriteRecipes(username); // <-- must be DTO list
         return ResponseEntity.ok(favorites);
     }
 }
