@@ -6,8 +6,14 @@ import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeRepository;
 import com.elinor.recipes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -33,4 +39,12 @@ public class RecipeService {
 
         recipeRepository.save(recipe);
     }
+
+    public List<RecipeDTO> getRecipesCreatedByAnyone(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Recipe> recipePage = recipeRepository.findLatestRecipes(pageable);
+        return recipePage.stream().map(RecipeDTO::new).collect(Collectors.toList());
+    }
+
+
 }
