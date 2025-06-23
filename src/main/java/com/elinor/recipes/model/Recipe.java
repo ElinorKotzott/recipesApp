@@ -40,9 +40,6 @@ public class Recipe {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
-    @ManyToMany(mappedBy = "favoriteRecipesList")
-    private List<User> favoritesList = new ArrayList<>();
-
     @ManyToMany(mappedBy = "recipes")
     private List<Tag> tagList = new ArrayList<>();
 }
