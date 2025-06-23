@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,10 +42,14 @@ public class RecipeService {
     }
 
     public List<RecipeDTO> getRecipesCreatedByAnyone(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Recipe> recipePage = recipeRepository.findLatestRecipes(pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Recipe> recipePage = recipeRepository.findAll(pageable);
         return recipePage.stream().map(RecipeDTO::new).collect(Collectors.toList());
     }
 
-
+    public List<RecipeDTO> getRecipesCreatedByUser(String username, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Recipe> recipePage = recipeRepository.findByUserUsername(username, pageable);
+        return recipePage.stream().map(RecipeDTO::new).collect(Collectors.toList());
+    }
 }
