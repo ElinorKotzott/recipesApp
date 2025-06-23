@@ -18,9 +18,8 @@ public class FavoritesService {
     private UserRepository userRepository;
 
     public List<RecipeDTO> getFavoriteRecipes(String username) {
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByUsernameWithFavorites(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
         List<Recipe> recipes = user.getFavoriteRecipesList();
 
         return recipes.stream().map(recipe -> new RecipeDTO(recipe)).collect(Collectors.toList());
