@@ -22,6 +22,6 @@ public class FavoritesService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         List<Recipe> recipes = user.getFavoriteRecipesList();
 
-        return recipes.stream().map(recipe -> new RecipeDTO(recipe)).collect(Collectors.toList());
+        return recipes.stream().map(recipe -> new RecipeDTO(recipe, true)).collect(Collectors.toList());
     }
 }

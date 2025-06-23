@@ -1,8 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-
-//TODO couldnt this be a submit button
-
 function LogoutButton() {
     const navigate = useNavigate();
 

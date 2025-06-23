@@ -41,15 +41,17 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
-    public List<RecipeDTO> getRecipesCreatedByAnyone(int page, int size) {
+    public List<RecipeDTO> getRecipesCreatedByAnyone(int page, int size, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Recipe> recipePage = recipeRepository.findAll(pageable);
-        return recipePage.stream().map(RecipeDTO::new).collect(Collectors.toList());
+        return recipePage.stream().map(recipe -> new RecipeDTO(recipe, user.getFavoriteRecipesList().contains(recipe))).collect(Collectors.toList());
     }
 
     public List<RecipeDTO> getRecipesCreatedByUser(String username, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Recipe> recipePage = recipeRepository.findByUserUsername(username, pageable);
-        return recipePage.stream().map(RecipeDTO::new).collect(Collectors.toList());
+        return recipePage.stream().map(recipe -> new RecipeDTO(recipe, true)).collect(Collectors.toList());
     }
 }
