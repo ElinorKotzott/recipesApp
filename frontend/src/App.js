@@ -44,7 +44,7 @@ function App() {
                     </PrivateRoute>
                 } />
 
-                <Route path="/changeProfile" element={
+                <Route path="/profile/change" element={
                     <PrivateRoute>
                         <Layout><ChangeProfilePage /></Layout>
                     </PrivateRoute>

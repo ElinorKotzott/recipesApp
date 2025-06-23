@@ -1,9 +1,13 @@
 package com.elinor.recipes.dto;
 
 import com.elinor.recipes.model.Recipe;
+import com.elinor.recipes.model.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,6 +19,7 @@ public class RecipeDTO {
     private Integer cookingTime;
     private String imageData;
     private String imageType;
+    private List<String> tags;
 
     public RecipeDTO(Recipe recipe) {
         this.title = recipe.getTitle();
@@ -23,5 +28,6 @@ public class RecipeDTO {
         this.cookingTime = recipe.getCookingTime();
         this.imageData = recipe.getImageData();
         this.imageType = recipe.getImageType();
+        this.tags = recipe.getTagList().stream().map(Tag::getText).collect(Collectors.toList());
     }
 }

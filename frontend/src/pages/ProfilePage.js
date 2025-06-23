@@ -54,7 +54,7 @@ function ProfilePage() {
                 <p>Last Name: {lastName}</p>
                 <p>Bio: {bio || "Tell us something about yourself!"}</p>
 
-                <button onClick={() => navigate('/changeProfile')}>
+                <button onClick={() => navigate('/profile/change')}>
                     Edit Profile
                 </button>
             </div>
