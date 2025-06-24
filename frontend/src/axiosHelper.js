@@ -7,7 +7,7 @@ axios.defaults.headers.post["Content-type"] = 'application/json'
 axios.interceptors.response.use(
     response => response,
     error => {
-        if (error.response?.status === 401 || error.response?.status === 403) {
+        if (error.response?.status === 401 /*|| error.response?.status === 403*/) {
             sessionStorage.removeItem('token');
             window.location.href = '/login';
         }

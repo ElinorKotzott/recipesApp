@@ -8,10 +8,14 @@ function HomePage () {
     const [userRecipes, setUserRecipes] = useState([]);
 
     useEffect(() => {
+        const token = sessionStorage.getItem('token');
+            if (!token) {
+                return;
+            }
         const fetchData = async () => {
             const results = await Promise.all([
-                request('get', '/api/recipes?page=0&size=5', null, true),
-                request('get', '/api/recipes/mine?page=0&size=5', null, true)
+                request('get', '/recipes?page=0&size=5', null, true),
+                request('get', '/recipes/mine?page=0&size=5', null, true)
             ]);
 
             const allResults = results[0];
