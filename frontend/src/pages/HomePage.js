@@ -9,20 +9,25 @@ function HomePage () {
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-            if (!token) {
-                return;
+        if (!token) {
+            return;
             }
         const fetchData = async () => {
-            const results = await Promise.all([
+            try {
+                const results = await Promise.all([
                 request('get', '/recipes?page=0&size=5', null, true),
                 request('get', '/recipes/mine?page=0&size=5', null, true)
-            ]);
+                ]);
 
-            const allResults = results[0];
-            const userResults = results[1];
+                const allResults = results[0];
+                const userResults = results[1];
 
-            setAllRecipes(allResults.data.recipes);
-            setUserRecipes(userResults.data.recipes);
+                setAllRecipes(allResults.data.recipes);
+                setUserRecipes(userResults.data.recipes);
+
+            } catch (error) {
+                console.error('Error fetching recipes:', error);
+            }
         };
 
         fetchData();
