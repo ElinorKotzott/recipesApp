@@ -47,7 +47,6 @@ function ChangeProfilePage() {
                 profilePictureType: profilePictureType
             }, true);
             navigate('/profile');
-            alert("Profile updated successfully!");
         } catch (error) {
             console.error('Error updating profile:', error);
             alert('Update failed!');

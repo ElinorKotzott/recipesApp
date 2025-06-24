@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { request } from '../axiosHelper';
 import Create from '../components/Create';
+import { useNavigate } from 'react-router-dom';
 
 
 const CreatePage = () => {
@@ -10,12 +11,13 @@ const CreatePage = () => {
     const [cookingTime, setCookingTime] = useState(0);
     const [imageData, setImageData] = useState("");
     const [imageType, setImageType] = useState("");
+    const navigate = useNavigate();
 
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
             await request('post', '/create', { title, description, prepTime, cookingTime, imageData, imageType }, true);
-            alert("Recipe submitted successfully!");
+            navigate('/home');
         } catch (error) {
             if (error.response) {
                 alert('Submission failed: ' + error.response.data.message);
