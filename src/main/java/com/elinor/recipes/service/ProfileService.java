@@ -3,11 +3,13 @@ package com.elinor.recipes.service;
 import com.elinor.recipes.dto.UserDTO;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class ProfileService {
 
     @Autowired

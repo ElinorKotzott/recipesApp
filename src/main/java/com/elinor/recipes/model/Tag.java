@@ -19,7 +19,6 @@ public class Tag {
 
     @ManyToMany
     @JoinTable(name = "recipes_tags", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    @JsonIgnore
     private List<Recipe> recipes;
 }
 
