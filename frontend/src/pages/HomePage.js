@@ -4,25 +4,30 @@ import Recipe from '../components/Recipe';
 import { request } from '../axiosHelper';
 
 function HomePage () {
-    const [recipes, setRecipes] = useState([]);
+    const [allRecipes, setAllRecipes] = useState([]);
+    const [userRecipes, setUserRecipes] = useState([]);
 
     useEffect(() => {
-        const fetchRecipes = async () => {
-            try {
-                const response = await request('get', '/recipes', null, true);
-                setRecipes(response.data);
-            } catch (error) {
-                console.error('Failed to fetch recipes:', error);
-            }
+        const fetchData = async () => {
+            const results = await Promise.all([
+                request('get', '/api/recipes?page=0&size=5', null, true),
+                request('get', '/api/recipes/mine?page=0&size=5', null, true)
+            ]);
+
+            const allResults = results[0];
+            const userResults = results[1];
+
+            setAllRecipes(allResults.data.recipes);
+            setUserRecipes(userResults.data.recipes);
         };
 
-        fetchRecipes();
+        fetchData();
     }, []);
 
     return (
         <>
             <LogoutButton />
-            <Recipe recipes={recipes} />
+            <Recipe allRecipes={allRecipes} userRecipes={userRecipes} />
         </>
     );
 }

@@ -25,7 +25,7 @@ public class RecipeRetrievalController {
     }
 
     @GetMapping("/recipes/mine")
-    public ResponseEntity<PageInfoDTO> getUserRecipes(
+    public ResponseEntity<PageInfoDTO> getUserRecipesPage(
             Authentication authentication,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
