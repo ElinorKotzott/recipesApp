@@ -10,6 +10,8 @@ function Recipe({ allRecipes, userRecipes }) {
                         <div key={recipe.id} className="recipe-card">
                             <h3>{recipe.title}</h3>
                             <p>{recipe.description}</p>
+                            <img className="recipe-card-image" alt="no image added :(" src={`data:${recipe.imageType};base64,${recipe.imageData}`} />
+                            <p>{recipe.isFavorite ? 'true' : 'false'}</p>
                             <div className="tags">
                                 {recipe.tags.map((tag, index) => (
                                     <span key={index} className="tag">
@@ -30,6 +32,8 @@ function Recipe({ allRecipes, userRecipes }) {
                         <div key={recipe.id} className="recipe-card">
                             <h3>{recipe.title}</h3>
                             <p>{recipe.description}</p>
+                            <img className="recipe-card-image" alt="no image added :(" src={`data:${recipe.imageType};base64,${recipe.imageData}`} />
+                            <p>{recipe.isFavorite ? 'true' : 'false'}</p>
                             <div className="tags">
                                 {recipe.tags.map((tag, index) => (
                                     <span key={index} className="tag">

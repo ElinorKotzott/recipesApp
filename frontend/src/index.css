@@ -46,6 +46,15 @@ body {
     width: 4em;
     border-radius: 50%;
     border: solid white 2px;
+    object-fit: cover;
+}
+
+.recipe-card-image {
+    height: 7em;
+    width: 5em;
+    border-radius: 8px;
+    border: solid white 2px;
+    object-fit: cover;
 }
 
 
