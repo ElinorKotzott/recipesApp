@@ -1,5 +1,6 @@
 package com.elinor.recipes.service;
 
+import com.elinor.recipes.dto.PageInfoDTO;
 import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.model.Recipe;
 import com.elinor.recipes.model.User;
@@ -41,19 +42,43 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
-    public List<RecipeDTO> getRecipesCreatedByAnyone(String username, int page, int size) {
+    public PageInfoDTO getRecipesCreatedByAnyone(String username, int page, int size) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Recipe> recipePage = recipeRepository.findAll(pageable);
-        return recipePage.stream().map(recipe -> new RecipeDTO(recipe, user.getFavoriteRecipesList().contains(recipe))).collect(Collectors.toList());
+
+        List<RecipeDTO> recipeDTOList = recipePage.stream()
+                .map(recipe -> new RecipeDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
+                .collect(Collectors.toList());
+
+        return new PageInfoDTO(
+                recipeDTOList,
+                recipePage.getNumber(),
+                recipePage.getTotalPages(),
+                recipePage.getTotalElements()
+        );
     }
 
-    public List<RecipeDTO> getRecipesCreatedByUser(String username, int page, int size) {
+
+    public PageInfoDTO getRecipesCreatedByUser(String username, int page, int size) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Recipe> recipePage = recipeRepository.findByUserUsername(username, pageable);
-        return recipePage.stream().map(recipe -> new RecipeDTO(recipe, user.getFavoriteRecipesList().contains(recipe))).collect(Collectors.toList());
+
+        List<RecipeDTO> recipeDTOList = recipePage.stream()
+                .map(recipe -> new RecipeDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
+                .collect(Collectors.toList());
+
+        return new PageInfoDTO(
+                recipeDTOList,
+                recipePage.getNumber(),
+                recipePage.getTotalPages(),
+                recipePage.getTotalElements()
+        );
     }
+
 }
