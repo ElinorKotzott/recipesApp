@@ -1,3 +1,4 @@
+import ToggleFavoritesButton from './ToggleFavoritesButton';
 
 function Favorites ({ favorites }) {
     return (
@@ -12,7 +13,7 @@ function Favorites ({ favorites }) {
                                     <h3>{recipe.title}</h3>
                                     <p>{recipe.description}</p>
                                     <img className="recipe-card-image" alt="nothing added yet :(" src={`data:${recipe.imageType};base64,${recipe.imageData}`} />
-                                    <p>{recipe.isFavorite ? 'true' : 'false'}</p>
+                                    <ToggleFavoritesButton recipeId={recipe.id} initialIsFavorite={recipe.isFavorite} />
                                     <div className="tags">
                                         {recipe.tags.map((tag, index) => (
                                             <span key={index} className="tag">

@@ -1,3 +1,5 @@
+import ToggleFavoritesButton from './ToggleFavoritesButton';
+
 function Recipe({ allRecipes, userRecipes }) {
     return (
         <div className="recipes-container">
@@ -11,7 +13,7 @@ function Recipe({ allRecipes, userRecipes }) {
                             <h3>{recipe.title}</h3>
                             <p>{recipe.description}</p>
                             <img className="recipe-card-image" alt="nothing added yet :(" src={`data:${recipe.imageType};base64,${recipe.imageData}`} />
-                            <p>{recipe.isFavorite ? 'true' : 'false'}</p>
+                            <ToggleFavoritesButton recipeId={recipe.id} initialIsFavorite={recipe.isFavorite} />
                             <div className="tags">
                                 {recipe.tags.map((tag, index) => (
                                     <span key={index} className="tag">
@@ -33,7 +35,7 @@ function Recipe({ allRecipes, userRecipes }) {
                             <h3>{recipe.title}</h3>
                             <p>{recipe.description}</p>
                             <img className="recipe-card-image" alt="no image added :(" src={`data:${recipe.imageType};base64,${recipe.imageData}`} />
-                            <p>{recipe.isFavorite ? 'true' : 'false'}</p>
+                            <ToggleFavoritesButton recipeId={recipe.id} initialIsFavorite={recipe.isFavorite} />
                             <div className="tags">
                                 {recipe.tags.map((tag, index) => (
                                     <span key={index} className="tag">

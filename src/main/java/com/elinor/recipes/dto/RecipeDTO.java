@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Data
 public class RecipeDTO {
+    private Long id;
     private String title;
     private String description;
     private Integer prepTime;
@@ -23,6 +24,7 @@ public class RecipeDTO {
     private boolean isFavorite;
 
     public RecipeDTO(Recipe recipe, boolean isFavorite) {
+        this.id = recipe.getId();
         this.title = recipe.getTitle();
         this.description = recipe.getDescription();
         this.prepTime = recipe.getPrepTime();

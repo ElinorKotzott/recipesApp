@@ -1,13 +1,30 @@
-import SubmitButton from './SubmitButton.js';
+import { useState } from 'react';
+import { request } from '../axiosHelper';
+import SubmitButton from './SubmitButton';
 
-function AddToFavoritesButton() {
-    const toggleFavs = () => {
+function ToggleFavoritesButton({ recipeId, initialIsFavorite }) {
+    const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
+    const token = sessionStorage.getItem('token');
 
+    const toggleFavs = async () => {
+        if (!token) {
+            return;
+        }
+
+        const newFavoriteState = !isFavorite;
+        setIsFavorite(newFavoriteState);
+
+        try {
+            await request('put', `/favorites/${recipeId}`, { isFavorite: newFavoriteState }, true);
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+            setIsFavorite(!newFavoriteState);
+        }
     };
 
     return (
         <SubmitButton onClick={toggleFavs}>
-            Add or remove from favs
+            {isFavorite ? '❤️' : '🤍'}
         </SubmitButton>
     );
 }
