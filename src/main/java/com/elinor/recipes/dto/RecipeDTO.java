@@ -32,16 +32,18 @@ public class RecipeDTO {
         this.imageData = recipe.getImageData();
         this.imageType = recipe.getImageType();
         this.tags = recipe.getTagList().stream().map(Tag::getText).collect(Collectors.toList());
-        this.isFavorite = isFavorite();
+        this.isFavorite = isFavorite;
     }
 
     public RecipeDTO(Recipe recipe) {
+        this.id = recipe.getId();
         this.title = recipe.getTitle();
         this.description = recipe.getDescription();
         this.prepTime = recipe.getPrepTime();
         this.cookingTime = recipe.getCookingTime();
         this.imageData = recipe.getImageData();
         this.imageType = recipe.getImageType();
+        this.tags = recipe.getTagList().stream().map(Tag::getText).collect(Collectors.toList());
         this.isFavorite = false;
     }
 
