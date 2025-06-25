@@ -48,4 +48,23 @@ public class FavoritesService {
         );
     }
 
+    public void toggleFavorite(String username, Long recipeId, boolean updatedFavoriteState) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+
+        if (updatedFavoriteState) {
+            if (!user.getFavoriteRecipesList().contains(recipe)) {
+                user.getFavoriteRecipesList().add(recipe);
+                userRepository.save(user);
+            }
+        } else {
+            if (user.getFavoriteRecipesList().contains(recipe)) {
+                user.getFavoriteRecipesList().remove(recipe);
+                userRepository.save(user);
+            }
+        }
+    }
+
 }
