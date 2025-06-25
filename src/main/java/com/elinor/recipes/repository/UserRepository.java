@@ -13,7 +13,4 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
-
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.favoriteRecipesList WHERE u.username = :username")
-    Optional<User> findByUsernameWithFavorites(@Param("username") String username);
 }
