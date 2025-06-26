@@ -13,7 +13,7 @@ function Recipe({ allRecipes, userRecipes }) {
                             <h3>{recipe.title}</h3>
                             <p>{recipe.description}</p>
                             <img className="recipe-card-image" alt="nothing added yet :(" src={`data:${recipe.imageType};base64,${recipe.imageData}`} />
-                            <ToggleFavoritesButton recipeId={recipe.id} initialIsFavorite={recipe.isFavorite} />
+                            <ToggleFavoritesButton recipeId={recipe.id} initialIsFavorite={recipe.favorite} />
                             <div className="tags">
                                 {recipe.tags.map((tag, index) => (
                                     <span key={index} className="tag">

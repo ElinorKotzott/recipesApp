@@ -63,7 +63,6 @@ public class RecipeService {
         );
     }
 
-
     public PageInfoDTO getRecipesCreatedByUser(String username, int page, int size) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
