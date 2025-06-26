@@ -29,14 +29,12 @@ public class FavoritesService {
     private RecipeRepository recipeRepository;
 
     public PageInfoDTO getFavoriteRecipes(String username, int page, int size) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<Recipe> recipePage = recipeRepository.findByUserUsername(username, pageable);
 
-        List<RecipeDTO> recipeDTOList = recipePage.stream()
-                .filter(recipe -> user.getFavoriteRecipesList().contains(recipe))
+        Page<Recipe> recipePage = recipeRepository.findFavoriteRecipesByUsername(username, pageable);
+
+        List<RecipeDTO> recipeDTOList = recipePage
+                .stream()
                 .map(recipe -> new RecipeDTO(recipe, true))
                 .collect(Collectors.toList());
 
@@ -47,6 +45,8 @@ public class FavoritesService {
                 recipePage.getTotalElements()
         );
     }
+
+
 
     public void toggleFavorite(String username, Long recipeId, boolean updatedFavoriteState) {
         User user = userRepository.findByUsername(username)

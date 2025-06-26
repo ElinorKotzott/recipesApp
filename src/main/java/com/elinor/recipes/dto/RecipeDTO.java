@@ -21,9 +21,9 @@ public class RecipeDTO {
     private String imageData;
     private String imageType;
     private List<String> tags;
-    private boolean isFavorite;
+    private boolean favorite;
 
-    public RecipeDTO(Recipe recipe, boolean isFavorite) {
+    public RecipeDTO(Recipe recipe, boolean favorite) {
         this.id = recipe.getId();
         this.title = recipe.getTitle();
         this.description = recipe.getDescription();
@@ -32,19 +32,6 @@ public class RecipeDTO {
         this.imageData = recipe.getImageData();
         this.imageType = recipe.getImageType();
         this.tags = recipe.getTagList().stream().map(Tag::getText).collect(Collectors.toList());
-        this.isFavorite = isFavorite;
+        this.favorite = favorite;
     }
-
-    public RecipeDTO(Recipe recipe) {
-        this.id = recipe.getId();
-        this.title = recipe.getTitle();
-        this.description = recipe.getDescription();
-        this.prepTime = recipe.getPrepTime();
-        this.cookingTime = recipe.getCookingTime();
-        this.imageData = recipe.getImageData();
-        this.imageType = recipe.getImageType();
-        this.tags = recipe.getTagList().stream().map(Tag::getText).collect(Collectors.toList());
-        this.isFavorite = false;
-    }
-
 }
