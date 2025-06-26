@@ -1,10 +1,9 @@
-function SubmitButton({ children, onClick }) {
+function SubmitButton({ onClick, children, className }) {
     return (
-        <button type="submit" className="button" onClick={onClick}>
+        <button onClick={onClick} className={className}>
             {children}
         </button>
     );
 }
 
 export default SubmitButton;
-

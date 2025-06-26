@@ -57,5 +57,16 @@ body {
     object-fit: cover;
 }
 
+.image-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.image-button-container {
+    position: relative;
+    display: inline-block;
+}
+
 
 /*TODO add styling, add media query for flexibility over different devices*/

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { request } from '../axiosHelper';
 import SubmitButton from './SubmitButton';
 
-function ToggleFavoritesButton({ recipeId, initialIsFavorite }) {
+function ToggleFavoritesButton({ recipeId, initialIsFavorite, className }) {
     const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
     const token = sessionStorage.getItem('token');
 
@@ -23,7 +23,7 @@ function ToggleFavoritesButton({ recipeId, initialIsFavorite }) {
     };
 
     return (
-        <SubmitButton onClick={toggleFavs}>
+        <SubmitButton onClick={toggleFavs} className={className}>
             {isFavorite ? '❤️' : '🤍'}
         </SubmitButton>
     );
