@@ -38,7 +38,7 @@ function HomePage () {
     return (
         <>
             <LogoutButton />
-            <Recipe allRecipes={allRecipes} userRecipes={userRecipes} />
+            <Recipe allRecipes={allRecipes} userRecipes={userRecipes}/>
         </>
     );
 }

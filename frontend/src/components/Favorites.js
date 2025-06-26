@@ -14,7 +14,15 @@ function Favorites ({ favorites, className }) {
                                     <p>{recipe.description}</p>
 
                                     <div className="image-button-container">
-                                        <img className="recipe-card-image" alt="nothing added yet :(" src={`data:${recipe.imageType};base64,${recipe.imageData}`} />
+                                        <img
+                                            className="recipe-card-image"
+                                            alt={recipe.title}
+                                            src={
+                                            recipe.imageData
+                                            ? `data:${recipe.imageType};base64,${recipe.imageData}`
+                                            : '/image-placeholder.jpeg'
+                                            }
+                                        />
                                         <ToggleFavoritesButton className="image-button" recipeId={recipe.id} initialIsFavorite={recipe.favorite} />
                                     </div>
 
