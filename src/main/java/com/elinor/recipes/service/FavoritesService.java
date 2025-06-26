@@ -57,14 +57,15 @@ public class FavoritesService {
         if (updatedFavoriteState) {
             if (!user.getFavoriteRecipesList().contains(recipe)) {
                 user.getFavoriteRecipesList().add(recipe);
-                userRepository.save(user);
             }
         } else {
             if (user.getFavoriteRecipesList().contains(recipe)) {
                 user.getFavoriteRecipesList().remove(recipe);
-                userRepository.save(user);
             }
         }
+        userRepository.save(user);
+
+
     }
 
 }

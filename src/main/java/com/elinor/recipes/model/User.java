@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -52,9 +53,9 @@ public class User implements UserDetails {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "favorite_recipes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private List<Recipe> favoriteRecipesList;
+    private List<Recipe> favoriteRecipesList = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
     private Role role = Role.USER;

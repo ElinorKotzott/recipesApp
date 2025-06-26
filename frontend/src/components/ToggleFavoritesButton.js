@@ -13,9 +13,10 @@ function ToggleFavoritesButton({ recipeId, initialIsFavorite }) {
 
         const newFavoriteState = !isFavorite;
         setIsFavorite(newFavoriteState);
+        console.log(newFavoriteState);
 
         try {
-            await request('put', `/favorites/${recipeId}`, { isFavorite: newFavoriteState }, true);
+            await request('put', `/favorites/${recipeId}`, { favorite: newFavoriteState }, true);
         } catch (error) {
             console.error('Error toggling favorite:', error);
             setIsFavorite(!newFavoriteState);

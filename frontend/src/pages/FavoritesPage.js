@@ -8,8 +8,8 @@ function FavoritesPage() {
 
     useEffect(() => {
 
-            const fetchFavorites = async () => {
-                if (!token) return;
+        const fetchFavorites = async () => {
+            if (!token) return;
                 try {
                     const response = await request('get', '/favorites?page=0&size=20', null, true);
                     const fetchedFavorites = response.data.recipes;

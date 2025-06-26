@@ -6,12 +6,14 @@ import { request } from '../axiosHelper';
 function HomePage () {
     const [allRecipes, setAllRecipes] = useState([]);
     const [userRecipes, setUserRecipes] = useState([]);
-    const token = sessionStorage.getItem('token');
+
 
     useEffect(() => {
-        if (!token) {
-            return;
+        const token = sessionStorage.getItem('token');
+            if (!token) {
+                return;
             }
+
         const fetchData = async () => {
             try {
                 const results = await Promise.all([
