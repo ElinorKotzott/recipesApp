@@ -1,10 +1,11 @@
 import ToggleFavoritesButton from './ToggleFavoritesButton';
 
-function Recipe({ allRecipes, userRecipes, className }) {
+function Recipe({ allRecipes, userRecipes}) {
     return (
         <div className="recipes-container">
             <div className="recipe-card-container">
                 <h2>Latest Uploads</h2>
+                <div className="latest-recipes">
                 {allRecipes.length === 0 ? (
                     <p>Nothing to see here yet.</p>
                 ) : (
@@ -36,7 +37,9 @@ function Recipe({ allRecipes, userRecipes, className }) {
                         </div>
                     ))
                 )}
+                </div>
             </div>
+            <div className="your-recipes">
             <div className="recipe-card-container">
                 <h2>Your Recipes</h2>
                 {userRecipes.length === 0 ? (
@@ -70,6 +73,7 @@ function Recipe({ allRecipes, userRecipes, className }) {
                         </div>
                     ))
                 )}
+                </div>
             </div>
         </div>
     );

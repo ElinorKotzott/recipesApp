@@ -68,5 +68,16 @@ body {
     display: inline-block;
 }
 
+.your-favs-container, .latest-recipes, .your-recipes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.recipe-card {
+    margin: 25px;
+    display: inline-block;
+}
+
 
 /*TODO add styling, add media query for flexibility over different devices*/

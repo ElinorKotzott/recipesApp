@@ -11,7 +11,8 @@ function Favorites ({ favorites, className, setFavorites }) {
     return (
         <div className="favorites-container">
         <div className="recipe-card-container">
-                        <h2>Your Favorites</h2>
+        <h2>Your Favorites</h2>
+            <div className="your-favs-container">
                         {favorites.length === 0 ? (
                             <p>You haven't added any recipes to your favorites yet.</p>
                         ) : (
@@ -47,8 +48,9 @@ function Favorites ({ favorites, className, setFavorites }) {
                                 </div>
                             ))
                         )}
-                    </div>
-                    </div>
+            </div>
+        </div>
+        </div>
 
     );
 }

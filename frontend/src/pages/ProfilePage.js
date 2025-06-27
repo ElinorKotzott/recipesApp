@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { request } from '../axiosHelper';
 import { useNavigate, useLocation } from 'react-router-dom';
+import SubmitButton from '../components/SubmitButton.js';
 
 function ProfilePage() {
     const [username, setUsername] = useState('');
@@ -54,9 +55,9 @@ function ProfilePage() {
                 <p>Last Name: {lastName}</p>
                 <p>Bio: {bio || "Tell us something about yourself!"}</p>
 
-                <button onClick={() => navigate('/profile/change')}>
+                <SubmitButton onClick={() => navigate('/profile/change')}>
                     Edit Profile
-                </button>
+                </SubmitButton>
             </div>
         </>
     );
