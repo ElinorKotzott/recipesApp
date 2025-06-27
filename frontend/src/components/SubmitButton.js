@@ -1,9 +1,9 @@
-function SubmitButton({ onClick, children, className }) {
-    return (
-        <button onClick={onClick} className={className}>
-            {children}
-        </button>
-    );
+function SubmitButton({ onClick, children, className = '' }) {
+  return (
+    <button className={`button ${className}`} onClick={onClick}>
+      {children}
+    </button>
+  );
 }
 
 export default SubmitButton;

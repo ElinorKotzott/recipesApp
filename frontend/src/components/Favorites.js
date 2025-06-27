@@ -1,6 +1,13 @@
 import ToggleFavoritesButton from './ToggleFavoritesButton';
 
-function Favorites ({ favorites, className }) {
+function Favorites ({ favorites, className, setFavorites }) {
+
+    const handleToggle = (recipeId) => (newFavoriteState) => {
+        if (!newFavoriteState) {
+            setFavorites(prev => prev.filter(recipe => recipe.id !== recipeId));
+        }
+    };
+
     return (
         <div className="favorites-container">
         <div className="recipe-card-container">
@@ -23,7 +30,11 @@ function Favorites ({ favorites, className }) {
                                             : '/image-placeholder.jpeg'
                                             }
                                         />
-                                        <ToggleFavoritesButton className="image-button" recipeId={recipe.id} initialIsFavorite={recipe.favorite} />
+                                        <ToggleFavoritesButton className="image-button"
+                                            recipeId={recipe.id}
+                                            initialIsFavorite={recipe.favorite}
+                                            onToggle={handleToggle(recipe.id)}
+                                        />
                                     </div>
 
                                     <div className="tags">

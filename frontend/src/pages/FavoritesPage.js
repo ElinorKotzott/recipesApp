@@ -26,7 +26,7 @@ function FavoritesPage() {
 
     return (
             <>
-                <Favorites favorites={favorites}/>
+                <Favorites favorites={favorites} setFavorites={setFavorites}/>
             </>
         );
 }

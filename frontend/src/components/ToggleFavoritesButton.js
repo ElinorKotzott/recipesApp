@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { request } from '../axiosHelper';
 import SubmitButton from './SubmitButton';
 
-function ToggleFavoritesButton({ recipeId, initialIsFavorite, className }) {
+function ToggleFavoritesButton({ recipeId, initialIsFavorite, className, onToggle  }) {
     const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
     const token = sessionStorage.getItem('token');
 
@@ -16,6 +16,9 @@ function ToggleFavoritesButton({ recipeId, initialIsFavorite, className }) {
 
         try {
             await request('put', `/favorites/${recipeId}`, { favorite: newFavoriteState }, true);
+            if (onToggle) {
+                onToggle(newFavoriteState);
+            }
         } catch (error) {
             console.error('Error toggling favorite:', error);
             setIsFavorite(!newFavoriteState);
