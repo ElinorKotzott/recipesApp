@@ -82,7 +82,7 @@ const Register = ({
 
             <br/><br/>
 
-            <SubmitButton>Register</SubmitButton>
+            <SubmitButton type="submit" >Register</SubmitButton>
             <p>Already have an account?</p>
             <SubmitButton type="submit" onClick={() => navigate('/login')}>Login</SubmitButton>
         </form>

@@ -94,10 +94,10 @@ function Recipe({
                 </div>
             </div>
             <Pagination className="pagination"
-                            currentPage={userCurrentPage}
-                            totalPages={userTotalPages}
-                            fetchRecipes={fetchUserRecipes}
-                        />
+                currentPage={userCurrentPage}
+                totalPages={userTotalPages}
+                fetchRecipes={fetchUserRecipes}
+            />
         </div>
     );
 }
