@@ -1,6 +1,7 @@
 import ToggleFavoritesButton from './ToggleFavoritesButton';
+import Pagination from './Pagination';
 
-function Favorites ({ favorites, className, setFavorites }) {
+function Favorites ({ favorites, className, setFavorites, fetchFavorites, currentPage, totalPages }) {
 
     const handleToggle = (recipeId) => (newFavoriteState) => {
         if (!newFavoriteState) {
@@ -49,9 +50,13 @@ function Favorites ({ favorites, className, setFavorites }) {
                             ))
                         )}
             </div>
+            <Pagination className="pagination"
+                fetchRecipes={fetchFavorites}
+                currentPage={currentPage}
+                totalPages={totalPages}
+            />
         </div>
         </div>
-
     );
 }
 

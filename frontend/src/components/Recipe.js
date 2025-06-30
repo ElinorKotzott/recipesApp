@@ -1,6 +1,17 @@
 import ToggleFavoritesButton from './ToggleFavoritesButton';
+import Pagination from './Pagination';
 
-function Recipe({ allRecipes, userRecipes}) {
+function Recipe({
+    allRecipes,
+    allCurrentPage,
+    allTotalPages,
+    fetchAllRecipes,
+
+    userRecipes,
+    userCurrentPage,
+    userTotalPages,
+    fetchUserRecipes
+}) {
     return (
         <div className="recipes-container">
             <div className="recipe-card-container">
@@ -38,7 +49,14 @@ function Recipe({ allRecipes, userRecipes}) {
                     ))
                 )}
                 </div>
+                 <Pagination className="pagination"
+                     currentPage={allCurrentPage}
+                     totalPages={allTotalPages}
+                     fetchRecipes={fetchAllRecipes}
+                 />
             </div>
+
+
             <div className="your-recipes">
             <div className="recipe-card-container">
                 <h2>Your Recipes</h2>
@@ -75,6 +93,11 @@ function Recipe({ allRecipes, userRecipes}) {
                 )}
                 </div>
             </div>
+            <Pagination className="pagination"
+                            currentPage={userCurrentPage}
+                            totalPages={userTotalPages}
+                            fetchRecipes={fetchUserRecipes}
+                        />
         </div>
     );
 }

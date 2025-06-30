@@ -41,7 +41,7 @@ const Login = ({
 
             <SubmitButton>Login</SubmitButton>
             <p>Don't have an account yet?</p>
-            <SubmitButton onClick={() => navigate('/register')}>Register</SubmitButton>
+            <SubmitButton type="submit" onClick={() => navigate('/register')}>Register</SubmitButton>
 
         </form>
         </div>

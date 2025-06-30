@@ -2,7 +2,6 @@ package com.elinor.recipes.controller;
 
 import com.elinor.recipes.dto.FavoriteToggleDTO;
 import com.elinor.recipes.dto.PageInfoDTO;
-import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.service.FavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -85,7 +85,7 @@ const Create = ({
                     onChange={handleImageChange}
                 />
 
-                <SubmitButton>Create</SubmitButton>
+                <SubmitButton type="submit">Create</SubmitButton>
             </form>
         </div>
     );

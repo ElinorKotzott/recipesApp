@@ -84,7 +84,7 @@ const Register = ({
 
             <SubmitButton>Register</SubmitButton>
             <p>Already have an account?</p>
-            <SubmitButton onClick={() => navigate('/login')}>Login</SubmitButton>
+            <SubmitButton type="submit" onClick={() => navigate('/login')}>Login</SubmitButton>
         </form>
         </div>
         </div>

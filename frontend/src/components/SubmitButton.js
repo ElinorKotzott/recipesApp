@@ -1,6 +1,6 @@
-function SubmitButton({ onClick, children, className = '' }) {
+function SubmitButton({ onClick, children, className = '', type = 'button' }) {
   return (
-    <button className={`button ${className}`} onClick={onClick}>
+    <button type={type} className={`button ${className}`} onClick={onClick}>
       {children}
     </button>
   );
