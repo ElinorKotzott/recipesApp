@@ -91,7 +91,7 @@ const Profile = ({
                     onChange={handleImageChange}
                 />
 
-                <SubmitButton>Save Changes</SubmitButton>
+                <SubmitButton type="submit">Save Changes</SubmitButton>
             </form>
         </div>
     );
