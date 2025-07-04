@@ -29,6 +29,10 @@ public class FavoritesService {
     private RecipeRepository recipeRepository;
 
     public PageInfoDTO getFavoriteRecipes(String username, int page, int size) {
+        if (username == null) {
+            throw new UsernameNotFoundException("Username is null!");
+        }
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
         Page<Recipe> recipePage = recipeRepository.findFavoriteRecipesByUsername(username, pageable);
