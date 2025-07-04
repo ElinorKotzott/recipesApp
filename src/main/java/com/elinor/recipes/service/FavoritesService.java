@@ -63,9 +63,7 @@ public class FavoritesService {
                 user.getFavoriteRecipesList().add(recipe);
             }
         } else {
-            if (user.getFavoriteRecipesList().contains(recipe)) {
-                user.getFavoriteRecipesList().remove(recipe);
-            }
+            user.getFavoriteRecipesList().remove(recipe);
         }
         userRepository.save(user);
 

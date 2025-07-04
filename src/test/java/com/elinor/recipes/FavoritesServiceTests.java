@@ -4,6 +4,7 @@ import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeRepository;
 import com.elinor.recipes.repository.UserRepository;
 import com.elinor.recipes.service.FavoritesService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -30,9 +31,16 @@ class FavoritesServiceTests {
 	@InjectMocks
 	private FavoritesService favoritesService;
 
+	private AutoCloseable closeable;
+
 	@BeforeEach
 	void setUp() {
-		MockitoAnnotations.openMocks(this);
+		closeable = MockitoAnnotations.openMocks(this);
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		closeable.close();
 	}
 
 	@Test
