@@ -43,8 +43,8 @@ function ChangeProfilePage() {
                 lastName,
                 email,
                 bio,
-                profilePictureData: profilePictureData,
-                profilePictureType: profilePictureType
+                profilePictureData,
+                profilePictureType
             }, true);
             navigate('/profile');
         } catch (error) {

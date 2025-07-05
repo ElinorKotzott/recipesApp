@@ -1,5 +1,6 @@
 package com.elinor.recipes;
 
+import com.elinor.recipes.model.Recipe;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeRepository;
 import com.elinor.recipes.repository.UserRepository;
@@ -57,11 +58,11 @@ class FavoritesServiceTests {
 		User user = new User();
 		user.setFavoriteRecipesList(new ArrayList<>());
 
-		when(userRepository.findByUsername("nonExistingUser")).thenReturn(Optional.of(user));
+		when(userRepository.findByUsername("existingUser")).thenReturn(Optional.of(user));
 		when(recipeRepository.findById(1L)).thenReturn(Optional.empty());
 
 		assertThrows(RuntimeException.class, () ->
-				favoritesService.toggleFavorite("nonExistingUser", 1L, true)
+				favoritesService.toggleFavorite("existingUser", 1L, true)
 		);
 	}
 
@@ -72,5 +73,19 @@ class FavoritesServiceTests {
 		});
 	}
 
+	@Test
+	void toggleFavorite_AddsRecipe_whenFavoriteIsTrueAndNotInList() {
+		User user = new User();
+		user.setFavoriteRecipesList(new ArrayList<>());
 
+		Recipe recipe = new Recipe();
+		recipe.setId(1L);
+
+		when(userRepository.findByUsername("existingUser")).thenReturn(Optional.of(user));
+		when(recipeRepository.findById(1L)).thenReturn(Optional.of(recipe));
+
+		favoritesService.toggleFavorite("existingUser", 1L, true);
+
+		assert user.getFavoriteRecipesList().contains(recipe);
+	}
 }
