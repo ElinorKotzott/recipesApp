@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,9 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY = "3c7e626c8007351408b125511ea1f9a4e92127f40aae951bd556ef2decb53e34";
+    @Value("${SECRET_KEY}")
+    private String secret;
+
 
     public boolean isValid(String token, UserDetails user) {
         String userIdFromToken = extractUserId(token);
@@ -61,7 +64,7 @@ public class JwtService {
     }
 
     private SecretKey getSigninKey(){
-        byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64URL.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
