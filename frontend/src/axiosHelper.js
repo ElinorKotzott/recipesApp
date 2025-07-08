@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8080'
-axios.defaults.headers.post["Content-type"] = 'application/json'
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+axios.defaults.headers.post["Content-type"] = 'application/json';
 
 //deal with 401 and 403s here instead of checking whether a token exists on every single page
 axios.interceptors.response.use(
