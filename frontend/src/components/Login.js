@@ -39,7 +39,7 @@ const Login = ({
 
             <br /><br />
 
-            <SubmitButton>Login</SubmitButton>
+            <SubmitButton type="submit">Login</SubmitButton>
             <p>Don't have an account yet?</p>
             <SubmitButton type="submit" onClick={() => navigate('/register')}>Register</SubmitButton>
 

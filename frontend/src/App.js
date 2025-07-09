@@ -9,6 +9,7 @@ import CreatePage from './pages/CreatePage';
 import ChangeProfilePage from './pages/ChangeProfilePage';
 import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout';
+import RecipeCloseupPage from './pages/RecipeCloseupPage';
 
 function App() {
     return (
@@ -41,6 +42,12 @@ function App() {
                 <Route path="/favorites" element={
                     <PrivateRoute>
                         <Layout><FavoritesPage /></Layout>
+                    </PrivateRoute>
+                } />
+
+                <Route path="/recipes/:id" element={
+                    <PrivateRoute>
+                        <Layout><RecipeCloseupPage /></Layout>
                     </PrivateRoute>
                 } />
 

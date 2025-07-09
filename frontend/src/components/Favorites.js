@@ -17,6 +17,7 @@ function Favorites ({ favorites, className, setFavorites, fetchFavorites, curren
                         {favorites.length === 0 ? (
                             <p>You haven't added any recipes to your favorites yet.</p>
                         ) : (
+
                             favorites.map(recipe => (
                                 <div key={recipe.id} className="recipe-card">
                                     <h3>{recipe.title}</h3>

@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+console.log("Axios base URL set to:", axios.defaults.baseURL);
 axios.defaults.headers.post["Content-type"] = 'application/json';
 
 //deal with 401 and 403s here instead of checking whether a token exists on every single page
 axios.interceptors.response.use(
     response => response,
     error => {
-        if (error.response?.status === 401 /*|| error.response?.status === 403*/) {
+        if (error.response?.status === 401 || error.response?.status === 403) {
             sessionStorage.removeItem('token');
             window.location.href = '/login';
         }
