@@ -6,6 +6,7 @@ import com.elinor.recipes.model.Recipe;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeRepository;
 import com.elinor.recipes.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -82,4 +83,19 @@ public class RecipeService {
         );
     }
 
+    public RecipeDTO getRecipeById(String username, Long id) {
+        if (username == null) {
+            throw new UsernameNotFoundException("Username is null");
+        }
+
+        Recipe recipe = recipeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Recipe not found"));
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        boolean isFavorite = user.getFavoriteRecipesList().contains(recipe);
+
+        return new RecipeDTO(recipe, isFavorite);
+    }
 }
