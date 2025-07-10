@@ -1,5 +1,6 @@
 import ToggleFavoritesButton from './ToggleFavoritesButton';
 import Pagination from './Pagination';
+import { Link } from "react-router";
 
 function Favorites ({ favorites, className, setFavorites, fetchFavorites, currentPage, totalPages }) {
 
@@ -17,8 +18,9 @@ function Favorites ({ favorites, className, setFavorites, fetchFavorites, curren
                         {favorites.length === 0 ? (
                             <p>You haven't added any recipes to your favorites yet.</p>
                         ) : (
-
+                            
                             favorites.map(recipe => (
+                                <Link to={`/recipes/${recipe.id}`} key={recipe.id}>
                                 <div key={recipe.id} className="recipe-card">
                                     <h3>{recipe.title}</h3>
                                     <p>{recipe.description}</p>
@@ -48,6 +50,7 @@ function Favorites ({ favorites, className, setFavorites, fetchFavorites, curren
                                         ))}
                                     </div>
                                 </div>
+                                </Link>
                             ))
                         )}
             </div>
