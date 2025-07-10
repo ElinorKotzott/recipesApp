@@ -93,4 +93,11 @@ body {
     color: inherit;
 }
 
+.image-closeup {
+    height: 30em;
+    width: 22em;
+    border: solid white 2px;
+    object-fit: cover;
+}
+
 /*TODO add styling, add media query for flexibility over different devices*/

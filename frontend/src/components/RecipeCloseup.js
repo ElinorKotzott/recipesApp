@@ -3,7 +3,7 @@ function RecipeCloseup({ recipe }) {
         <div className="recipe-closeup">
             <h2>{recipe.title}</h2>
             <p>{recipe.description}</p>
-            <img
+            <img className="image-closeup"
                 src={
                     recipe.imageData
                         ? `data:${recipe.imageType};base64,${recipe.imageData}`
@@ -14,11 +14,6 @@ function RecipeCloseup({ recipe }) {
             <p>Prep Time: {recipe.prepTime} min</p>
             <p>Cooking Time: {recipe.cookingTime} min</p>
 
-            <div className="tags">
-                {recipe.tags.map((tag, index) => (
-                    <span key={index} className="tag">{tag}</span>
-                ))}
-            </div>
         </div>
     );
 }
