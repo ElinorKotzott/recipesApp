@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ToggleFavoritesButton from './ToggleFavoritesButton';
 import Pagination from './Pagination';
 
@@ -12,88 +13,101 @@ function Recipe({
     userTotalPages,
     fetchUserRecipes
 }) {
+
     return (
         <div className="recipes-container">
+
             <div className="recipe-card-container">
                 <h2>Latest Uploads</h2>
                 <div className="latest-recipes">
-                {allRecipes.length === 0 ? (
-                    <p>Nothing to see here yet.</p>
-                ) : (
-                    allRecipes.map(recipe => (
-                        <div key={recipe.id} className="recipe-card">
-                            <h3>{recipe.title}</h3>
-                            <p>{recipe.description}</p>
+                    {allRecipes.length === 0 ? (
+                        <p>Nothing to see here yet.</p>
+                    ) : (
+                        allRecipes.map(recipe => (
+                            <div key={recipe.id} className="recipe-card">
+                                <h3>
+                                    <Link to={`/recipes/${recipe.id}`} className="card-link">
+                                        {recipe.title}
+                                    </Link>
+                                </h3>
 
-                            <div className="image-button-container">
-                                <img
-                                className="recipe-card-image"
-                                alt={recipe.title}
-                                src={
-                                    recipe.imageData
-                                    ? `data:${recipe.imageType};base64,${recipe.imageData}`
-                                    : '/image-placeholder.jpeg'
-                                }
-                                />
-                                <ToggleFavoritesButton className="image-button" recipeId={recipe.id} initialIsFavorite={recipe.favorite} />
-                            </div>
+                                <p>{recipe.description}</p>
 
-                            <div className="tags">
-                                {recipe.tags.map((tag, index) => (
-                                    <span key={index} className="tag">
-                                        {tag}
-                                    </span>
-                                ))}
+                                <div className="image-button-container">
+                                    <Link to={`/recipes/${recipe.id}`}>
+                                        <img
+                                            className="recipe-card-image"
+                                            alt={recipe.title}
+                                            src={
+                                                recipe.imageData
+                                                    ? `data:${recipe.imageType};base64,${recipe.imageData}`
+                                                    : '/image-placeholder.jpeg'
+                                            }
+                                        />
+                                    </Link>
+
+                                    <ToggleFavoritesButton
+                                        className="image-button"
+                                        recipeId={recipe.id}
+                                        initialIsFavorite={recipe.favorite}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    ))
-                )}
+                        ))
+                    )}
                 </div>
-                 <Pagination className="pagination"
-                     currentPage={allCurrentPage}
-                     totalPages={allTotalPages}
-                     fetchRecipes={fetchAllRecipes}
-                 />
+
+                <Pagination
+                    className="pagination"
+                    currentPage={allCurrentPage}
+                    totalPages={allTotalPages}
+                    fetchRecipes={fetchAllRecipes}
+                />
             </div>
 
-
-            <div className="your-recipes">
             <div className="recipe-card-container">
                 <h2>Your Recipes</h2>
-                {userRecipes.length === 0 ? (
-                    <p>You haven't created any recipes yet.</p>
-                ) : (
-                    userRecipes.map(recipe => (
-                        <div key={recipe.id} className="recipe-card">
-                            <h3>{recipe.title}</h3>
-                            <p>{recipe.description}</p>
+                <div className="your-recipes">
+                    {userRecipes.length === 0 ? (
+                        <p>You haven't created any recipes yet.</p>
+                    ) : (
+                        userRecipes.map(recipe => (
+                            <div key={recipe.id} className="recipe-card">
+                                <h3>
+                                    <Link to={`/recipes/${recipe.id}`} className="card-link">
+                                        {recipe.title}
+                                    </Link>
+                                </h3>
 
-                            <div className="image-button-container">
-                                <img
-                                className="recipe-card-image"
-                                alt={recipe.title}
-                                src={
-                                    recipe.imageData
-                                    ? `data:${recipe.imageType};base64,${recipe.imageData}`
-                                    : '/image-placeholder.jpeg'
-                                }
-                                />
-                                <ToggleFavoritesButton className="image-button" recipeId={recipe.id} initialIsFavorite={recipe.favorite} />
-                            </div>
+                                <p>{recipe.description}</p>
 
-                            <div className="tags">
-                                {recipe.tags.map((tag, index) => (
-                                    <span key={index} className="tag">
-                                        {tag}
-                                    </span>
-                                ))}
+                                <div className="image-button-container">
+                                    <Link to={`/recipes/${recipe.id}`}>
+                                        <img
+                                            className="recipe-card-image"
+                                            alt={recipe.title}
+                                            src={
+                                                recipe.imageData
+                                                    ? `data:${recipe.imageType};base64,${recipe.imageData}`
+                                                    : '/image-placeholder.jpeg'
+                                            }
+                                        />
+                                    </Link>
+
+                                    <ToggleFavoritesButton
+                                        className="image-button"
+                                        recipeId={recipe.id}
+                                        initialIsFavorite={recipe.favorite}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    ))
-                )}
+                        ))
+                    )}
                 </div>
             </div>
-            <Pagination className="pagination"
+
+            <Pagination
+                className="pagination"
                 currentPage={userCurrentPage}
                 totalPages={userTotalPages}
                 fetchRecipes={fetchUserRecipes}

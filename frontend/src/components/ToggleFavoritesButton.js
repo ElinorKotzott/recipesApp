@@ -6,11 +6,12 @@ function ToggleFavoritesButton({ recipeId, initialIsFavorite, className, onToggl
     const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
     const token = sessionStorage.getItem('token');
 
-    const toggleFavs = async () => {
+    const toggleFavs = async (e) => {
+
+        e.stopPropagation();
         if (!token) {
             return;
         }
-
         const newFavoriteState = !isFavorite;
         setIsFavorite(newFavoriteState);
 

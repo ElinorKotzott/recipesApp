@@ -61,11 +61,16 @@ body {
     position: absolute;
     top: 8px;
     right: 8px;
+    cursor: pointer;
+}
+
+.recipe-image-container {
+    display: inline-block;
 }
 
 .image-button-container {
-    position: relative;
     display: inline-block;
+    position: relative;
 }
 
 .your-favs-container, .latest-recipes, .your-recipes {
@@ -83,5 +88,9 @@ body {
     margin: 0 10px;
 }
 
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
 
 /*TODO add styling, add media query for flexibility over different devices*/
