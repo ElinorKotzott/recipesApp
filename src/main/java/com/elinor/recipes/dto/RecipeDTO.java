@@ -20,6 +20,8 @@ public class RecipeDTO {
     private Integer cookingTime;
     private String imageData;
     private String imageType;
+    private String ingredients;
+    private String method;
     private List<String> tags;
     private boolean favorite;
 
@@ -31,6 +33,8 @@ public class RecipeDTO {
         this.cookingTime = recipe.getCookingTime();
         this.imageData = recipe.getImageData();
         this.imageType = recipe.getImageType();
+        this.ingredients = recipe.getIngredients();
+        this.method = recipe.getMethod();
         this.tags = recipe.getTagList().stream().map(Tag::getText).collect(Collectors.toList());
         this.favorite = favorite;
     }

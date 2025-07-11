@@ -36,6 +36,8 @@ public class RecipeService {
         Recipe recipe = new Recipe();
         recipe.setTitle(dto.getTitle());
         recipe.setDescription(dto.getDescription());
+        recipe.setIngredients(dto.getIngredients());
+        recipe.setMethod(dto.getMethod());
         recipe.setPrepTime(dto.getPrepTime());
         recipe.setCookingTime(dto.getCookingTime());
         recipe.setImageData(dto.getImageData());

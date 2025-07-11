@@ -26,6 +26,12 @@ public class Recipe {
     @Column(name = "description", length = 300)
     private String description;
 
+    @Column(name = "ingredients", length = 500)
+    private String ingredients;
+
+    @Column(name = "method", length = 1000)
+    private String method;
+
     @Column(name = "prep_time")
     private Integer prepTime;
 
