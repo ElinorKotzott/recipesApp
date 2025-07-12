@@ -14,7 +14,11 @@ const Create = ({
     imageData,
     setImageData,
     imageType,
-    setImageType
+    setImageType,
+    ingredients,
+    setIngredients,
+    method,
+    setMethod
 }) => {
 
     const handleImageChange = (e) => {
@@ -46,7 +50,6 @@ const Create = ({
                     onChange={(e) => setTitle(e.target.value)}
                 />
 
-
                 <label htmlFor="description">Description</label>
                 <textarea
                     id="description"
@@ -55,6 +58,21 @@ const Create = ({
                     onChange={(e) => setDescription(e.target.value)}
                 />
 
+                <label htmlFor="ingredients">Ingredients</label>
+                <textarea
+                    id="ingredients"
+                    value={ingredients}
+                    required
+                    onChange={(e) => setIngredients(e.target.value)}
+                />
+
+                <label htmlFor="method">Method</label>
+                <textarea
+                    id="method"
+                    value={method}
+                    required
+                    onChange={(e) => setMethod(e.target.value)}
+                />
 
                 <label htmlFor="prepTime">Preparation Time (mins)</label>
                 <input
@@ -65,7 +83,6 @@ const Create = ({
                     required
                     onChange={(e) => setPrepTime(e.target.value)}
                 />
-
 
                 <label htmlFor="cookingTime">Cooking Time (mins)</label>
                 <input

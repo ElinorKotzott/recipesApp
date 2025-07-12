@@ -13,6 +13,8 @@ function RecipeCloseup({ recipe }) {
             />
             <p>Prep Time: {recipe.prepTime} min</p>
             <p>Cooking Time: {recipe.cookingTime} min</p>
+            <p>Ingredients: {recipe.ingredients}</p>
+            <p>Method: {recipe.method}</p>
 
         </div>
     );
