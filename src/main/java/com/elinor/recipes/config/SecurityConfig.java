@@ -64,7 +64,7 @@ public class SecurityConfig {
                 HttpMethod.DELETE.name(),
                 HttpMethod.OPTIONS.name()
         ));
-        config.setAllowedHeaders(List.of("*"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
         config.setAllowCredentials(true);
         config.setMaxAge(3600L);
 
