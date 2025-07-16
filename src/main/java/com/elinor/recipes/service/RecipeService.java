@@ -42,6 +42,10 @@ public class RecipeService {
         recipe.setCookingTime(dto.getCookingTime());
         recipe.setImageData(dto.getImageData());
         recipe.setImageType(dto.getImageType());
+        recipe.setCarbsPerServing(dto.getCarbsPerServing());
+        recipe.setProteinPerServing(dto.getProteinPerServing());
+        recipe.setFatPerServing(dto.getFatPerServing());
+        recipe.setServings(dto.getServings());
         recipe.setUser(user);
 
         recipeRepository.save(recipe);

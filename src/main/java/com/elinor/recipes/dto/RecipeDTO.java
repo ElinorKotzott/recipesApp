@@ -24,6 +24,10 @@ public class RecipeDTO {
     private String method;
     private List<String> tags;
     private boolean favorite;
+    private Double proteinPerServing;
+    private Double carbsPerServing;
+    private Double fatPerServing;
+    private Integer servings;
 
     public RecipeDTO(Recipe recipe, boolean favorite) {
         this.id = recipe.getId();
@@ -37,5 +41,9 @@ public class RecipeDTO {
         this.method = recipe.getMethod();
         this.tags = recipe.getTagList().stream().map(Tag::getText).collect(Collectors.toList());
         this.favorite = favorite;
+        this. proteinPerServing = recipe.getProteinPerServing();
+        this.carbsPerServing = recipe.getCarbsPerServing();
+        this.fatPerServing = recipe.getFatPerServing();
+        this.servings = recipe.getServings();
     }
 }
