@@ -18,7 +18,9 @@ const Create = ({
     ingredients,
     setIngredients,
     method,
-    setMethod
+    setMethod,
+    servings,
+    setServings
 }) => {
 
     const handleImageChange = (e) => {
@@ -81,7 +83,7 @@ const Create = ({
                     id="prepTime"
                     value={prepTime}
                     required
-                    onChange={(e) => setPrepTime(e.target.value)}
+                    onChange={(e) => setPrepTime(Number(e.target.value))}
                 />
 
                 <label htmlFor="cookingTime">Cooking Time (mins)</label>
@@ -91,7 +93,7 @@ const Create = ({
                     id="cookingTime"
                     value={cookingTime}
                     required
-                    onChange={(e) => setCookingTime(e.target.value)}
+                    onChange={(e) => setCookingTime(Number(e.target.value))}
                 />
 
                 <label htmlFor="image">Image</label>
@@ -100,6 +102,16 @@ const Create = ({
                     id="image"
                     accept="image/*"
                     onChange={handleImageChange}
+                />
+
+                <label htmlFor="servings">Servings</label>
+                    <input
+                    type="number"
+                    min="1"
+                    id="servings"
+                    value={servings}
+                    required
+                    onChange={(e) => setServings(Number(e.target.value))}
                 />
 
                 <SubmitButton type="submit">Create</SubmitButton>

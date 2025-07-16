@@ -13,12 +13,13 @@ const CreatePage = () => {
     const [imageType, setImageType] = useState("");
     const [ingredients, setIngredients] = useState("");
     const [method, setMethod] = useState("");
+    const [servings, setServings] = useState(0);
     const navigate = useNavigate();
 
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
-            await request('post', '/create', { title, description, prepTime, cookingTime, imageData, imageType, ingredients, method }, true);
+            await request('post', '/create', { title, description, prepTime, cookingTime, imageData, imageType, ingredients, method, servings }, true);
             navigate('/home');
         } catch (error) {
             if (error.response) {
@@ -48,6 +49,8 @@ const CreatePage = () => {
             setIngredients={setIngredients}
             method={method}
             setMethod={setMethod}
+            servings={servings}
+            setServings={setServings}
         />
     );
 }
