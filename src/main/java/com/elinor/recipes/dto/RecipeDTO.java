@@ -28,6 +28,7 @@ public class RecipeDTO {
     private Double carbsPerServing;
     private Double fatPerServing;
     private Integer servings;
+    private Double caloriesPerServing;
 
     public RecipeDTO(Recipe recipe, boolean favorite) {
         this.id = recipe.getId();
@@ -45,5 +46,6 @@ public class RecipeDTO {
         this.carbsPerServing = recipe.getCarbsPerServing();
         this.fatPerServing = recipe.getFatPerServing();
         this.servings = recipe.getServings();
+        this.caloriesPerServing = recipe.getCaloriesPerServing();
     }
 }

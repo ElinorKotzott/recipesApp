@@ -16,10 +16,10 @@ public class RecipeCreationController {
     private RecipeService recipeService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createNewRecipe(@RequestBody RecipeDTO newRecipe, Authentication authentication) {
+    public ResponseEntity<RecipeDTO> createNewRecipe(@RequestBody RecipeDTO newRecipe, Authentication authentication) {
         String currentUsername = authentication.getName();
-        recipeService.createNewRecipe(newRecipe, currentUsername);
-        return ResponseEntity.ok().build();
+        RecipeDTO createdRecipe = recipeService.createNewRecipe(newRecipe, currentUsername);
+        return ResponseEntity.status(201).body(createdRecipe);
     }
 }
 

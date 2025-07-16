@@ -1,5 +1,6 @@
 package com.elinor.recipes.service;
 
+import com.elinor.recipes.dto.NutritionInfoDTO;
 import com.elinor.recipes.dto.PageInfoDTO;
 import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.model.Recipe;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,11 @@ public class RecipeService {
     @Autowired
     private UserRepository userRepository;
 
-    public void createNewRecipe(RecipeDTO dto, String username) {
+    @Autowired
+    private NutritionService nutritionService;
+
+    public RecipeDTO createNewRecipe(RecipeDTO dto, String username) {
+
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
@@ -42,13 +48,29 @@ public class RecipeService {
         recipe.setCookingTime(dto.getCookingTime());
         recipe.setImageData(dto.getImageData());
         recipe.setImageType(dto.getImageType());
-        recipe.setCarbsPerServing(dto.getCarbsPerServing());
-        recipe.setProteinPerServing(dto.getProteinPerServing());
-        recipe.setFatPerServing(dto.getFatPerServing());
         recipe.setServings(dto.getServings());
         recipe.setUser(user);
 
+        if (dto.getServings() != null && dto.getServings() > 0 && dto.getIngredients() != null) {
+            List<String> ingredients = Arrays.stream(dto.getIngredients().split(","))
+                    .map(String::trim)
+                    .toList();
+
+            NutritionInfoDTO nutrition = nutritionService.calculateNutrition(ingredients, dto.getServings());
+
+            recipe.setProteinPerServing(nutrition.getProteinPerServing());
+            recipe.setCarbsPerServing(nutrition.getCarbsPerServing());
+            recipe.setFatPerServing(nutrition.getFatPerServing());
+            recipe.setCaloriesPerServing(nutrition.getCaloriesPerServing());
+        } else {
+            recipe.setProteinPerServing(null);
+            recipe.setCarbsPerServing(null);
+            recipe.setFatPerServing(null);
+            recipe.setCaloriesPerServing(null);
+        }
+
         recipeRepository.save(recipe);
+        return convertToDTO(recipe);
     }
 
     public PageInfoDTO getRecipesCreatedByAnyone(String username, int page, int size) {
@@ -104,4 +126,23 @@ public class RecipeService {
 
         return new RecipeDTO(recipe, isFavorite);
     }
+
+    private RecipeDTO convertToDTO(Recipe recipe) {
+        RecipeDTO dto = new RecipeDTO();
+        dto.setId(recipe.getId());
+        dto.setTitle(recipe.getTitle());
+        dto.setDescription(recipe.getDescription());
+        dto.setIngredients(recipe.getIngredients());
+        dto.setMethod(recipe.getMethod());
+        dto.setPrepTime(recipe.getPrepTime());
+        dto.setCookingTime(recipe.getCookingTime());
+        dto.setImageData(recipe.getImageData());
+        dto.setImageType(recipe.getImageType());
+        dto.setCarbsPerServing(recipe.getCarbsPerServing());
+        dto.setProteinPerServing(recipe.getProteinPerServing());
+        dto.setFatPerServing(recipe.getFatPerServing());
+        dto.setServings(recipe.getServings());
+        return dto;
+    }
+
 }

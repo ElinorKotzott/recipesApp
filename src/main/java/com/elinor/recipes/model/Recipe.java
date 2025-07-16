@@ -62,5 +62,8 @@ public class Recipe {
 
     @Column(name = "servings")
     private Integer servings;
+
+    @Column(name = "calories_per_serving")
+    private Double caloriesPerServing;
 }
 
