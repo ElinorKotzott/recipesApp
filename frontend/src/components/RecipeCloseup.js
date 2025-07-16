@@ -2,7 +2,7 @@ function RecipeCloseup({ recipe }) {
     return (
         <div className="recipe-closeup">
             <h2>{recipe.title}</h2>
-            <p>Serves {recipe.servings}</p>
+            <p>{recipe.servings ? 'Serves ' + recipe.servings : 'No serving size found'}</p>
             <p>{recipe.description}</p>
             <img className="image-closeup"
                 src={

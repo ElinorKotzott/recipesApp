@@ -36,7 +36,7 @@ public class NutritionService {
         Double totalProtein = null;
         Double totalCarbs = null;
         Double totalFat = null;
-        Double totalEnergy = null;
+        Double totalCalories = null;
 
         for (String ingredient : ingredients) {
             try {
@@ -54,12 +54,12 @@ public class NutritionService {
                     Double protein = nutrients.get("PROCNT");
                     Double carbs = nutrients.get("CHOCDF");
                     Double fat = nutrients.get("FAT");
-                    Double energy = nutrients.get("ENERC_KCAL");
+                    Double calories = nutrients.get("ENERC_KCAL");
 
                     totalProtein = (totalProtein == null) ? protein : totalProtein + protein;
                     totalCarbs = (totalCarbs == null) ? carbs : totalCarbs + carbs;
                     totalFat = (totalFat == null) ? fat : totalFat + fat;
-                    totalEnergy = (totalEnergy == null) ? energy : totalEnergy + energy;
+                    totalCalories = (totalCalories == null) ? calories : totalCalories + calories;
                 }
             } catch (Exception ex) {
                 System.err.println("Failed to fetch nutrition info for: " + ingredient + ". Error: " + ex.getMessage());
@@ -70,7 +70,7 @@ public class NutritionService {
                 (totalProtein == null) ? null : totalProtein / servings,
                 (totalCarbs == null) ? null : totalCarbs / servings,
                 (totalFat == null) ? null : totalFat / servings,
-                (totalEnergy == null) ? null : totalEnergy / servings
+                (totalCalories == null) ? null : totalCalories / servings
         );
     }
 
