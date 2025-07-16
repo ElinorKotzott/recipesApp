@@ -50,5 +50,17 @@ public class Recipe {
 
     @ManyToMany(mappedBy = "recipes")
     private List<Tag> tagList = new ArrayList<>();
+
+    @Column(name = "protein_per_serving")
+    private Double proteinPerServing;
+
+    @Column(name = "carbs_per_serving")
+    private Double carbsPerServing;
+
+    @Column(name = "fat_per_serving")
+    private Double fatPerServing;
+
+    @Column(name = "servings")
+    private Integer servings;
 }
 

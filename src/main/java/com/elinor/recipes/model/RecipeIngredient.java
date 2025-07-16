@@ -22,7 +22,7 @@ public class RecipeIngredient {
     @Column(nullable = false)
     private Double quantity;
 
-    @Column(length = 20) //do i want to have unit? or is everything default g? would it be more complex?
+    @Column(length = 20)
     private String unit;
 }
 
