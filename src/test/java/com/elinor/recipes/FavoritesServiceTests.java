@@ -5,13 +5,12 @@ import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeRepository;
 import com.elinor.recipes.repository.UserRepository;
 import com.elinor.recipes.service.FavoritesService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 class FavoritesServiceTests {
 
 	@Mock
@@ -52,6 +50,7 @@ class FavoritesServiceTests {
 				favoritesService.toggleFavorite("nonExistingUser", 1L, true)
 		);
 	}
+
 
 	@Test
 	void toggleFavorite_ThrowsException_whenRecipeNotFound() {
