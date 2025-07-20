@@ -15,7 +15,7 @@ public class FavoritesController {
     private FavoritesService favoritesService;
 
     @GetMapping("/favorites")
-    public ResponseEntity<PageInfoDTO> getUserRecipesPage(
+    public ResponseEntity<PageInfoDTO> getUsersFavoriteRecipesPage(
             Authentication authentication,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
@@ -24,7 +24,7 @@ public class FavoritesController {
     }
 
     @PutMapping("/favorites/{id}")
-    public void addOrRemoveRecipeFromFavorites(
+    public void addRecipeToOrRemoveRecipeFromFavorites(
             @PathVariable("id") Long recipeId,
             @RequestBody FavoriteToggleDTO toggleDTO,
             Authentication authentication) {
