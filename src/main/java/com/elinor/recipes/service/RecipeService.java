@@ -10,6 +10,7 @@ import com.elinor.recipes.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -127,6 +128,16 @@ public class RecipeService {
         return new RecipeDTO(recipe, isFavorite);
     }
 
+    public void deleteRecipe(String currentUsername, Long recipeId) {
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new EntityNotFoundException("Recipe not found"));
+        if (!recipe.getUser().getUsername().equals(currentUsername)) {
+            throw new EntityNotFoundException("Recipe not found");
+        }
+
+        recipeRepository.delete(recipe);
+    }
+
     private RecipeDTO convertToDTO(Recipe recipe) {
         RecipeDTO dto = new RecipeDTO();
         dto.setId(recipe.getId());
@@ -142,6 +153,7 @@ public class RecipeService {
         dto.setProteinPerServing(recipe.getProteinPerServing());
         dto.setFatPerServing(recipe.getFatPerServing());
         dto.setServings(recipe.getServings());
+        dto.setCreatorId(recipe.getUser().getId());
         return dto;
     }
 

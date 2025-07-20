@@ -19,7 +19,7 @@ const CreatePage = () => {
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
-            await request('post', '/create', { title, description, prepTime, cookingTime, imageData, imageType, ingredients, method, servings }, true);
+            await request('post', '/recipes', { title, description, prepTime, cookingTime, imageData, imageType, ingredients, method, servings }, true);
             navigate('/home');
         } catch (error) {
             if (error.response) {
