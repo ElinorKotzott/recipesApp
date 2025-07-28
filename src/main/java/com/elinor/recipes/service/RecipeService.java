@@ -1,16 +1,19 @@
 package com.elinor.recipes.service;
 
+import com.elinor.recipes.dto.RecipeIngredientDTO;
 import com.elinor.recipes.dto.NutritionInfoDTO;
 import com.elinor.recipes.dto.PageInfoDTO;
 import com.elinor.recipes.dto.RecipeDTO;
+import com.elinor.recipes.model.Ingredient;
 import com.elinor.recipes.model.Recipe;
+import com.elinor.recipes.model.RecipeIngredient;
 import com.elinor.recipes.model.User;
+import com.elinor.recipes.repository.RecipeIngredientRepository;
 import com.elinor.recipes.repository.RecipeRepository;
 import com.elinor.recipes.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +35,9 @@ public class RecipeService {
     private UserRepository userRepository;
 
     @Autowired
+    private RecipeIngredientRepository recipeIngredientRepository;
+
+    @Autowired
     private NutritionService nutritionService;
 
     public RecipeDTO createNewRecipe(RecipeDTO dto, String username) {
@@ -43,7 +48,6 @@ public class RecipeService {
         Recipe recipe = new Recipe();
         recipe.setTitle(dto.getTitle());
         recipe.setDescription(dto.getDescription());
-        recipe.setIngredients(dto.getIngredients());
         recipe.setMethod(dto.getMethod());
         recipe.setPrepTime(dto.getPrepTime());
         recipe.setCookingTime(dto.getCookingTime());
@@ -52,12 +56,11 @@ public class RecipeService {
         recipe.setServings(dto.getServings());
         recipe.setUser(user);
 
-        if (dto.getServings() != null && dto.getServings() > 0 && dto.getIngredients() != null) {
-            List<String> ingredients = Arrays.stream(dto.getIngredients().split(","))
-                    .map(String::trim)
-                    .toList();
 
-            NutritionInfoDTO nutrition = nutritionService.calculateNutrition(ingredients, dto.getServings());
+        if (dto.getServings() != null && dto.getServings() > 0 && dto.getRecipeIngredientDTOList() != null) {
+
+
+            NutritionInfoDTO nutrition = nutritionService.calculateNutrition(dto.getRecipeIngredientDTOList(), dto.getServings());
 
             recipe.setProteinPerServing(nutrition.getProteinPerServing());
             recipe.setCarbsPerServing(nutrition.getCarbsPerServing());
@@ -71,7 +74,24 @@ public class RecipeService {
         }
 
         recipeRepository.save(recipe);
-        return convertToDTO(recipe);
+        createNewRecipeIngredientList(dto, recipe);
+
+        return new RecipeDTO(recipe, false);
+    }
+
+    private void createNewRecipeIngredientList(RecipeDTO dto, Recipe recipe) {
+        for (RecipeIngredientDTO i : dto.getRecipeIngredientDTOList()) {
+            RecipeIngredient newRecipeIngredient = new RecipeIngredient();
+            newRecipeIngredient.setRecipe(recipe);
+            Ingredient ingr = new Ingredient();
+            ingr.setName(i.getIngredientDTO().getName());
+            ingr.setId(i.getIngredientDTO().getId());
+            newRecipeIngredient.setIngredient(ingr);
+            newRecipeIngredient.setUnit(i.getUnit());
+            newRecipeIngredient.setQuantity(i.getQuantity());
+            recipeIngredientRepository.save(newRecipeIngredient);
+        }
+
     }
 
     public PageInfoDTO getRecipesCreatedByAnyone(String username, int page, int size) {
@@ -137,24 +157,4 @@ public class RecipeService {
 
         recipeRepository.delete(recipe);
     }
-
-    private RecipeDTO convertToDTO(Recipe recipe) {
-        RecipeDTO dto = new RecipeDTO();
-        dto.setId(recipe.getId());
-        dto.setTitle(recipe.getTitle());
-        dto.setDescription(recipe.getDescription());
-        dto.setIngredients(recipe.getIngredients());
-        dto.setMethod(recipe.getMethod());
-        dto.setPrepTime(recipe.getPrepTime());
-        dto.setCookingTime(recipe.getCookingTime());
-        dto.setImageData(recipe.getImageData());
-        dto.setImageType(recipe.getImageType());
-        dto.setCarbsPerServing(recipe.getCarbsPerServing());
-        dto.setProteinPerServing(recipe.getProteinPerServing());
-        dto.setFatPerServing(recipe.getFatPerServing());
-        dto.setServings(recipe.getServings());
-        dto.setCreatorId(recipe.getUser().getId());
-        return dto;
-    }
-
 }

@@ -1,5 +1,7 @@
-//create component - input form for the user to create and submit their own recipe
 import SubmitButton from './SubmitButton.js';
+import IngredientsDropdownMenu from './IngredientsDropdownMenu';
+import UnitDropdownMenu from './UnitDropdownMenu';
+import { useState } from 'react';
 
 const Create = ({
     title,
@@ -15,8 +17,10 @@ const Create = ({
     setImageData,
     imageType,
     setImageType,
-    ingredients,
-    setIngredients,
+    ingredientsList,
+    addIngredient,
+    allIngredients,
+    units,
     method,
     setMethod,
     servings,
@@ -35,6 +39,21 @@ const Create = ({
         };
 
         reader.readAsDataURL(file);
+    };
+
+    const [selectedIngredient, setSelectedIngredient] = useState("");
+    const [selectedUnit, setSelectedUnit] = useState("");
+    const [quantity, setQuantity] = useState(0);
+
+    const handleAddIngredient = () => {
+        if (!selectedIngredient || !selectedUnit || quantity <= 0) {
+            alert("Ingredient, quantity or unit missing!");
+            return;
+        }
+        addIngredient(selectedIngredient, quantity, selectedUnit);
+        setSelectedIngredient("");
+        setSelectedUnit("");
+        setQuantity(0);
     };
 
 
@@ -60,13 +79,37 @@ const Create = ({
                     onChange={(e) => setDescription(e.target.value)}
                 />
 
-                <label htmlFor="ingredients">Ingredients</label>
-                <textarea
-                    id="ingredients"
-                    value={ingredients}
-                    required
-                    onChange={(e) => setIngredients(e.target.value)}
+                <label htmlFor="ingredient">Add Ingredient</label>
+                <IngredientsDropdownMenu
+                    selectedIngredient={selectedIngredient}
+                    onChange={setSelectedIngredient}
+                    ingredients={allIngredients}
                 />
+
+                <input
+                    type="number"
+                    min="1"
+                    placeholder="Quantity"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Number(e.target.value))}
+                />
+
+                <UnitDropdownMenu
+                    selectedUnit={selectedUnit}
+                    onChange={setSelectedUnit}
+                    units={units}
+                />
+
+                <SubmitButton> onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
+
+                <ul>
+                    {ingredientsList.map((item, index) => (
+                        <li key={index}>
+                            {item.quantity} {item.unit} of {item.ingredientId}
+                        </li>
+                    ))}
+                </ul>
+
 
                 <label htmlFor="method">Method</label>
                 <textarea

@@ -26,8 +26,8 @@ public class Recipe {
     @Column(name = "description", length = 300)
     private String description;
 
-    @Column(name = "ingredients", length = 500)
-    private String ingredients;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RecipeIngredient> recipeIngredientList = new ArrayList<>();
 
     @Column(name = "method", length = 1000)
     private String method;

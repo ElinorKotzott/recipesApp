@@ -2,6 +2,7 @@ package com.elinor.recipes.service;
 
 import com.elinor.recipes.dto.EdamamAPIResponseDTO;
 import com.elinor.recipes.dto.NutritionInfoDTO;
+import com.elinor.recipes.dto.RecipeIngredientDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class NutritionService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public NutritionInfoDTO calculateNutrition(List<String> ingredients, Integer servings) {
+    public NutritionInfoDTO calculateNutrition(List<RecipeIngredientDTO> recipeIngredientDTOList, Integer servings) {
 
         if (servings == null || servings <= 0) {
             System.err.println("Invalid servings: " + servings);
@@ -38,10 +39,10 @@ public class NutritionService {
         Double totalFat = null;
         Double totalCalories = null;
 
-        for (String ingredient : ingredients) {
+        for (RecipeIngredientDTO riDTO : recipeIngredientDTOList) {
             try {
                 String url = foodApiUrl + "?app_id=" + appId + "&app_key=" + appKey +
-                        "&ingr=" + URLEncoder.encode(ingredient, StandardCharsets.UTF_8);
+                        "&ingr=" + URLEncoder.encode(riDTO.getQuantity().toString() + " " + riDTO.getUnit() + " " + riDTO.getIngredientDTO().getName(), StandardCharsets.UTF_8);
 
                 ResponseEntity<EdamamAPIResponseDTO> response =
                         restTemplate.getForEntity(url, EdamamAPIResponseDTO.class);
@@ -62,7 +63,7 @@ public class NutritionService {
                     totalCalories = (totalCalories == null) ? calories : totalCalories + calories;
                 }
             } catch (Exception ex) {
-                System.err.println("Failed to fetch nutrition info for: " + ingredient + ". Error: " + ex.getMessage());
+                System.err.println("Failed to fetch nutrition info" + ex.getMessage());
             }
         }
 

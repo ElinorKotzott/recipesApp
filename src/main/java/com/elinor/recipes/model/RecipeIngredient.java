@@ -1,5 +1,6 @@
 package com.elinor.recipes.model;
 
+import com.elinor.recipes.model.enumeration.Unit;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,8 +23,10 @@ public class RecipeIngredient {
     @Column(nullable = false)
     private Double quantity;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private String unit;
+    private Unit unit;
+
 }
 
 
