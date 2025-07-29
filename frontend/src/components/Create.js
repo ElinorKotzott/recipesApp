@@ -100,12 +100,12 @@ const Create = ({
                     units={units}
                 />
 
-                <SubmitButton> onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
+                <SubmitButton onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
 
                 <ul>
                     {ingredientsList.map((item, index) => (
                         <li key={index}>
-                            {item.quantity} {item.unit} of {item.ingredientId}
+                            {item.quantity} {item.unit.toLowerCase()} {item.ingredient.name}
                         </li>
                     ))}
                 </ul>
