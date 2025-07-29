@@ -40,6 +40,16 @@ const CreatePage = () => {
 
     const handleCreate = async (e) => {
         e.preventDefault();
+
+        const recipeIngredientDTOList = ingredientsList.map(item => ({
+            ingredientDTO: {
+                id: item.ingredient.id,
+                name: item.ingredient.name
+            },
+            quantity: item.quantity,
+            unit: item.unit
+        }));
+
         try {
             await request('post', '/recipes', {
                 title,
@@ -48,12 +58,12 @@ const CreatePage = () => {
                 cookingTime,
                 imageData,
                 imageType,
-                recipeIngredientDTOList: ingredientsList,
+                recipeIngredientDTOList,
                 method,
                 servings
             }, true);
             navigate('/home');
-            alert('Recipe created successfully!')
+            alert('Recipe created successfully!');
         } catch (error) {
             if (error.response) {
                 alert('Submission failed: ' + error.response.data.message);
@@ -62,6 +72,7 @@ const CreatePage = () => {
             }
         }
     };
+
 
     return (
         <Create

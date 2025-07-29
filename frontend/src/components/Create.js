@@ -79,38 +79,6 @@ const Create = ({
                     onChange={(e) => setDescription(e.target.value)}
                 />
 
-                <label htmlFor="ingredient">Add Ingredient</label>
-                <IngredientsDropdownMenu
-                    selectedIngredient={selectedIngredient}
-                    onChange={setSelectedIngredient}
-                    ingredients={allIngredients}
-                />
-
-                <input
-                    type="number"
-                    min="1"
-                    placeholder="Quantity"
-                    value={quantity}
-                    onChange={(e) => setQuantity(Number(e.target.value))}
-                />
-
-                <UnitDropdownMenu
-                    selectedUnit={selectedUnit}
-                    onChange={setSelectedUnit}
-                    units={units}
-                />
-
-                <SubmitButton onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
-
-                <ul>
-                    {ingredientsList.map((item, index) => (
-                        <li key={index}>
-                            {item.quantity} {item.unit.toLowerCase()} {item.ingredient.name}
-                        </li>
-                    ))}
-                </ul>
-
-
                 <label htmlFor="method">Method</label>
                 <textarea
                     id="method"
@@ -159,6 +127,39 @@ const Create = ({
 
                 <SubmitButton type="submit">Create</SubmitButton>
             </form>
+
+            <label htmlFor="ingredient">Add Ingredient</label>
+                            <IngredientsDropdownMenu
+                                selectedIngredient={selectedIngredient}
+                                onChange={setSelectedIngredient}
+                                ingredients={allIngredients}
+                            />
+
+                            <input
+                                type="number"
+                                min="1"
+                                placeholder="Quantity"
+                                value={quantity}
+                                onChange={(e) => setQuantity(Number(e.target.value))}
+                            />
+
+                            <UnitDropdownMenu
+                                selectedUnit={selectedUnit}
+                                onChange={setSelectedUnit}
+                                units={units}
+                            />
+
+                            <SubmitButton onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
+
+                            <ul>
+                              {ingredientsList.map((item, index) => (
+                                <li key={index}>
+                                  {item.quantity} {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()} {item.ingredient.name}
+                                </li>
+                              ))}
+                            </ul>
+
+
         </div>
     );
 };

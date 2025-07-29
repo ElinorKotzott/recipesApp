@@ -35,9 +35,23 @@ function RecipeCloseup({ recipe, onDelete }) {
                 }
                 alt={recipe.title}
             />
-            <p>Prep Time: {recipe.prepTime} min</p>
-            <p>Cooking Time: {recipe.cookingTime} min</p>
-            <p>Ingredients: {recipe.ingredients}</p>
+            <h3>Prep Time:</h3>
+            <p>{recipe.prepTime} min</p>
+            <h3>Cooking Time:</h3>
+            <p> {recipe.cookingTime} min</p>
+            <h3>Ingredients:</h3>
+            <ul>
+              {recipe.recipeIngredientDTOList && recipe.recipeIngredientDTOList.length > 0 ? (
+                recipe.recipeIngredientDTOList.map((item, index) => (
+                  <li key={index}>
+                    {item.quantity} {item.unit !== "WHOLE" ? item.unit.toLowerCase() + " " : ""}{item.ingredientDTO?.name || 'Unnamed ingredient'}
+                  </li>
+                ))
+              ) : (
+                <li>No ingredients found</li>
+              )}
+            </ul>
+
             <p>Method: {recipe.method}</p>
             <h3>Nutrition information per serving:</h3>
             <p>Calories: {recipe.caloriesPerServing ? Number(recipe.caloriesPerServing).toFixed(1) : 'No information found'}</p>
