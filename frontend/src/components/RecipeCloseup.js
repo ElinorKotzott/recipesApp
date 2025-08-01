@@ -1,5 +1,6 @@
 import { request } from '../axiosHelper';
 import SubmitButton from './SubmitButton';
+import ToggleFavoritesButton from './ToggleFavoritesButton';
 import { useNavigate } from 'react-router-dom';
 
 function RecipeCloseup({ recipe, onDelete }) {
@@ -17,15 +18,17 @@ function RecipeCloseup({ recipe, onDelete }) {
 
     };
 
-    console.log('currentUser:', currentUser);
-    console.log('recipe.creatorId:', recipe.creatorId);
-    console.log('isOwner:', isOwner);
 
 
     return (
         <div className="recipe-closeup">
             <h2>{recipe.title}</h2>
             <p>{recipe.servings ? 'Serves ' + recipe.servings : 'No serving size found'}</p>
+            <ToggleFavoritesButton
+                className="favorites-button"
+                recipeId={recipe.id}
+                initialIsFavorite={recipe.favorite}
+            />
             <p>{recipe.description}</p>
             <img className="image-closeup"
                 src={

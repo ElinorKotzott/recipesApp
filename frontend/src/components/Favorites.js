@@ -27,7 +27,7 @@ function Favorites({ favorites, className, setFavorites, fetchFavorites, current
 
                                 <p>{recipe.description}</p>
 
-                                <div className="image-button-container" style={{ position: 'relative', display: 'inline-block' }}>
+                                <div className="image-button-container">
                                     <Link to={`/recipes/${recipe.id}`}>
                                         <img
                                             className="recipe-card-image"
