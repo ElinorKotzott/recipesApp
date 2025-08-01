@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { request } from '../axiosHelper';
 import Create from '../components/Create';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const CreatePage = () => {
+const UpdateRecipePage = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [prepTime, setPrepTime] = useState(0);
@@ -15,7 +18,6 @@ const CreatePage = () => {
     const [units, setUnits] = useState([]);
     const [method, setMethod] = useState("");
     const [servings, setServings] = useState(0);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,15 +32,53 @@ const CreatePage = () => {
                 console.error('Failed to load ingredients or units:', error);
             }
         };
+
         fetchData();
     }, []);
+
+    useEffect(() => {
+        const fetchRecipe = async () => {
+            try {
+                const response = await request('get', `/recipes/${id}`, null, true);
+                const recipe = response.data;
+
+                setTitle(recipe.title);
+                setDescription(recipe.description);
+                setPrepTime(recipe.prepTime);
+                setCookingTime(recipe.cookingTime);
+                setImageData(recipe.imageData || "");
+                setImageType(recipe.imageType || "");
+                setMethod(recipe.method);
+                setServings(recipe.servings || 0);
+
+                if (recipe.recipeIngredientDTOList) {
+                    const mappedIngredients = recipe.recipeIngredientDTOList.map(item => ({
+                        ingredient: {
+                            id: item.ingredientDTO.id,
+                            name: item.ingredientDTO.name
+                        },
+                        quantity: item.quantity,
+                        unit: item.unit
+                    }));
+                    setIngredientsList(mappedIngredients);
+                } else {
+                    setIngredientsList([]);
+                }
+            } catch (error) {
+                alert('Failed to load recipe for editing');
+                navigate(-1);
+            }
+        };
+
+        fetchRecipe();
+    }, [id, navigate]);
 
     const addIngredient = (ingredientId, quantity, unit) => {
         const ingredient = allIngredients.find(i => i.id === parseInt(ingredientId));
         setIngredientsList(myPreviousList => [...myPreviousList, { ingredient, quantity, unit }]);
     };
 
-    const handleCreate = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
 
         const recipeIngredientDTOList = ingredientsList.map(item => ({
@@ -51,7 +91,7 @@ const CreatePage = () => {
         }));
 
         try {
-            await request('post', '/recipes', {
+            await request('put', `/recipes/update/${id}`, {
                 title,
                 description,
                 prepTime,
@@ -62,17 +102,16 @@ const CreatePage = () => {
                 method,
                 servings
             }, true);
-            navigate('/home');
-            alert('Recipe created successfully!');
+            alert('Recipe updated successfully!');
+            navigate(`/recipes/${id}`);
         } catch (error) {
             if (error.response) {
-                alert('Submission failed: ' + error.response.data.message);
+                alert('Update failed: ' + error);
             } else {
                 alert('Error: ' + error.message);
             }
         }
     };
-
 
     return (
         <Create
@@ -84,7 +123,7 @@ const CreatePage = () => {
             setPrepTime={setPrepTime}
             cookingTime={cookingTime}
             setCookingTime={setCookingTime}
-            handleSubmit={handleCreate}
+            handleSubmit={handleUpdate}
             imageData={imageData}
             setImageData={setImageData}
             imageType={imageType}
@@ -97,9 +136,9 @@ const CreatePage = () => {
             setMethod={setMethod}
             servings={servings}
             setServings={setServings}
-            isUpdate={false}
+            isUpdate={true}
         />
     );
 };
 
-export default CreatePage;
+export default UpdateRecipePage;

@@ -141,4 +141,11 @@ public class RecipeService {
 
         recipeRepository.delete(recipe);
     }
+
+    public void updateRecipe(Long id, RecipeDTO updatedRecipeDTO, User user) {
+        Recipe updatedRecipe = RecipeMapper.toEntity(updatedRecipeDTO, user);
+        updatedRecipe.setId(id);
+
+        recipeRepository.save(updatedRecipe);
+    }
 }

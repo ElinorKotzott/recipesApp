@@ -18,7 +18,9 @@ function RecipeCloseup({ recipe, onDelete }) {
 
     };
 
-
+    const handleUpdate = () => {
+        navigate(`/recipes/update/${recipe.id}`);
+    };
 
     return (
         <div className="recipe-closeup">
@@ -69,6 +71,15 @@ function RecipeCloseup({ recipe, onDelete }) {
                     className="delete-button"
                 >
                     Delete
+                </SubmitButton>
+            )}
+
+            {isOwner && (
+                <SubmitButton
+                    onClick={handleUpdate}
+                    className="update-button"
+                >
+                    Update
                 </SubmitButton>
             )}
 

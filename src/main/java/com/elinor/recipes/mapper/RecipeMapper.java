@@ -37,6 +37,7 @@ public class RecipeMapper {
     public static Recipe toEntity(RecipeDTO dto, User user) {
 
         Recipe recipe = new Recipe();
+        recipe.setId(dto.getId());
         recipe.setTitle(dto.getTitle());
         recipe.setDescription(dto.getDescription());
         recipe.setMethod(dto.getMethod());

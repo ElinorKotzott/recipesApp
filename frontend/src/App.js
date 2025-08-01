@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import FavoritesPage from './pages/FavoritesPage';
+import UpdateRecipePage from './pages/UpdateRecipePage';
 import CreatePage from './pages/CreatePage';
 import ChangeProfilePage from './pages/ChangeProfilePage';
 import PrivateRoute from './components/PrivateRoute';
@@ -30,6 +31,12 @@ function App() {
                 <Route path="/profile" element={
                     <PrivateRoute>
                         <Layout><ProfilePage /></Layout>
+                    </PrivateRoute>
+                } />
+
+                <Route path="/recipes/update/:id" element={
+                    <PrivateRoute>
+                        <Layout><UpdateRecipePage /></Layout>
                     </PrivateRoute>
                 } />
 

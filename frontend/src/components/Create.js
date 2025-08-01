@@ -12,7 +12,7 @@ const Create = ({
     setPrepTime,
     cookingTime,
     setCookingTime,
-    handleCreate,
+    handleSubmit,
     imageData,
     setImageData,
     imageType,
@@ -24,7 +24,8 @@ const Create = ({
     method,
     setMethod,
     servings,
-    setServings
+    setServings,
+    isUpdate
 }) => {
 
     const handleImageChange = (e) => {
@@ -59,8 +60,8 @@ const Create = ({
 
     return (
         <div className="create-container">
-            <h2>Create New Recipe</h2>
-            <form onSubmit={handleCreate}>
+            <h2>{isUpdate ? 'Update Recipe' : 'Create New Recipe'}</h2>
+            <form onSubmit={handleSubmit}>
 
                 <label htmlFor="title">Title</label>
                 <input
@@ -125,7 +126,9 @@ const Create = ({
                     onChange={(e) => setServings(Number(e.target.value))}
                 />
 
-                <SubmitButton type="submit">Create</SubmitButton>
+                <SubmitButton type="submit">
+                    {isUpdate ? 'Update' : 'Create'}
+                </SubmitButton>
             </form>
 
             <label htmlFor="ingredient">Add Ingredient</label>
