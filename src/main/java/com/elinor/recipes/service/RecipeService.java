@@ -4,9 +4,9 @@ import com.elinor.recipes.dto.RecipeIngredientDTO;
 import com.elinor.recipes.dto.NutritionInfoDTO;
 import com.elinor.recipes.dto.PageInfoDTO;
 import com.elinor.recipes.dto.RecipeDTO;
-import com.elinor.recipes.model.Ingredient;
+import com.elinor.recipes.mapper.RecipeIngredientMapper;
+import com.elinor.recipes.mapper.RecipeMapper;
 import com.elinor.recipes.model.Recipe;
-import com.elinor.recipes.model.RecipeIngredient;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeIngredientRepository;
 import com.elinor.recipes.repository.RecipeRepository;
@@ -45,17 +45,7 @@ public class RecipeService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        Recipe recipe = new Recipe();
-        recipe.setTitle(dto.getTitle());
-        recipe.setDescription(dto.getDescription());
-        recipe.setMethod(dto.getMethod());
-        recipe.setPrepTime(dto.getPrepTime());
-        recipe.setCookingTime(dto.getCookingTime());
-        recipe.setImageData(dto.getImageData());
-        recipe.setImageType(dto.getImageType());
-        recipe.setServings(dto.getServings());
-        recipe.setUser(user);
-
+        Recipe recipe = RecipeMapper.toEntity(dto, user);
 
         if (dto.getServings() != null && dto.getServings() > 0 && dto.getRecipeIngredientDTOList() != null) {
 
@@ -74,24 +64,16 @@ public class RecipeService {
         }
 
         recipeRepository.save(recipe);
+
         createNewRecipeIngredientList(dto, recipe);
 
-        return new RecipeDTO(recipe, false);
+        return RecipeMapper.toDTO(recipe, false);
     }
 
     private void createNewRecipeIngredientList(RecipeDTO dto, Recipe recipe) {
         for (RecipeIngredientDTO i : dto.getRecipeIngredientDTOList()) {
-            RecipeIngredient newRecipeIngredient = new RecipeIngredient();
-            newRecipeIngredient.setRecipe(recipe);
-            Ingredient ingr = new Ingredient();
-            ingr.setName(i.getIngredientDTO().getName());
-            ingr.setId(i.getIngredientDTO().getId());
-            newRecipeIngredient.setIngredient(ingr);
-            newRecipeIngredient.setUnit(i.getUnit());
-            newRecipeIngredient.setQuantity(i.getQuantity());
-            recipeIngredientRepository.save(newRecipeIngredient);
+            recipeIngredientRepository.save(RecipeIngredientMapper.toEntity(i, recipe));
         }
-
     }
 
     public PageInfoDTO getRecipesCreatedByAnyone(String username, int page, int size) {
@@ -101,8 +83,9 @@ public class RecipeService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Recipe> recipePage = recipeRepository.findAll(pageable);
 
+
         List<RecipeDTO> recipeDTOList = recipePage.stream()
-                .map(recipe -> new RecipeDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
+                .map(recipe -> RecipeMapper.toDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
                 .collect(Collectors.toList());
 
         return new PageInfoDTO(
@@ -121,7 +104,7 @@ public class RecipeService {
         Page<Recipe> recipePage = recipeRepository.findByUserUsername(username, pageable);
 
         List<RecipeDTO> recipeDTOList = recipePage.stream()
-                .map(recipe -> new RecipeDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
+                .map(recipe -> RecipeMapper.toDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
                 .collect(Collectors.toList());
 
         return new PageInfoDTO(
@@ -145,7 +128,8 @@ public class RecipeService {
 
         boolean isFavorite = user.getFavoriteRecipesList().contains(recipe);
 
-        return new RecipeDTO(recipe, isFavorite);
+        return RecipeMapper.toDTO(recipe, isFavorite);
+
     }
 
     public void deleteRecipe(String currentUsername, Long recipeId) {

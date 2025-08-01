@@ -1,6 +1,7 @@
 package com.elinor.recipes.controller;
 
 import com.elinor.recipes.dto.IngredientDTO;
+import com.elinor.recipes.mapper.IngredientMapper;
 import com.elinor.recipes.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,6 @@ public class IngredientsController {
 
     @GetMapping("/ingredients")
     public ResponseEntity<List<IngredientDTO>> getIngredientList() {
-        return ResponseEntity.ok(IngredientDTO.toDTOList(ingredientRepository.findAll()));
+        return ResponseEntity.ok(IngredientMapper.toDTOList(ingredientRepository.findAll()));
     }
 }

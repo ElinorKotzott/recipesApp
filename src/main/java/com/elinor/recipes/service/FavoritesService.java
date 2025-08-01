@@ -2,6 +2,7 @@ package com.elinor.recipes.service;
 
 import com.elinor.recipes.dto.PageInfoDTO;
 import com.elinor.recipes.dto.RecipeDTO;
+import com.elinor.recipes.mapper.RecipeMapper;
 import com.elinor.recipes.model.Recipe;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeRepository;
@@ -39,7 +40,7 @@ public class FavoritesService {
 
         List<RecipeDTO> recipeDTOList = recipePage
                 .stream()
-                .map(recipe -> new RecipeDTO(recipe, true))
+                .map(recipe -> RecipeMapper.toDTO(recipe, true))
                 .collect(Collectors.toList());
 
         return new PageInfoDTO(
