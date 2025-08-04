@@ -45,6 +45,7 @@ public class RecipeMapper {
         recipe.setCookingTime(dto.getCookingTime());
         recipe.setImageData(dto.getImageData());
         recipe.setImageType(dto.getImageType());
+        recipe.setRecipeIngredientList(RecipeIngredientMapper.toEntityList(dto.getRecipeIngredientDTOList(), recipe));
         recipe.setServings(dto.getServings());
         recipe.setUser(user);
         return recipe;

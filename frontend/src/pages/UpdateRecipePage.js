@@ -46,10 +46,10 @@ const UpdateRecipePage = () => {
                 setDescription(recipe.description);
                 setPrepTime(recipe.prepTime);
                 setCookingTime(recipe.cookingTime);
-                setImageData(recipe.imageData || "");
-                setImageType(recipe.imageType || "");
+                setImageData(recipe.imageData);
+                setImageType(recipe.imageType);
                 setMethod(recipe.method);
-                setServings(recipe.servings || 0);
+                setServings(recipe.servings);
 
                 if (recipe.recipeIngredientDTOList) {
                     const mappedIngredients = recipe.recipeIngredientDTOList.map(item => ({
@@ -65,7 +65,7 @@ const UpdateRecipePage = () => {
                     setIngredientsList([]);
                 }
             } catch (error) {
-                alert('Failed to load recipe for editing');
+                alert('Failed to load recipe');
                 navigate(-1);
             }
         };

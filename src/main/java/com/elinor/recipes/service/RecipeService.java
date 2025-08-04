@@ -7,6 +7,7 @@ import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.mapper.RecipeIngredientMapper;
 import com.elinor.recipes.mapper.RecipeMapper;
 import com.elinor.recipes.model.Recipe;
+import com.elinor.recipes.model.RecipeIngredient;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeIngredientRepository;
 import com.elinor.recipes.repository.RecipeRepository;
@@ -65,16 +66,9 @@ public class RecipeService {
 
         recipeRepository.save(recipe);
 
-        createNewRecipeIngredientList(dto, recipe);
-
         return RecipeMapper.toDTO(recipe, false);
     }
 
-    private void createNewRecipeIngredientList(RecipeDTO dto, Recipe recipe) {
-        for (RecipeIngredientDTO i : dto.getRecipeIngredientDTOList()) {
-            recipeIngredientRepository.save(RecipeIngredientMapper.toEntity(i, recipe));
-        }
-    }
 
     public PageInfoDTO getRecipesCreatedByAnyone(String username, int page, int size) {
         User user = userRepository.findByUsername(username)
