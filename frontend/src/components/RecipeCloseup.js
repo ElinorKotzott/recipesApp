@@ -12,7 +12,7 @@ function RecipeCloseup({ recipe, onDelete }) {
         request('DELETE', `/recipes/${recipe.id}`)
             .then(() => {
                 alert("Recipe deleted");
-                navigate(-1);
+                navigate('/home');
             })
             .catch(() => alert("An error occurred trying to delete the recipe"));
 
