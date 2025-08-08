@@ -1,9 +1,6 @@
 package com.elinor.recipes.service;
 
-import com.elinor.recipes.dto.RecipeIngredientDTO;
-import com.elinor.recipes.dto.NutritionInfoDTO;
-import com.elinor.recipes.dto.PageInfoDTO;
-import com.elinor.recipes.dto.RecipeDTO;
+import com.elinor.recipes.dto.*;
 import com.elinor.recipes.mapper.RecipeIngredientMapper;
 import com.elinor.recipes.mapper.RecipeMapper;
 import com.elinor.recipes.model.Recipe;
@@ -23,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -137,9 +135,39 @@ public class RecipeService {
     }
 
     public void updateRecipe(Long id, RecipeDTO updatedRecipeDTO, User user) {
+        List<RecipeIngredientDTO> updatedRecipeIngredientList = updatedRecipeDTO.getRecipeIngredientDTOList();
+        List<RecipeIngredientDTO> currentRecipeIngredientList = RecipeIngredientMapper.toDTOList(recipeIngredientRepository.findById(id).stream().toList());
+
+        if (!areEqual(updatedRecipeIngredientList, currentRecipeIngredientList)) {
+            NutritionInfoDTO updatedRecipeNutritionInfoDTO = nutritionService.calculateNutrition(updatedRecipeIngredientList, updatedRecipeDTO.getServings());
+            updatedRecipeDTO.setCaloriesPerServing(updatedRecipeNutritionInfoDTO.getCaloriesPerServing());
+            updatedRecipeDTO.setCarbsPerServing(updatedRecipeNutritionInfoDTO.getCarbsPerServing());
+            updatedRecipeDTO.setFatPerServing(updatedRecipeNutritionInfoDTO.getFatPerServing());
+            updatedRecipeDTO.setProteinPerServing(updatedRecipeNutritionInfoDTO.getProteinPerServing());
+        }
+
         Recipe updatedRecipe = RecipeMapper.toEntity(updatedRecipeDTO, user);
         updatedRecipe.setId(id);
-
         recipeRepository.save(updatedRecipe);
     }
+
+
+
+    public boolean areEqual(List<RecipeIngredientDTO> list1, List<RecipeIngredientDTO> list2) {
+        if (list1.size() != list2.size()) return false;
+
+        for (RecipeIngredientDTO dto1 : list1) {
+            boolean matchFound = list2.stream().anyMatch(dto2 ->
+                    Objects.equals(dto1.getIngredientDTO().getId(), dto2.getIngredientDTO().getId()) &&
+                            Objects.equals(dto1.getQuantity(), dto2.getQuantity()) &&
+                            dto1.getUnit() == dto2.getUnit()
+            );
+
+            if (!matchFound) return false;
+        }
+
+        return true;
+    }
+
+
 }

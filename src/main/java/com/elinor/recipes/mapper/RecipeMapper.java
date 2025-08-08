@@ -1,8 +1,6 @@
 package com.elinor.recipes.mapper;
 
-import com.elinor.recipes.dto.IngredientDTO;
 import com.elinor.recipes.dto.RecipeDTO;
-import com.elinor.recipes.model.Ingredient;
 import com.elinor.recipes.model.Recipe;
 import com.elinor.recipes.model.User;
 
@@ -47,6 +45,11 @@ public class RecipeMapper {
         recipe.setImageType(dto.getImageType());
         recipe.setRecipeIngredientList(RecipeIngredientMapper.toEntityList(dto.getRecipeIngredientDTOList(), recipe));
         recipe.setServings(dto.getServings());
+        recipe.setCarbsPerServing(dto.getCarbsPerServing());
+        recipe.setCaloriesPerServing(dto.getCaloriesPerServing());
+        recipe.setFatPerServing(dto.getFatPerServing());
+        recipe.setProteinPerServing(dto.getProteinPerServing());
+
         recipe.setUser(user);
         return recipe;
     }
