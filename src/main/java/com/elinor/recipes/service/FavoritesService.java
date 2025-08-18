@@ -38,10 +38,7 @@ public class FavoritesService {
 
         Page<Recipe> recipePage = recipeRepository.findFavoriteRecipesByUsername(username, pageable);
 
-        List<RecipeDTO> recipeDTOList = recipePage
-                .stream()
-                .map(recipe -> RecipeMapper.toDTO(recipe, true))
-                .collect(Collectors.toList());
+        List<RecipeDTO> recipeDTOList = RecipeMapper.toDTOList(recipePage.stream().toList(), true);
 
         return new PageInfoDTO(
                 recipeDTOList,
@@ -50,7 +47,6 @@ public class FavoritesService {
                 recipePage.getTotalElements()
         );
     }
-
 
 
     public void toggleFavorite(String username, Long recipeId, boolean updatedFavoriteState) {

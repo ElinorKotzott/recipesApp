@@ -1,7 +1,7 @@
 package com.elinor.recipes.controller;
 
+import com.elinor.recipes.dto.PageInfoDTO;
 import com.elinor.recipes.dto.RecipeDTO;
-import com.elinor.recipes.model.Recipe;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.UserRepository;
 import com.elinor.recipes.service.RecipeService;
@@ -21,6 +21,32 @@ public class RecipeController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @GetMapping
+    public ResponseEntity<PageInfoDTO> getRecipesPage(
+            Authentication authentication,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(recipeService.getRecipesCreatedByAnyone(username, page, size));
+    }
+
+    @GetMapping("/mine")
+    public ResponseEntity<PageInfoDTO> getUserRecipesPage(
+            Authentication authentication,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(recipeService.getRecipesCreatedByUser(username, page, size));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RecipeDTO> getRecipeById(
+            Authentication authentication,
+            @PathVariable("id") Long recipeId){
+        String username = authentication.getName();
+        return ResponseEntity.ok(recipeService.getRecipeById(username, recipeId));
+    }
 
     @PostMapping
     public ResponseEntity<RecipeDTO> createNewRecipe(
