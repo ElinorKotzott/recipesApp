@@ -13,6 +13,8 @@ const CreatePage = () => {
     const [ingredientsList, setIngredientsList] = useState([]);
     const [allIngredients, setAllIngredients] = useState([]);
     const [units, setUnits] = useState([]);
+    const [allTags, setAllTags] = useState([]);
+    const [tagsList, setTagsList] = useState([]);
     const [method, setMethod] = useState("");
     const [servings, setServings] = useState(0);
     const navigate = useNavigate();
@@ -20,14 +22,16 @@ const CreatePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [ingredientsResponse, unitsResponse] = await Promise.all([
+                const [ingredientsResponse, unitsResponse, tagsResponse] = await Promise.all([
                     request('get', '/ingredients', null, true),
                     request('get', '/units', null, true),
+                    request('get', '/tags', null, true),
                 ]);
                 setAllIngredients(ingredientsResponse.data);
                 setUnits(unitsResponse.data);
+                setAllTags(tagsResponse.data);
             } catch (error) {
-                console.error('Failed to load ingredients or units:', error);
+                console.error('Failed to load ingredients, units or tags:', error);
             }
         };
         fetchData();
@@ -35,8 +39,29 @@ const CreatePage = () => {
 
     const addIngredient = (ingredientId, quantity, unit) => {
         const ingredient = allIngredients.find(i => i.id === parseInt(ingredientId));
-        setIngredientsList(myPreviousList => [...myPreviousList, { ingredient, quantity, unit }]);
+        setIngredientsList(previousList => [...previousList, { ingredient, quantity, unit }]);
     };
+
+    const removeIngredient = (ingredientId) => {
+        setIngredientsList(previousList => previousList.filter(item => item.ingredient.id !== ingredientId));
+    };
+
+    const addTag = (tag) => {
+        if (!tag) return;
+
+        setTagsList(previousList => {
+            if (previousList.some(t => t.id === tag.id)) {
+                alert('This tag has already been added!')
+                return previousList;
+            }
+            return [...previousList, tag];
+        });
+    };
+
+    const removeTag = (tagId) => {
+          setTagsList(previousList => previousList.filter(item => item.id !== tagId));
+    };
+
 
     const handleCreate = async (e) => {
         e.preventDefault();
@@ -50,6 +75,11 @@ const CreatePage = () => {
             unit: item.unit
         }));
 
+        const tagDTOList = tagsList.map(tag => ({
+                id: tag.id,
+                text: tag.text
+        }));
+
         try {
             await request('post', '/recipes', {
                 title,
@@ -59,6 +89,7 @@ const CreatePage = () => {
                 imageData,
                 imageType,
                 recipeIngredientDTOList,
+                tagDTOList,
                 method,
                 servings
             }, true);
@@ -91,7 +122,12 @@ const CreatePage = () => {
             setImageType={setImageType}
             ingredientsList={ingredientsList}
             addIngredient={addIngredient}
+            removeIngredient={removeIngredient}
             allIngredients={allIngredients}
+            tagsList={tagsList}
+            addTag={addTag}
+            removeTag={removeTag}
+            allTags={allTags}
             units={units}
             method={method}
             setMethod={setMethod}

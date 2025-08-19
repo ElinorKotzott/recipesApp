@@ -2,6 +2,7 @@ package com.elinor.recipes.mapper;
 
 import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.model.Recipe;
+import com.elinor.recipes.model.Tag;
 import com.elinor.recipes.model.User;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class RecipeMapper {
                 recipe.getImageType(),
                 RecipeIngredientMapper.toDTOList(recipe.getRecipeIngredientList()),
                 recipe.getMethod(),
-                //recipe.getTagList().stream().map(Tag::getText).collect(Collectors.toList()),
+                TagMapper.toDTOList(recipe.getTagList()),
                 isFavorite,
                 recipe.getProteinPerServing(),
                 recipe.getCarbsPerServing(),
@@ -45,11 +46,11 @@ public class RecipeMapper {
         recipe.setImageType(dto.getImageType());
         recipe.setRecipeIngredientList(RecipeIngredientMapper.toEntityList(dto.getRecipeIngredientDTOList(), recipe));
         recipe.setServings(dto.getServings());
+        recipe.setTagList(TagMapper.toEntityList(dto.getTagDTOList()));
         recipe.setCarbsPerServing(dto.getCarbsPerServing());
         recipe.setCaloriesPerServing(dto.getCaloriesPerServing());
         recipe.setFatPerServing(dto.getFatPerServing());
         recipe.setProteinPerServing(dto.getProteinPerServing());
-
         recipe.setUser(user);
         return recipe;
     }

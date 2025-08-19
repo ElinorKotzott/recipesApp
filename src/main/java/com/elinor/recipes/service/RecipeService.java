@@ -4,7 +4,6 @@ import com.elinor.recipes.dto.*;
 import com.elinor.recipes.mapper.RecipeIngredientMapper;
 import com.elinor.recipes.mapper.RecipeMapper;
 import com.elinor.recipes.model.Recipe;
-import com.elinor.recipes.model.RecipeIngredient;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeIngredientRepository;
 import com.elinor.recipes.repository.RecipeRepository;

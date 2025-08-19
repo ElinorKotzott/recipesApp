@@ -48,8 +48,13 @@ public class Recipe {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
-    //@ManyToMany(mappedBy = "recipes")
-    //private List<Tag> tagList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "recipes_tags",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tagList = new ArrayList<>();
 
     @Column(name = "protein_per_serving")
     private Double proteinPerServing;

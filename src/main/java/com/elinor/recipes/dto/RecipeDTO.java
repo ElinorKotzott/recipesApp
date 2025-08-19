@@ -1,5 +1,6 @@
 package com.elinor.recipes.dto;
 
+import com.elinor.recipes.model.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class RecipeDTO {
     private String imageType;
     private List<RecipeIngredientDTO> recipeIngredientDTOList;
     private String method;
-    //private List<String> tags;
+    private List<TagDTO> tagDTOList;
     private boolean favorite;
     private Double proteinPerServing;
     private Double carbsPerServing;

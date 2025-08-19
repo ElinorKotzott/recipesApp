@@ -32,6 +32,11 @@ function RecipeCloseup({ recipe, onDelete }) {
                 initialIsFavorite={recipe.favorite}
             />
             <p>{recipe.description}</p>
+            <p>
+                {recipe.tagDTOList && recipe.tagDTOList.length > 0
+                    ? recipe.tagDTOList.map(tag => tag.text).join(" ")
+                    : "no tags found"}
+            </p>
             <img className="image-closeup"
                 src={
                     recipe.imageData
@@ -46,18 +51,19 @@ function RecipeCloseup({ recipe, onDelete }) {
             <p> {recipe.cookingTime} min</p>
             <h3>Ingredients:</h3>
             <ul>
-              {recipe.recipeIngredientDTOList && recipe.recipeIngredientDTOList.length > 0 ? (
-                recipe.recipeIngredientDTOList.map((item, index) => (
-                  <li key={index}>
-                    {item.quantity} {item.unit !== "WHOLE" ? item.unit.toLowerCase() + " " : ""}{item.ingredientDTO?.name || 'Unnamed ingredient'}
-                  </li>
-                ))
-              ) : (
-                <li>No ingredients found</li>
-              )}
+                {recipe.recipeIngredientDTOList && recipe.recipeIngredientDTOList.length > 0 ? (
+                    recipe.recipeIngredientDTOList.map((item, index) => (
+                        <li key={index}>
+                            {item.quantity} {item.unit !== "WHOLE" ? item.unit.toLowerCase() + " " : ""}{item.ingredientDTO?.name.toLowerCase() || 'Unnamed ingredient'}
+                        </li>
+                    ))
+                ) : (
+                    <li>No ingredients found</li>
+                )}
             </ul>
 
-            <p>Method: {recipe.method}</p>
+            <h3>Method:</h3>
+            <p>{recipe.method}</p>
             <h3>Nutrition information per serving:</h3>
             <p>Calories: {recipe.caloriesPerServing ? Number(recipe.caloriesPerServing).toFixed(1) : 'No information found'}</p>
             <p>Protein: {recipe.proteinPerServing ? Number(recipe.proteinPerServing).toFixed(1) : 'No information found'}</p>

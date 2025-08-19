@@ -1,9 +1,9 @@
 package com.elinor.recipes.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,8 +17,7 @@ public class Tag {
     @Column(name = "text", nullable = false, length = 30, unique = true)
     private String text;
 
-    @ManyToMany
-    @JoinTable(name = "recipes_tags", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private List<Recipe> recipes;
+    @ManyToMany(mappedBy = "tagList")
+    private List<Recipe> recipes = new ArrayList<>();
 }
 

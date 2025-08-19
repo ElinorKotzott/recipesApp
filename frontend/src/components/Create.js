@@ -1,6 +1,7 @@
 import SubmitButton from './SubmitButton.js';
 import IngredientsDropdownMenu from './IngredientsDropdownMenu';
 import UnitDropdownMenu from './UnitDropdownMenu';
+import TagDropdownMenu from './TagDropdownMenu';
 import { useState } from 'react';
 
 const Create = ({
@@ -19,7 +20,12 @@ const Create = ({
     setImageType,
     ingredientsList,
     addIngredient,
+    removeIngredient,
     allIngredients,
+    tagsList,
+    addTag,
+    removeTag,
+    allTags,
     units,
     method,
     setMethod,
@@ -43,6 +49,7 @@ const Create = ({
     };
 
     const [selectedIngredient, setSelectedIngredient] = useState("");
+    const [selectedTag, setSelectedTag] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState("");
     const [quantity, setQuantity] = useState(0);
 
@@ -55,6 +62,24 @@ const Create = ({
         setSelectedIngredient("");
         setSelectedUnit("");
         setQuantity(0);
+    };
+
+    const handleRemoveIngredient = (ingredientId) => {
+        removeIngredient(ingredientId);
+    };
+        
+
+    const handleAddTag = () => {
+            if (!selectedTag) {
+                alert("Tag not selected");
+                return;
+            }
+            addTag(selectedTag);
+            setSelectedTag(null);
+    };
+
+    const handleRemoveTag = (tagId) => {
+        removeTag(tagId);
     };
 
 
@@ -155,13 +180,30 @@ const Create = ({
                             <SubmitButton onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
 
                             <ul>
-                              {ingredientsList.map((item, index) => (
-                                <li key={index}>
-                                  {item.quantity} {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()} {item.ingredient.name}
-                                </li>
-                              ))}
+                                {ingredientsList?.map((item, index) => (
+                                    <li key={index}>
+                                        {item.quantity} {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()} {item.ingredient.name}
+                                        <button className="button" onClick={() => handleRemoveIngredient(item.ingredient.id)}>remove</button>
+                                    </li>
+                                ))}
                             </ul>
 
+                            <TagDropdownMenu
+                                selectedTag={selectedTag}
+                                onChange={setSelectedTag}
+                                tags={allTags}
+                            />
+
+                            <SubmitButton onClick={handleAddTag}>Add Tag</SubmitButton>
+
+                            <ul>
+                                {tagsList?.map((tag) => (
+                                    <li key={tag.id}>
+                                        {tag.text}
+                                        <button className="button" onClick={() => handleRemoveTag(tag.id)}>remove</button>
+                                    </li>
+                                ))}
+                            </ul>
 
         </div>
     );
