@@ -15,6 +15,8 @@ const UpdateRecipePage = () => {
     const [imageType, setImageType] = useState("");
     const [ingredientsList, setIngredientsList] = useState([]);
     const [allIngredients, setAllIngredients] = useState([]);
+    const [allTags, setAllTags] = useState([]);
+    const [tagsList, setTagsList] = useState([]);
     const [units, setUnits] = useState([]);
     const [method, setMethod] = useState("");
     const [servings, setServings] = useState(0);
@@ -22,14 +24,16 @@ const UpdateRecipePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [ingredientsResponse, unitsResponse] = await Promise.all([
+                const [ingredientsResponse, unitsResponse, tagsResponse] = await Promise.all([
                     request('get', '/ingredients', null, true),
                     request('get', '/units', null, true),
+                    request('get', '/tags', null, true),
                 ]);
                 setAllIngredients(ingredientsResponse.data);
                 setUnits(unitsResponse.data);
+                setAllTags(tagsResponse.data);
             } catch (error) {
-                console.error('Failed to load ingredients or units:', error);
+                console.error('Failed to load ingredients, units or tags:', error);
             }
         };
 
@@ -64,6 +68,13 @@ const UpdateRecipePage = () => {
                 } else {
                     setIngredientsList([]);
                 }
+
+                if (recipe.tagDTOList) {
+                    setTagsList(recipe.tagDTOList);
+                } else {
+                    setTagsList([]);
+                }
+
             } catch (error) {
                 alert('Failed to load recipe');
                 navigate(-1);
@@ -77,6 +88,26 @@ const UpdateRecipePage = () => {
         const ingredient = allIngredients.find(i => i.id === parseInt(ingredientId));
         setIngredientsList(myPreviousList => [...myPreviousList, { ingredient, quantity, unit }]);
     };
+
+    const removeIngredient = (ingredientId) => {
+            setIngredientsList(previousList => previousList.filter(item => item.ingredient.id !== ingredientId));
+        };
+
+        const addTag = (tag) => {
+            if (!tag) return;
+
+            setTagsList(previousList => {
+                if (previousList.some(t => t.id === tag.id)) {
+                    alert('This tag has already been added!')
+                    return previousList;
+                }
+                return [...previousList, tag];
+            });
+        };
+
+        const removeTag = (tagId) => {
+              setTagsList(previousList => previousList.filter(item => item.id !== tagId));
+        };
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -100,6 +131,7 @@ const UpdateRecipePage = () => {
                 imageType,
                 recipeIngredientDTOList,
                 method,
+                tagDTOList: tagsList,
                 servings
             }, true);
             alert('Recipe updated successfully!');
@@ -130,7 +162,12 @@ const UpdateRecipePage = () => {
             setImageType={setImageType}
             ingredientsList={ingredientsList}
             addIngredient={addIngredient}
+            removeIngredient={removeIngredient}
             allIngredients={allIngredients}
+            tagsList={tagsList}
+            addTag={addTag}
+            removeTag={removeTag}
+            allTags={allTags}
             units={units}
             method={method}
             setMethod={setMethod}

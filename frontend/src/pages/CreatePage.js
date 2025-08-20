@@ -75,11 +75,6 @@ const CreatePage = () => {
             unit: item.unit
         }));
 
-        const tagDTOList = tagsList.map(tag => ({
-                id: tag.id,
-                text: tag.text
-        }));
-
         try {
             await request('post', '/recipes', {
                 title,
@@ -89,7 +84,7 @@ const CreatePage = () => {
                 imageData,
                 imageType,
                 recipeIngredientDTOList,
-                tagDTOList,
+                tagDTOList: tagsList,
                 method,
                 servings
             }, true);
@@ -103,7 +98,6 @@ const CreatePage = () => {
             }
         }
     };
-
 
     return (
         <Create
