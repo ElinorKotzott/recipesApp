@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "steps")
+@Table(name = "steps", uniqueConstraints = @UniqueConstraint(columnNames = {"recipe_id", "step_number"}))
+
 public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -34,7 +34,7 @@ function RecipeCloseup({ recipe, onDelete }) {
             <p>{recipe.description}</p>
             <p>
                 {recipe.tagDTOList && recipe.tagDTOList.length > 0
-                    ? recipe.tagDTOList.map(tag => tag.text).join(" ")
+                    ? recipe.tagDTOList.map(tag => tag.text).join(" | ")
                     : "no tags found"}
             </p>
             <img className="image-closeup"
