@@ -1,213 +1,250 @@
-import SubmitButton from './SubmitButton.js';
-import IngredientsDropdownMenu from './IngredientsDropdownMenu';
-import UnitDropdownMenu from './UnitDropdownMenu';
-import TagDropdownMenu from './TagDropdownMenu';
-import { useState } from 'react';
+import SubmitButton from "./SubmitButton.js";
+import IngredientsDropdownMenu from "./IngredientsDropdownMenu";
+import UnitDropdownMenu from "./UnitDropdownMenu";
+import TagDropdownMenu from "./TagDropdownMenu";
+import { useState } from "react";
 
 const Create = ({
-    title,
-    setTitle,
-    description,
-    setDescription,
-    prepTime,
-    setPrepTime,
-    cookingTime,
-    setCookingTime,
-    handleSubmit,
-    imageData,
-    setImageData,
-    imageType,
-    setImageType,
-    ingredientsList,
-    addIngredient,
-    removeIngredient,
-    allIngredients,
-    tagsList,
-    addTag,
-    removeTag,
-    allTags,
-    units,
-    method,
-    setMethod,
-    servings,
-    setServings,
-    isUpdate
+  title,
+  setTitle,
+  description,
+  setDescription,
+  prepTime,
+  setPrepTime,
+  cookingTime,
+  setCookingTime,
+  handleSubmit,
+  setImageData,
+  setImageType,
+  ingredientsList,
+  addIngredient,
+  removeIngredient,
+  allIngredients,
+  tagsList,
+  addTag,
+  removeTag,
+  allTags,
+  units,
+  stepsList,
+  addStep,
+  removeStep,
+  method,
+  setMethod,
+  servings,
+  setServings,
+  isUpdate,
 }) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const base64String = reader.result.split(',')[1];
-            setImageData(base64String);
-            setImageType(file.type);
-        };
-
-        reader.readAsDataURL(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result.split(",")[1];
+      setImageData(base64String);
+      setImageType(file.type);
     };
 
-    const [selectedIngredient, setSelectedIngredient] = useState("");
-    const [selectedTag, setSelectedTag] = useState(null);
-    const [selectedUnit, setSelectedUnit] = useState("");
-    const [quantity, setQuantity] = useState(0);
+    reader.readAsDataURL(file);
+  };
 
-    const handleAddIngredient = () => {
-        if (!selectedIngredient || !selectedUnit || quantity <= 0) {
-            alert("Ingredient, quantity or unit missing!");
-            return;
-        }
-        addIngredient(selectedIngredient, quantity, selectedUnit);
-        setSelectedIngredient("");
-        setSelectedUnit("");
-        setQuantity(0);
-    };
+  const [selectedIngredient, setSelectedIngredient] = useState("");
+  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedUnit, setSelectedUnit] = useState("");
+  const [stepInput, setStepInput] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
-    const handleRemoveIngredient = (ingredientId) => {
-        removeIngredient(ingredientId);
-    };
-        
+  const handleAddIngredient = () => {
+    if (!selectedIngredient || !selectedUnit || quantity <= 0) {
+      alert("Ingredient, quantity or unit missing!");
+      return;
+    }
+    addIngredient(selectedIngredient, quantity, selectedUnit);
+    setSelectedIngredient("");
+    setSelectedUnit("");
+    setQuantity(0);
+  };
 
-    const handleAddTag = () => {
-            if (!selectedTag) {
-                alert("Tag not selected");
-                return;
-            }
-            addTag(selectedTag);
-            setSelectedTag(null);
-    };
+  const handleRemoveIngredient = (ingredientId) => {
+    removeIngredient(ingredientId);
+  };
 
-    const handleRemoveTag = (tagId) => {
-        removeTag(tagId);
-    };
+  const handleAddTag = () => {
+    if (!selectedTag) {
+      alert("Tag not selected");
+      return;
+    }
+    addTag(selectedTag);
+    setSelectedTag(null);
+  };
 
+  const handleRemoveTag = (tagId) => {
+    removeTag(tagId);
+  };
 
-    return (
-        <div className="create-container">
-            <h2>{isUpdate ? 'Update Recipe' : 'Create New Recipe'}</h2>
-            <form onSubmit={handleSubmit}>
+  const handleAddStep = () => {
+    if (!stepInput.trim()) return;
 
-                <label htmlFor="title">Title</label>
-                <input
-                    type="text"
-                    id="title"
-                    value={title}
-                    required
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+    addStep({ instructionText: stepInput });
+    setStepInput("");
+  };
 
-                <label htmlFor="description">Description</label>
-                <textarea
-                    id="description"
-                    value={description}
-                    required
-                    onChange={(e) => setDescription(e.target.value)}
-                />
+  const handleRemoveStep = (step) => {
+    removeStep(step);
+  };
 
-                <label htmlFor="method">Method</label>
-                <textarea
-                    id="method"
-                    value={method}
-                    required
-                    onChange={(e) => setMethod(e.target.value)}
-                />
+  return (
+    <div className="create-container">
+      <h2>{isUpdate ? "Update Recipe" : "Create New Recipe"}</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="title">Title</label>
+        <input
+          type="text"
+          id="title"
+          value={title}
+          required
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-                <label htmlFor="prepTime">Preparation Time (mins)</label>
-                <input
-                    type="number"
-                    min="0"
-                    id="prepTime"
-                    value={prepTime}
-                    required
-                    onChange={(e) => setPrepTime(Number(e.target.value))}
-                />
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          value={description}
+          required
+          onChange={(e) => setDescription(e.target.value)}
+        />
 
-                <label htmlFor="cookingTime">Cooking Time (mins)</label>
-                <input
-                    type="number"
-                    min="0"
-                    id="cookingTime"
-                    value={cookingTime}
-                    required
-                    onChange={(e) => setCookingTime(Number(e.target.value))}
-                />
+        <label htmlFor="method">Method</label>
+        <textarea
+          id="method"
+          value={method}
+          required
+          onChange={(e) => setMethod(e.target.value)}
+        />
 
-                <label htmlFor="image">Image</label>
-                    <input
-                    type="file"
-                    id="image"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                />
+        <label htmlFor="prepTime">Preparation Time (mins)</label>
+        <input
+          type="number"
+          min="0"
+          id="prepTime"
+          value={prepTime}
+          required
+          onChange={(e) => setPrepTime(Number(e.target.value))}
+        />
 
-                <label htmlFor="servings">Servings</label>
-                    <input
-                    type="number"
-                    min="1"
-                    id="servings"
-                    value={servings}
-                    required
-                    onChange={(e) => setServings(Number(e.target.value))}
-                />
+        <label htmlFor="cookingTime">Cooking Time (mins)</label>
+        <input
+          type="number"
+          min="0"
+          id="cookingTime"
+          value={cookingTime}
+          required
+          onChange={(e) => setCookingTime(Number(e.target.value))}
+        />
 
-                <SubmitButton type="submit">
-                    {isUpdate ? 'Update' : 'Create'}
-                </SubmitButton>
-            </form>
+        <label htmlFor="image">Image</label>
+        <input
+          type="file"
+          id="image"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
 
-            <label htmlFor="ingredient">Add Ingredient</label>
-                            <IngredientsDropdownMenu
-                                selectedIngredient={selectedIngredient}
-                                onChange={setSelectedIngredient}
-                                ingredients={allIngredients}
-                            />
+        <label htmlFor="servings">Servings</label>
+        <input
+          type="number"
+          min="1"
+          id="servings"
+          value={servings}
+          required
+          onChange={(e) => setServings(Number(e.target.value))}
+        />
 
-                            <input
-                                type="number"
-                                min="1"
-                                placeholder="Quantity"
-                                value={quantity}
-                                onChange={(e) => setQuantity(Number(e.target.value))}
-                            />
+        <SubmitButton type="submit">
+          {isUpdate ? "Update" : "Create"}
+        </SubmitButton>
+      </form>
 
-                            <UnitDropdownMenu
-                                selectedUnit={selectedUnit}
-                                onChange={setSelectedUnit}
-                                units={units}
-                            />
+      <label htmlFor="ingredient">Add Ingredient</label>
+      <IngredientsDropdownMenu
+        selectedIngredient={selectedIngredient}
+        onChange={setSelectedIngredient}
+        ingredients={allIngredients}
+      />
 
-                            <SubmitButton onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
+      <input
+        type="number"
+        min="1"
+        placeholder="Quantity"
+        value={quantity}
+        onChange={(e) => setQuantity(Number(e.target.value))}
+      />
 
-                            <ul>
-                                {ingredientsList?.map((item, index) => (
-                                    <li key={index}>
-                                        {item.quantity} {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()} {item.ingredient.name}
-                                        <button className="button" onClick={() => handleRemoveIngredient(item.ingredient.id)}>remove</button>
-                                    </li>
-                                ))}
-                            </ul>
+      <UnitDropdownMenu
+        selectedUnit={selectedUnit}
+        onChange={setSelectedUnit}
+        units={units}
+      />
 
-                            <TagDropdownMenu
-                                selectedTag={selectedTag}
-                                onChange={setSelectedTag}
-                                tags={allTags}
-                            />
+      <SubmitButton onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
 
-                            <SubmitButton onClick={handleAddTag}>Add Tag</SubmitButton>
+      <ul>
+        {ingredientsList?.map((item, index) => (
+          <li key={index}>
+            {item.quantity}{" "}
+            {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()}{" "}
+            {item.ingredient.name}
+            <button
+              className="button"
+              onClick={() => handleRemoveIngredient(item.ingredient.id)}
+            >
+              remove
+            </button>
+          </li>
+        ))}
+      </ul>
 
-                            <ul>
-                                {tagsList?.map((tag) => (
-                                    <li key={tag.id}>
-                                        {tag.text}
-                                        <button className="button" onClick={() => handleRemoveTag(tag.id)}>remove</button>
-                                    </li>
-                                ))}
-                            </ul>
+      <TagDropdownMenu
+        selectedTag={selectedTag}
+        onChange={setSelectedTag}
+        tags={allTags}
+      />
 
-        </div>
-    );
+      <SubmitButton onClick={handleAddTag}>Add Tag</SubmitButton>
+
+      <ul>
+        {tagsList?.map((tag) => (
+          <li key={tag.id}>
+            {tag.text}
+            <button className="button" onClick={() => handleRemoveTag(tag.id)}>
+              remove
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <label htmlFor="steps">Steps</label>
+      <p id="currentStep">{stepsList.length + 1}.</p>
+      <textarea
+        id="steps"
+        value={stepInput}
+        onChange={(e) => setStepInput(e.target.value)}
+      />
+
+      <SubmitButton onClick={handleAddStep}>Add Step</SubmitButton>
+
+      <ol>
+        {stepsList?.map((step, index) => (
+          <li key={index}>
+            {step.instructionText}
+            <button className="button" onClick={() => handleRemoveStep(step)}>
+              remove
+            </button>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
 };
 
 export default Create;
-

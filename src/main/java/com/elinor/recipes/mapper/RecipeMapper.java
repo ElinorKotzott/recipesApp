@@ -2,7 +2,6 @@ package com.elinor.recipes.mapper;
 
 import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.model.Recipe;
-import com.elinor.recipes.model.Tag;
 import com.elinor.recipes.model.User;
 
 import java.util.List;

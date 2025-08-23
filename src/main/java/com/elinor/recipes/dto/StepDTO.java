@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StepDTO {
+    private Long id;
     private Long recipeId;
     private String instructionText;
     private Integer stepNumber;

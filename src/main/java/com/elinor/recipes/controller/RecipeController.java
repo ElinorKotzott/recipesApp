@@ -66,7 +66,7 @@ public class RecipeController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateUserRecipe(
             @PathVariable Long id,
             @RequestBody RecipeDTO updatedRecipeDTO,

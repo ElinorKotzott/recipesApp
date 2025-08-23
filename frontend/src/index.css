@@ -3,116 +3,121 @@ html {
 }
 
 body {
-    background-color: #F4E7E1;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 100;
-    color: #333333;
-    height: 100vh;
-    margin: 20px;
+  background-color: #f4e7e1;
+  font-family: "Raleway", sans-serif;
+  font-weight: 100;
+  color: #333333;
+  height: 100vh;
+  margin: 20px;
 }
 
 .auth-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
 .auth {
-    display: inline-block;
-    background-color: #F2F2F2;
-    margin: 60px;
-    padding: 60px 60px;
-    border-radius: 25px;
+  display: inline-block;
+  background-color: #f2f2f2;
+  margin: 60px;
+  padding: 60px 60px;
+  border-radius: 25px;
 }
 
 .button {
-    font-family: 'Raleway', sans-serif;
-    background-color: #F2F2F2;
-    padding: 5px 15px;
-    border-radius: 15px;
-    color: #333333;
-    border: 1px solid #333333;
+  font-family: "Raleway", sans-serif;
+  background-color: #f2f2f2;
+  padding: 5px 15px;
+  border-radius: 15px;
+  color: #333333;
+  border: 1px solid #333333;
 }
 
 .button:hover {
-    background-color: #EDEDED;
-    border: 1px solid #000000;
+  background-color: #ededed;
+  border: 1px solid #000000;
 }
 
 .profile-picture {
-    height: 4em;
-    width: 4em;
-    border-radius: 50%;
-    border: solid white 2px;
-    object-fit: cover;
+  height: 4em;
+  width: 4em;
+  border-radius: 50%;
+  border: solid white 2px;
+  object-fit: cover;
 }
 
 .recipe-card-image {
-    height: 7em;
-    width: 5em;
-    border-radius: 8px;
-    border: solid white 2px;
-    object-fit: cover;
+  height: 7em;
+  width: 5em;
+  border-radius: 8px;
+  border: solid white 2px;
+  object-fit: cover;
 }
 
 .image-button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
 }
 
 .recipe-image-container {
-    display: inline-block;
+  display: inline-block;
 }
 
 .image-button-container {
-    display: inline-block;
-    position: relative;
+  display: inline-block;
+  position: relative;
 }
 
-.your-favs-container, .latest-recipes, .your-recipes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+.your-favs-container,
+.latest-recipes,
+.your-recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .recipe-card {
-    margin: 25px;
-    display: inline-block;
+  margin: 25px;
+  display: inline-block;
 }
 
 .pagination-button {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 
 .card-link {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .image-closeup {
-    height: 30em;
-    width: 22em;
-    border: solid white 2px;
-    object-fit: cover;
+  height: 30em;
+  width: 22em;
+  border: solid white 2px;
+  object-fit: cover;
 }
 
 .recipe-closeup {
-    display: inline-block;
-    background-color: white;
-    margin: 10px;
-    padding: 10px 25px;
-    border-radius: 10px;
-    position: relative;
-    width: 550px;
+  display: inline-block;
+  background-color: white;
+  margin: 10px;
+  padding: 10px 25px;
+  border-radius: 10px;
+  position: relative;
+  width: 550px;
 }
 
 .favorites-button {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  cursor: pointer;
+}
+
+#currentStep {
+  display: inline-block;
 }

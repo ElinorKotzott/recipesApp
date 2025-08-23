@@ -13,6 +13,7 @@ public class StepMapper {
         if (step == null) return null;
 
         StepDTO dto = new StepDTO();
+        dto.setId(step.getId());
         dto.setRecipeId(step.getRecipe() != null ? step.getRecipe().getId() : null);
         dto.setInstructionText(step.getInstructionText());
         dto.setStepNumber(step.getStepNumber());
@@ -23,6 +24,7 @@ public class StepMapper {
         if (dto == null) return null;
 
         Step step = new Step();
+        step.setId(dto.getId());
         step.setRecipe(recipe);
         step.setInstructionText(dto.getInstructionText());
         step.setStepNumber(dto.getStepNumber());
