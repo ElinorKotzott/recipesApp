@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 function LogoutButton() {
   const navigate = useNavigate();
@@ -10,9 +11,9 @@ function LogoutButton() {
   };
 
   return (
-    <button type="submit" className="button" onClick={handleLogout}>
+    <Button variant="primary" type="submit" className="button" onClick={handleLogout}>
       Logout
-    </button>
+    </Button>
   );
 }
 

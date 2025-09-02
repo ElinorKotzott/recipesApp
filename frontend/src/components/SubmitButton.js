@@ -1,8 +1,10 @@
+import Button from 'react-bootstrap/Button';
+
 function SubmitButton({ onClick, children, className = "", type = "button" }) {
   return (
-    <button type={type} className={`button ${className}`} onClick={onClick}>
-      {children}
-    </button>
+    <Button variant="primary" type={type} className={`button ${className}`} onClick={onClick}>
+          {children}
+    </Button>
   );
 }
 
