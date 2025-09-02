@@ -1,4 +1,4 @@
-import SubmitButton from "./SubmitButton.js";
+import PrimaryButton from "./buttons/PrimaryButton.js";
 import { useNavigate } from "react-router-dom";
 
 const Register = ({
@@ -91,11 +91,11 @@ const Register = ({
           <br />
           <br />
 
-          <SubmitButton type="submit">Register</SubmitButton>
+          <PrimaryButton type="submit">Register</PrimaryButton>
           <p>Already have an account?</p>
-          <SubmitButton type="submit" onClick={() => navigate("/login")}>
+          <PrimaryButton type="submit" onClick={() => navigate("/login")}>
             Login
-          </SubmitButton>
+          </PrimaryButton>
         </form>
       </div>
     </div>

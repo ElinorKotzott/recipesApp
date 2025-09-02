@@ -31,7 +31,7 @@ function Recipe({
 
                 <p>{recipe.description}</p>
 
-                <div className="image-button-container">
+                <div className="favorite-button-container">
                   <Link to={`/recipes/${recipe.id}`}>
                     <img
                       className="recipe-card-image"
@@ -45,7 +45,7 @@ function Recipe({
                   </Link>
 
                   <ToggleFavoritesButton
-                    className="image-button"
+                    className="favorite-button"
                     recipeId={recipe.id}
                     initialIsFavorite={recipe.favorite}
                   />
@@ -79,7 +79,7 @@ function Recipe({
 
                 <p>{recipe.description}</p>
 
-                <div className="image-button-container">
+                <div className="favorite-button-container">
                   <Link to={`/recipes/${recipe.id}`}>
                     <img
                       className="recipe-card-image"
@@ -93,7 +93,7 @@ function Recipe({
                   </Link>
 
                   <ToggleFavoritesButton
-                    className="image-button"
+                    className="favorite-button"
                     recipeId={recipe.id}
                     initialIsFavorite={recipe.favorite}
                   />

@@ -1,8 +1,10 @@
-import SubmitButton from "./SubmitButton.js";
+import PrimaryButton from "./buttons/PrimaryButton.js";
+import Button from 'react-bootstrap/Button';
 import IngredientsDropdownMenu from "./IngredientsDropdownMenu";
 import UnitDropdownMenu from "./UnitDropdownMenu";
 import TagDropdownMenu from "./TagDropdownMenu";
 import { useState } from "react";
+import Form from 'react-bootstrap/Form';
 
 const Create = ({
   title,
@@ -114,14 +116,6 @@ const Create = ({
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <label htmlFor="method">Method</label>
-        <textarea
-          id="method"
-          value={method}
-          required
-          onChange={(e) => setMethod(e.target.value)}
-        />
-
         <label htmlFor="prepTime">Preparation Time (mins)</label>
         <input
           type="number"
@@ -146,7 +140,7 @@ const Create = ({
         <input
           type="file"
           id="image"
-          accept="image/*"
+          accept="image*//*"
           onChange={handleImageChange}
         />
 
@@ -160,9 +154,9 @@ const Create = ({
           onChange={(e) => setServings(Number(e.target.value))}
         />
 
-        <SubmitButton type="submit">
+        <PrimaryButton type="submit">
           {isUpdate ? "Update" : "Create"}
-        </SubmitButton>
+        </PrimaryButton>
       </form>
 
       <label htmlFor="ingredient">Add Ingredient</label>
@@ -186,7 +180,7 @@ const Create = ({
         units={units}
       />
 
-      <SubmitButton onClick={handleAddIngredient}>Add Ingredient</SubmitButton>
+      <PrimaryButton onClick={handleAddIngredient}>Add Ingredient</PrimaryButton>
 
       <ul>
         {ingredientsList?.map((item, index) => (
@@ -194,12 +188,13 @@ const Create = ({
             {item.quantity}{" "}
             {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()}{" "}
             {item.ingredient.name}
-            <button
+            <Button
+              variant="dark"
               className="button"
               onClick={() => handleRemoveIngredient(item.ingredient.id)}
             >
               remove
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
@@ -210,15 +205,15 @@ const Create = ({
         tags={allTags}
       />
 
-      <SubmitButton onClick={handleAddTag}>Add Tag</SubmitButton>
+      <PrimaryButton onClick={handleAddTag}>Add Tag</PrimaryButton>
 
       <ul>
         {tagsList?.map((tag) => (
           <li key={tag.id}>
             {tag.text}
-            <button className="button" onClick={() => handleRemoveTag(tag.id)}>
+            <Button variant="dark" className="button" onClick={() => handleRemoveTag(tag.id)}>
               remove
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
@@ -231,15 +226,15 @@ const Create = ({
         onChange={(e) => setStepInput(e.target.value)}
       />
 
-      <SubmitButton onClick={handleAddStep}>Add Step</SubmitButton>
+      <PrimaryButton onClick={handleAddStep}>Add Step</PrimaryButton>
 
       <ol>
         {stepsList?.map((step, index) => (
           <li key={index}>
             {step.instructionText}
-            <button className="button" onClick={() => handleRemoveStep(step)}>
+            <Button variant="dark" className="button" onClick={() => handleRemoveStep(step)}>
               remove
-            </button>
+            </Button>
           </li>
         ))}
       </ol>

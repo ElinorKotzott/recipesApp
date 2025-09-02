@@ -1,6 +1,4 @@
-//this form accepts username, password, the setter functions and handleLogin as props from the LoginPage
-
-import SubmitButton from "./SubmitButton.js";
+import PrimaryButton from "./buttons/PrimaryButton.js";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({
@@ -45,11 +43,11 @@ const Login = ({
           <br />
           <br />
 
-          <SubmitButton type="submit">Login</SubmitButton>
+          <PrimaryButton type="submit">Login</PrimaryButton>
           <p>Don't have an account yet?</p>
-          <SubmitButton type="submit" onClick={() => navigate("/register")}>
+          <PrimaryButton type="submit" onClick={() => navigate("/register")}>
             Register
-          </SubmitButton>
+          </PrimaryButton>
         </form>
       </div>
     </div>

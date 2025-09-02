@@ -1,6 +1,7 @@
 import { request } from "../axiosHelper";
 import SubmitButton from "./SubmitButton";
 import ToggleFavoritesButton from "./ToggleFavoritesButton";
+import PrimaryButton from "./buttons/PrimaryButton.js";
 import { useNavigate } from "react-router-dom";
 
 function RecipeCloseup({ recipe, onDelete }) {
@@ -31,7 +32,7 @@ function RecipeCloseup({ recipe, onDelete }) {
           : "No serving size found"}
       </p>
       <ToggleFavoritesButton
-        className="favorites-button"
+        className="favorite-button"
         recipeId={recipe.id}
         initialIsFavorite={recipe.favorite}
       />
@@ -103,15 +104,15 @@ function RecipeCloseup({ recipe, onDelete }) {
       </p>
 
       {isOwner && (
-        <SubmitButton onClick={handleDelete} className="delete-button">
+        <PrimaryButton onClick={handleDelete} className="delete-button">
           Delete
-        </SubmitButton>
+        </PrimaryButton>
       )}
 
       {isOwner && (
-        <SubmitButton onClick={handleUpdate} className="update-button">
+        <PrimaryButton onClick={handleUpdate} className="update-button">
           Update
-        </SubmitButton>
+        </PrimaryButton>
       )}
     </div>
   );

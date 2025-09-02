@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { request } from "../axiosHelper";
-import SubmitButton from "./SubmitButton";
+import Button from 'react-bootstrap/Button';
 
 function ToggleFavoritesButton({
   recipeId,
@@ -36,9 +36,9 @@ function ToggleFavoritesButton({
   };
 
   return (
-    <SubmitButton onClick={toggleFavs} className={className}>
+    <Button variant="light" className={className} onClick={toggleFavs}>
       {isFavorite ? "❤️" : "🤍"}
-    </SubmitButton>
+    </Button>
   );
 }
 

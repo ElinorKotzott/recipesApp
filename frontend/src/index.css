@@ -9,6 +9,12 @@ body {
   color: #333333;
   height: 100vh;
   margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.page-container {
+  width: 1000px;
 }
 
 .auth-container {
@@ -56,7 +62,7 @@ body {
   object-fit: cover;
 }
 
-.image-button {
+.favorite-button {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -67,7 +73,7 @@ body {
   display: inline-block;
 }
 
-.image-button-container {
+.favorite-button-container {
   display: inline-block;
   position: relative;
 }
@@ -109,13 +115,6 @@ body {
   border-radius: 10px;
   position: relative;
   width: 550px;
-}
-
-.favorites-button {
-  position: absolute;
-  top: 25px;
-  right: 25px;
-  cursor: pointer;
 }
 
 #currentStep {
