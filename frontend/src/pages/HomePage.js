@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import LogoutButton from "../components/LogoutButton";
 import Recipe from "../components/Recipe";
 import { request } from "../axiosHelper";
 
@@ -20,7 +19,7 @@ function HomePage() {
     try {
       const response = await request(
         "get",
-        `/recipes?page=${page}&size=10`,
+        `/recipes?page=${page}&size=8`,
         null,
         true
       );
@@ -56,7 +55,6 @@ function HomePage() {
 
   return (
     <>
-      <LogoutButton />
       <Recipe
         allRecipes={allRecipes}
         allCurrentPage={allCurrentPage}

@@ -26,13 +26,7 @@ function Favorites({
           ) : (
             favorites.map((recipe) => (
               <div key={recipe.id} className="recipe-card">
-                <h3>
-                  <Link to={`/recipes/${recipe.id}`} className="card-link">
-                    {recipe.title}
-                  </Link>
-                </h3>
 
-                <p>{recipe.description}</p>
 
                 <div className="favorite-button-container">
                   <Link to={`/recipes/${recipe.id}`}>
@@ -53,6 +47,15 @@ function Favorites({
                     initialIsFavorite={recipe.favorite}
                     onToggle={handleToggle(recipe.id)}
                   />
+
+                  <h3>
+                                    <Link to={`/recipes/${recipe.id}`} className="card-link">
+                                      {recipe.title}
+                                    </Link>
+                                  </h3>
+
+                                  <p>{recipe.description}</p>
+
                 </div>
               </div>
             ))

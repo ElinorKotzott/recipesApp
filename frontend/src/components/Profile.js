@@ -1,4 +1,4 @@
-import SubmitButton from "./SubmitButton.js";
+import PrimaryButton from "./buttons/PrimaryButton.js";
 
 const Profile = ({
   username,
@@ -89,7 +89,7 @@ const Profile = ({
           onChange={handleImageChange}
         />
 
-        <SubmitButton type="submit">Save Changes</SubmitButton>
+        <PrimaryButton type="submit">Save Changes</PrimaryButton>
       </form>
     </div>
   );

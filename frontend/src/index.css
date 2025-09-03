@@ -14,7 +14,24 @@ body {
 }
 
 .page-container {
-  width: 1000px;
+  width: 80vw;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80vw;
+}
+
+hr {
+  width: 100%;
+}
+
+.your-recipes, .latest-recipes, .your-favs-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .auth-container {
@@ -55,8 +72,7 @@ body {
 }
 
 .recipe-card-image {
-  height: 7em;
-  width: 5em;
+  width: 100%;
   border-radius: 8px;
   border: solid white 2px;
   object-fit: cover;
@@ -78,17 +94,10 @@ body {
   position: relative;
 }
 
-.your-favs-container,
-.latest-recipes,
-.your-recipes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-
 .recipe-card {
-  margin: 25px;
   display: inline-block;
+  margin: 5px 15px;
+  width: 20%;
 }
 
 .pagination-button {

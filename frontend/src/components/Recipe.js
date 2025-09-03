@@ -23,14 +23,6 @@ function Recipe({
           ) : (
             allRecipes.map((recipe) => (
               <div key={recipe.id} className="recipe-card">
-                <h3>
-                  <Link to={`/recipes/${recipe.id}`} className="card-link">
-                    {recipe.title}
-                  </Link>
-                </h3>
-
-                <p>{recipe.description}</p>
-
                 <div className="favorite-button-container">
                   <Link to={`/recipes/${recipe.id}`}>
                     <img
@@ -50,6 +42,14 @@ function Recipe({
                     initialIsFavorite={recipe.favorite}
                   />
                 </div>
+
+                <h3>
+                  <Link to={`/recipes/${recipe.id}`} className="card-link">
+                    {recipe.title}
+                  </Link>
+                </h3>
+
+                <p>{recipe.description}</p>
               </div>
             ))
           )}
@@ -71,14 +71,6 @@ function Recipe({
           ) : (
             userRecipes.map((recipe) => (
               <div key={recipe.id} className="recipe-card">
-                <h3>
-                  <Link to={`/recipes/${recipe.id}`} className="card-link">
-                    {recipe.title}
-                  </Link>
-                </h3>
-
-                <p>{recipe.description}</p>
-
                 <div className="favorite-button-container">
                   <Link to={`/recipes/${recipe.id}`}>
                     <img
@@ -98,6 +90,13 @@ function Recipe({
                     initialIsFavorite={recipe.favorite}
                   />
                 </div>
+                <h3>
+                  <Link to={`/recipes/${recipe.id}`} className="card-link">
+                    {recipe.title}
+                  </Link>
+                </h3>
+
+                <p>{recipe.description}</p>
               </div>
             ))
           )}

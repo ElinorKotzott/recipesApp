@@ -1,5 +1,4 @@
 import { request } from "../axiosHelper";
-import SubmitButton from "./SubmitButton";
 import ToggleFavoritesButton from "./ToggleFavoritesButton";
 import PrimaryButton from "./buttons/PrimaryButton.js";
 import { useNavigate } from "react-router-dom";
