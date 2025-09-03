@@ -15,7 +15,6 @@ const CreatePage = () => {
   const [units, setUnits] = useState([]);
   const [allTags, setAllTags] = useState([]);
   const [tagsList, setTagsList] = useState([]);
-  const [method, setMethod] = useState("");
   const [stepsList, setStepsList] = useState([]);
   const [servings, setServings] = useState(0);
   const navigate = useNavigate();
@@ -121,7 +120,6 @@ const CreatePage = () => {
           recipeIngredientDTOList,
           tagDTOList: tagsList,
           stepDTOList,
-          method,
           servings,
         },
         true
@@ -164,8 +162,6 @@ const CreatePage = () => {
       stepsList={stepsList}
       addStep={addStep}
       removeStep={removeStep}
-      method={method}
-      setMethod={setMethod}
       servings={servings}
       setServings={setServings}
       isUpdate={false}

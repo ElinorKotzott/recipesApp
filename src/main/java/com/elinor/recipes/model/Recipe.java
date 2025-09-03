@@ -33,9 +33,6 @@ public class Recipe {
     @OrderBy("stepNumber ASC")
     private List<Step> stepList = new ArrayList<>();
 
-    @Column(name = "method", length = 1000)
-    private String method;
-
     @Column(name = "prep_time")
     private Integer prepTime;
 

@@ -20,7 +20,6 @@ public class RecipeMapper {
                 recipe.getImageData(),
                 recipe.getImageType(),
                 RecipeIngredientMapper.toDTOList(recipe.getRecipeIngredientList()),
-                recipe.getMethod(),
                 StepMapper.toDTOList(recipe.getStepList()),
                 TagMapper.toDTOList(recipe.getTagList()),
                 isFavorite,
@@ -39,7 +38,6 @@ public class RecipeMapper {
         recipe.setId(dto.getId());
         recipe.setTitle(dto.getTitle());
         recipe.setDescription(dto.getDescription());
-        recipe.setMethod(dto.getMethod());
         recipe.setStepList(StepMapper.toEntityList(dto.getStepDTOList(), recipe));
         recipe.setPrepTime(dto.getPrepTime());
         recipe.setCookingTime(dto.getCookingTime());

@@ -18,7 +18,6 @@ public class RecipeDTO {
     private String imageData;
     private String imageType;
     private List<RecipeIngredientDTO> recipeIngredientDTOList;
-    private String method;
     private List<StepDTO> stepDTOList;
     private List<TagDTO> tagDTOList;
     private boolean favorite;

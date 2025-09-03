@@ -70,8 +70,19 @@ function RecipeCloseup({ recipe, onDelete }) {
         )}
       </ul>
 
-      <h3>Method:</h3>
-      <p>{recipe.method}</p>
+      <h3> Directions:</h3>
+      {recipe.stepsList && recipe.stepsList.length > 0 ? (
+        <ol>
+          {recipe.stepsList.map((item) => (
+            <li key={item.id}>
+              {item.instructionText}
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p>No directions found for this recipe!</p>
+      )}
+
       <h3>Nutrition information per serving:</h3>
       <p>
         Calories:{" "}
@@ -99,7 +110,8 @@ function RecipeCloseup({ recipe, onDelete }) {
       </p>
       <p>
         Nutrition values are estimated using the Edamam API and may not be fully
-        accurate.
+        accurate (they aren't accurate. The free version of the API uses 100g of an ingredient, no matter
+        which quantity is specified).
       </p>
 
       {isOwner && (

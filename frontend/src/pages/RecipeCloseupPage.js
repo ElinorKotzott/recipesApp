@@ -11,11 +11,20 @@ function RecipeCloseupPage() {
     const fetchRecipe = async () => {
       try {
         const r = await request("get", `/recipes/${id}`);
-        setRecipe(r.data);
+        const recipeData = r.data;
+
+        const renamedRecipe = {
+          ...recipeData,
+          stepsList: recipeData.stepDTOList,
+          tagsList: recipeData.tagDTOList
+        };
+
+        setRecipe(renamedRecipe);
       } catch {
         setRecipe(null);
       }
     };
+
     fetchRecipe();
   }, [id]);
 
@@ -24,6 +33,7 @@ function RecipeCloseupPage() {
   }
 
   return <RecipeCloseup recipe={recipe} />;
+
 }
 
 export default RecipeCloseupPage;

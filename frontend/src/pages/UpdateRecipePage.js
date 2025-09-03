@@ -19,7 +19,6 @@ const UpdateRecipePage = () => {
   const [tagsList, setTagsList] = useState([]);
   const [stepsList, setStepsList] = useState([]);
   const [units, setUnits] = useState([]);
-  const [method, setMethod] = useState("");
   const [servings, setServings] = useState(0);
 
   useEffect(() => {
@@ -54,7 +53,6 @@ const UpdateRecipePage = () => {
         setCookingTime(recipe.cookingTime);
         setImageData(recipe.imageData);
         setImageType(recipe.imageType);
-        setMethod(recipe.method);
         setServings(recipe.servings);
 
         if (recipe.recipeIngredientDTOList) {
@@ -175,7 +173,6 @@ const UpdateRecipePage = () => {
           imageData,
           imageType,
           recipeIngredientDTOList,
-          method,
           tagDTOList: tagsList,
           stepDTOList,
           servings,
@@ -220,8 +217,6 @@ const UpdateRecipePage = () => {
       removeStep={removeStep}
       allTags={allTags}
       units={units}
-      method={method}
-      setMethod={setMethod}
       servings={servings}
       setServings={setServings}
       isUpdate={true}

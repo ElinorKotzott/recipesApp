@@ -30,8 +30,6 @@ const Create = ({
   stepsList,
   addStep,
   removeStep,
-  method,
-  setMethod,
   servings,
   setServings,
   isUpdate,
