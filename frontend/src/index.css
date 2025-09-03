@@ -18,15 +18,31 @@ body {
 }
 
 header {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 0 0;
+}
+
+.header-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 80vw;
+  width: 100%;
+}
+
+.title-and-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  margin-top: 5px;
 }
 
 hr {
   width: 100%;
 }
+
 
 .your-recipes, .latest-recipes, .your-favs-container {
   display: flex;
