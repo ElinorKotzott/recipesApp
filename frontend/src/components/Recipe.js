@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ToggleFavoritesButton from "./ToggleFavoritesButton";
+import ToggleFavoritesButton from "./buttons/ToggleFavoritesButton";
 import Pagination from "./Pagination";
 
 function Recipe({

@@ -13,7 +13,7 @@ function FavoritesPage() {
     try {
       const response = await request(
         "get",
-        `/favorites?page=${page}&size=10`,
+        `/favorites?page=${page}&size=8`,
         null,
         true
       );

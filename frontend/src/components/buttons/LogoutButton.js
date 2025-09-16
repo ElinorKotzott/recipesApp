@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import PrimaryButton from "./buttons/PrimaryButton.js";
+import PrimaryButton from "./PrimaryButton.js";
 
 function LogoutButton() {
   const navigate = useNavigate();

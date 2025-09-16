@@ -36,7 +36,7 @@ function HomePage() {
     try {
       const response = await request(
         "get",
-        `/recipes/mine?page=${page}&size=10`,
+        `/recipes/mine?page=${page}&size=8`,
         null,
         true
       );

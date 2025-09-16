@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { request } from "../axiosHelper";
+import { request } from "../../axiosHelper";
 import Button from 'react-bootstrap/Button';
 
 function ToggleFavoritesButton({
