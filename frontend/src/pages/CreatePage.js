@@ -12,6 +12,9 @@ const CreatePage = () => {
     const [imageType, setImageType] = useState("");
     const [ingredientsList, setIngredientsList] = useState([]);
     const [allIngredients, setAllIngredients] = useState([]);
+    const [tempIngredientsList, setTempIngredientsList] = useState([]);
+    const [tempStepsList, setTempStepsList] = useState([]);
+    const [tempTagsList, setTempTagsList] = useState([]);
     const [units, setUnits] = useState([]);
     const [allTags, setAllTags] = useState([]);
     const [tagsList, setTagsList] = useState([]);
@@ -42,22 +45,28 @@ const CreatePage = () => {
         const ingredient = allIngredients.find(
             (i) => i.id === parseInt(ingredientId)
         );
-        setIngredientsList((previousList) => [
+        setTempIngredientsList((previousList) => [
             ...previousList,
             {ingredient, quantity, unit},
         ]);
+
     };
 
     const removeIngredient = (ingredientId) => {
-        setIngredientsList((previousList) =>
+        setTempIngredientsList((previousList) =>
             previousList.filter((item) => item.ingredient.id !== ingredientId)
         );
     };
 
+    const saveIngredientsList = () => {
+        setIngredientsList(tempIngredientsList);
+    }
+
+
     const addTag = (tag) => {
         if (!tag) return;
 
-        setTagsList((previousList) => {
+        setTempTagsList((previousList) => {
             if (previousList.some((t) => t.id === tag.id)) {
                 alert("This tag has already been added!");
                 return previousList;
@@ -67,24 +76,32 @@ const CreatePage = () => {
     };
 
     const removeTag = (tagId) => {
-        setTagsList((previousList) =>
+        setTempTagsList((previousList) =>
             previousList.filter((item) => item.id !== tagId)
         );
     };
 
+    const saveTagsList = () => {
+        setTagsList(tempTagsList);
+    }
+
     const addStep = (step) => {
         if (!step) return;
 
-        setStepsList((previousList) => {
+        setTempStepsList((previousList) => {
             return [...previousList, step];
         });
     };
 
     const removeStep = (step) => {
-        setStepsList((previousList) =>
+        setTempStepsList((previousList) =>
             previousList.filter((item) => item !== step)
         );
     };
+
+    const saveStepsList = () => {
+        setStepsList(tempStepsList);
+    }
 
     const handleCreate = async (e) => {
         e.preventDefault();
@@ -166,17 +183,26 @@ const CreatePage = () => {
             imageType={imageType}
             setImageType={setImageType}
             ingredientsList={ingredientsList}
+            tempIngredientsList={tempIngredientsList}
+            setTempIngredientsList={setTempIngredientsList}
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
+            saveIngredientsList={saveIngredientsList}
             allIngredients={allIngredients}
             tagsList={tagsList}
             addTag={addTag}
             removeTag={removeTag}
+            tempTagsList={tempTagsList}
+            setTempTagsList={setTempTagsList}
             allTags={allTags}
+            saveTagsList={saveTagsList}
             units={units}
             stepsList={stepsList}
             addStep={addStep}
             removeStep={removeStep}
+            tempStepsList={tempStepsList}
+            setTempStepsList={setTempStepsList}
+            saveStepsList={saveStepsList}
             servings={servings}
             setServings={setServings}
             isUpdate={false}
