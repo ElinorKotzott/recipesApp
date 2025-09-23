@@ -3,7 +3,7 @@ import IngredientsDropdownMenu from "./IngredientsDropdownMenu";
 import UnitDropdownMenu from "./UnitDropdownMenu";
 import TagDropdownMenu from "./TagDropdownMenu";
 import {useState} from "react";
-import {Form, Button} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 import DarkButton from "./buttons/DarkButton";
 import Modal from 'react-bootstrap/Modal';
 
@@ -25,16 +25,12 @@ const Create = ({
                     tempIngredientsList,
                     setTempIngredientsList,
                     saveIngredientsList,
-                    tempTagsList,
-                    setTempTagsList,
-                    saveTagsList,
                     tempStepsList,
                     setTempStepsList,
                     saveStepsList,
                     allIngredients,
                     tagsList,
-                    addTag,
-                    removeTag,
+                    setTagsList,
                     allTags,
                     units,
                     stepsList,
@@ -59,7 +55,6 @@ const Create = ({
     };
 
     const [selectedIngredient, setSelectedIngredient] = useState("");
-    const [selectedTag, setSelectedTag] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState("");
     const [stepInput, setStepInput] = useState("");
     const [quantity, setQuantity] = useState(0);
@@ -77,13 +72,6 @@ const Create = ({
         setShowSteps(true);
     }
     const handleCloseSteps = () => setShowSteps(false);
-
-    const [showTags, setShowTags] = useState(false);
-    const handleShowTags = () => {
-        setTempTagsList(tagsList);
-        setShowTags(true);
-    }
-    const handleCloseTags = () => setShowTags(false);
 
 
     const handleSaveIngredients = () => {
@@ -104,15 +92,6 @@ const Create = ({
         setShowSteps(false);
     };
 
-    const handleSaveTags = () => {
-        if (tempTagsList.length === 0) {
-            alert("No tags added!");
-            return;
-        }
-        saveTagsList();
-        setShowTags(false);
-    };
-
 
     const handleAddIngredient = () => {
         if (!selectedIngredient || !selectedUnit || quantity <= 0) {
@@ -129,18 +108,6 @@ const Create = ({
         removeIngredient(ingredientId);
     };
 
-    const handleAddTag = () => {
-        if (!selectedTag) {
-            alert("Tag not selected!");
-            return;
-        }
-        addTag(selectedTag);
-        setSelectedTag(null);
-    };
-
-    const handleRemoveTag = (tagId) => {
-        removeTag(tagId);
-    };
 
     const handleAddStep = () => {
         if (!stepInput) {
@@ -183,9 +150,11 @@ const Create = ({
 
 
             <div>
-                <PrimaryButton onClick={handleShowIngredients}>
-                    Add or remove ingredients
-                </PrimaryButton>
+                <div className="button-container">
+                    <PrimaryButton className="w-100" onClick={handleShowIngredients}>
+                        Ingredients
+                    </PrimaryButton>
+                </div>
 
                 <Modal show={showIngredients} onHide={handleCloseIngredients}>
                     <Modal.Header closeButton>
@@ -266,9 +235,11 @@ const Create = ({
                 </ul>
 
                 <div>
-                    <PrimaryButton onClick={handleShowSteps}>
-                        Add or remove steps
-                    </PrimaryButton>
+                    <div className="button-container">
+                        <PrimaryButton className="w-100" onClick={handleShowSteps}>
+                            Steps
+                        </PrimaryButton>
+                    </div>
 
                     <Modal show={showSteps} onHide={handleCloseSteps}>
                         <Modal.Header closeButton>
@@ -334,123 +305,75 @@ const Create = ({
                 </div>
 
                 <div>
-                    <PrimaryButton onClick={handleShowTags}>
-                        Add or remove tags
+
+
+                    <Form.Group className="mb-3" controlId="tags">
+                        <Form.Label>Tags</Form.Label>
+
+                        <div>
+                            <TagDropdownMenu
+                                selectedTags={tagsList}
+                                onChange={setTagsList}
+                                tags={allTags}
+                            />
+
+                        </div>
+                    </Form.Group>
+
+
+                    <Form.Group className="mb-3" style={{width: "50%"}}>
+                        <div className="d-flex" style={{gap: "1rem"}}>
+                            <div>
+                                <Form.Label>Preparation Time (mins)</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    min="0"
+                                    className="input-for-numbers"
+                                    value={prepTime}
+                                    onChange={(e) => setPrepTime(Number(e.target.value))}
+                                />
+                            </div>
+
+                            <div>
+                                <Form.Label>Cooking Time (mins)</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    min="0"
+                                    className="input-for-numbers"
+                                    value={cookingTime}
+                                    onChange={(e) => setCookingTime(Number(e.target.value))}
+                                />
+                            </div>
+                        </div>
+                    </Form.Group>
+
+
+                    <Form.Group className="mb-3" controlId="servings">
+                        <Form.Label>Servings</Form.Label>
+                        <Form.Control
+                            type="number"
+                            min="1"
+                            className="w-25"
+                            value={servings}
+                            onChange={(e) => setServings(Number(e.target.value))}
+                        />
+                    </Form.Group>
+
+
+                    <Form.Group className="mb-3" controlId="imageUpload">
+                        <Form.Label>Upload Image</Form.Label>
+                        <Form.Control
+                            type="file"
+                            accept="image/*"
+                            className="w-25"
+                            onChange={handleImageChange}
+                        />
+                    </Form.Group>
+
+                    <PrimaryButton type="submit">
+                        {isUpdate ? "Update" : "Create"}
                     </PrimaryButton>
-
-                    <Modal show={showTags} onHide={handleCloseTags}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Add tags</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-
-                            <Form.Group className="mb-3" controlId="tags">
-                                <Form.Label>Tags</Form.Label>
-
-                                <div>
-                                    <TagDropdownMenu
-                                        selectedTag={selectedTag}
-                                        onChange={setSelectedTag}
-                                        tags={allTags}
-                                    />
-
-                                    <PrimaryButton className="add-or-remove-button" onClick={handleAddTag}>
-                                        +
-                                    </PrimaryButton>
-                                </div>
-
-                                <ul className="mt-2">
-                                    {tempTagsList?.map((tag) => (
-                                        <li key={tag.id}>
-                                            {tag.text.toLowerCase()}
-                                            <Button
-                                                variant="dark"
-                                                size="sm"
-                                                className="ms-2 add-or-remove-button"
-                                                onClick={() => handleRemoveTag(tag.id)}
-                                            >
-                                                -
-                                            </Button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </Form.Group>
-
-
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <PrimaryButton onClick={handleCloseTags}>
-                                Close
-                            </PrimaryButton>
-                            <PrimaryButton onClick={handleSaveTags}>
-                                Save
-                            </PrimaryButton>
-                        </Modal.Footer>
-                    </Modal>
-
                 </div>
-
-                <ul className="mt-2">
-                    {tagsList?.map((tag) => (
-                        <li key={tag.id}>
-                            {tag.text.toLowerCase()}
-                        </li>
-                    ))}
-                </ul>
-
-
-                <Form.Group className="mb-3" style={{width: "50%"}}>
-                    <div className="d-flex" style={{gap: "1rem"}}>
-                        <div>
-                            <Form.Label>Preparation Time (mins)</Form.Label>
-                            <Form.Control
-                                type="number"
-                                min="0"
-                                className="input-for-numbers"
-                                value={prepTime}
-                                onChange={(e) => setPrepTime(Number(e.target.value))}
-                            />
-                        </div>
-
-                        <div>
-                            <Form.Label>Cooking Time (mins)</Form.Label>
-                            <Form.Control
-                                type="number"
-                                min="0"
-                                className="input-for-numbers"
-                                value={cookingTime}
-                                onChange={(e) => setCookingTime(Number(e.target.value))}
-                            />
-                        </div>
-                    </div>
-                </Form.Group>
-
-
-                <Form.Group className="mb-3" controlId="servings">
-                    <Form.Label>Servings</Form.Label>
-                    <Form.Control
-                        type="number"
-                        min="1"
-                        className="w-25"
-                        value={servings}
-                        onChange={(e) => setServings(Number(e.target.value))}
-                    />
-                </Form.Group>
-
-
-                <Form.Group className="mb-3" controlId="imageUpload">
-                    <Form.Label>Upload Image</Form.Label>
-                    <Form.Control
-                        type="file"
-                        accept="image/*"
-                        className="w-25"
-                        onChange={handleImageChange}
-                    />
-                </Form.Group>
-
-                <PrimaryButton type="submit">
-                    {isUpdate ? "Update" : "Create"}
-                </PrimaryButton>
             </div>
         </Form>
     );

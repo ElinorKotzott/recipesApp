@@ -159,3 +159,7 @@ button.add-or-remove-button {
     display: inline;
     margin: 0 5px !important;
 }
+
+.button-container {
+    width: 7em;
+}

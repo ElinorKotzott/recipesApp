@@ -15,6 +15,8 @@ const UpdateRecipePage = () => {
     const [imageType, setImageType] = useState("");
     const [ingredientsList, setIngredientsList] = useState([]);
     const [allIngredients, setAllIngredients] = useState([]);
+    const [tempIngredientsList, setTempIngredientsList] = useState([]);
+    const [tempStepsList, setTempStepsList] = useState([]);
     const [allTags, setAllTags] = useState([]);
     const [tagsList, setTagsList] = useState([]);
     const [stepsList, setStepsList] = useState([]);
@@ -96,17 +98,21 @@ const UpdateRecipePage = () => {
         const ingredient = allIngredients.find(
             (i) => i.id === parseInt(ingredientId)
         );
-        setIngredientsList((myPreviousList) => [
-            ...myPreviousList,
+        setTempIngredientsList((previousList) => [
+            ...previousList,
             {ingredient, quantity, unit},
         ]);
     };
 
     const removeIngredient = (ingredientId) => {
-        setIngredientsList((previousList) =>
+        setTempIngredientsList((previousList) =>
             previousList.filter((item) => item.ingredient.id !== ingredientId)
         );
     };
+
+    const saveIngredientsList = () => {
+        setIngredientsList(tempIngredientsList);
+    }
 
     const addTag = (tag) => {
         if (!tag) return;
@@ -132,16 +138,20 @@ const UpdateRecipePage = () => {
             return;
         }
 
-        setStepsList((previousList) => {
+        setTempStepsList((previousList) => {
             return [...previousList, step];
         });
     };
 
     const removeStep = (step) => {
-        setStepsList((previousList) =>
+        setTempStepsList((previousList) =>
             previousList.filter((item) => item !== step)
         );
     };
+
+    const saveStepsList = () => {
+        setStepsList(tempStepsList);
+    }
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -226,13 +236,20 @@ const UpdateRecipePage = () => {
             ingredientsList={ingredientsList}
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
+            saveIngredientsList={saveIngredientsList}
+            tempIngredientsList={tempIngredientsList}
+            setTempIngredientsList={setTempIngredientsList}
             allIngredients={allIngredients}
             tagsList={tagsList}
+            setTagsList={setTagsList}
             addTag={addTag}
             removeTag={removeTag}
             stepsList={stepsList}
             addStep={addStep}
             removeStep={removeStep}
+            tempStepsList={tempStepsList}
+            setTempStepsList={setTempStepsList}
+            saveStepsList={saveStepsList}
             allTags={allTags}
             units={units}
             servings={servings}

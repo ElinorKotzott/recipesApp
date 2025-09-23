@@ -14,7 +14,6 @@ const CreatePage = () => {
     const [allIngredients, setAllIngredients] = useState([]);
     const [tempIngredientsList, setTempIngredientsList] = useState([]);
     const [tempStepsList, setTempStepsList] = useState([]);
-    const [tempTagsList, setTempTagsList] = useState([]);
     const [units, setUnits] = useState([]);
     const [allTags, setAllTags] = useState([]);
     const [tagsList, setTagsList] = useState([]);
@@ -49,7 +48,6 @@ const CreatePage = () => {
             ...previousList,
             {ingredient, quantity, unit},
         ]);
-
     };
 
     const removeIngredient = (ingredientId) => {
@@ -66,7 +64,7 @@ const CreatePage = () => {
     const addTag = (tag) => {
         if (!tag) return;
 
-        setTempTagsList((previousList) => {
+        setTagsList((previousList) => {
             if (previousList.some((t) => t.id === tag.id)) {
                 alert("This tag has already been added!");
                 return previousList;
@@ -76,17 +74,16 @@ const CreatePage = () => {
     };
 
     const removeTag = (tagId) => {
-        setTempTagsList((previousList) =>
+        setTagsList((previousList) =>
             previousList.filter((item) => item.id !== tagId)
         );
     };
 
-    const saveTagsList = () => {
-        setTagsList(tempTagsList);
-    }
-
     const addStep = (step) => {
-        if (!step) return;
+        if (!step) {
+            alert("Please add text to your step!");
+            return;
+        }
 
         setTempStepsList((previousList) => {
             return [...previousList, step];
@@ -190,12 +187,10 @@ const CreatePage = () => {
             saveIngredientsList={saveIngredientsList}
             allIngredients={allIngredients}
             tagsList={tagsList}
+            setTagsList={setTagsList}
             addTag={addTag}
             removeTag={removeTag}
-            tempTagsList={tempTagsList}
-            setTempTagsList={setTempTagsList}
             allTags={allTags}
-            saveTagsList={saveTagsList}
             units={units}
             stepsList={stepsList}
             addStep={addStep}
