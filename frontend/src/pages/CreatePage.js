@@ -22,23 +22,22 @@ const CreatePage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
+        (async () => {
             try {
-                const [ingredientsResponse, unitsResponse, tagsResponse] =
-                    await Promise.all([
-                        request("get", "/ingredients", null, true),
-                        request("get", "/units", null, true),
-                        request("get", "/tags", null, true),
-                    ]);
+                const [ingredientsResponse, unitsResponse, tagsResponse] = await Promise.all([
+                    request("get", "/ingredients", null, true),
+                    request("get", "/units", null, true),
+                    request("get", "/tags", null, true),
+                ]);
                 setAllIngredients(ingredientsResponse.data);
                 setUnits(unitsResponse.data);
                 setAllTags(tagsResponse.data);
             } catch (error) {
                 console.error("Failed to load ingredients, units or tags:", error);
             }
-        };
-        fetchData();
+        })();
     }, []);
+
 
     const addIngredient = (ingredientId, quantity, unit) => {
         const ingredient = allIngredients.find(

@@ -310,7 +310,7 @@ const Create = ({
                     <Form.Group className="mb-3" controlId="tags">
                         <Form.Label>Tags</Form.Label>
 
-                        <div>
+                        <div className="w-50">
                             <TagDropdownMenu
                                 selectedTags={tagsList}
                                 onChange={setTagsList}
@@ -321,8 +321,7 @@ const Create = ({
                     </Form.Group>
 
 
-                    <Form.Group className="mb-3" style={{width: "50%"}}>
-                        <div className="d-flex" style={{gap: "1rem"}}>
+                    <Form.Group className="mb-3">
                             <div>
                                 <Form.Label>Preparation Time (mins)</Form.Label>
                                 <Form.Control
@@ -344,7 +343,6 @@ const Create = ({
                                     onChange={(e) => setCookingTime(Number(e.target.value))}
                                 />
                             </div>
-                        </div>
                     </Form.Group>
 
 
