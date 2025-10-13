@@ -49,12 +49,12 @@ function Favorites({
                   />
 
                   <h3>
-                                    <Link to={`/recipes/${recipe.id}`} className="card-link">
-                                      {recipe.title}
-                                    </Link>
-                                  </h3>
+                      <Link to={`/recipes/${recipe.id}`} className="card-link">
+                      {recipe.title}
+                      </Link>
+                  </h3>
 
-                                  <p>{recipe.description}</p>
+                  <p>{recipe.description}</p>
 
                 </div>
               </div>

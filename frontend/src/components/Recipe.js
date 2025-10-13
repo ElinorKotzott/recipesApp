@@ -1,18 +1,32 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ToggleFavoritesButton from "./buttons/ToggleFavoritesButton";
 import Pagination from "./Pagination";
 
 function Recipe({
   allRecipes,
-  allCurrentPage,
-  allTotalPages,
-  fetchAllRecipes,
+    setAllRecipes,
+    allCurrentPage,
+    allTotalPages,
+    fetchAllRecipes,
 
-  userRecipes,
-  userCurrentPage,
-  userTotalPages,
-  fetchUserRecipes,
+    userRecipes,
+    setUserRecipes,
+    userCurrentPage,
+    userTotalPages,
+    fetchUserRecipes,
 }) {
+
+  const handleFavoriteToggle = (recipeId) => (newFavoriteState) => {
+    const updateFavoriteStatus = (recipes) =>
+      recipes.map((recipe) =>
+        recipe.id === recipeId ? { ...recipe, favorite: newFavoriteState } : recipe
+      );
+
+    setAllRecipes((prev) => updateFavoriteStatus(prev));
+    setUserRecipes((prev) => updateFavoriteStatus(prev));
+  };
+
   return (
     <div className="recipes-container">
       <div className="recipe-card-container">
@@ -40,6 +54,7 @@ function Recipe({
                     className="favorite-button"
                     recipeId={recipe.id}
                     initialIsFavorite={recipe.favorite}
+                    onToggle={handleFavoriteToggle(recipe.id)}
                   />
                 </div>
 
@@ -88,6 +103,7 @@ function Recipe({
                     className="favorite-button"
                     recipeId={recipe.id}
                     initialIsFavorite={recipe.favorite}
+                    onToggle={handleFavoriteToggle(recipe.id)}
                   />
                 </div>
                 <h3>

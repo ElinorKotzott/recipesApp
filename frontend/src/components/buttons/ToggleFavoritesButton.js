@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { request } from "../../axiosHelper";
 import Button from 'react-bootstrap/Button';
+
 
 function ToggleFavoritesButton({
   recipeId,
@@ -10,6 +11,10 @@ function ToggleFavoritesButton({
 }) {
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
   const token = sessionStorage.getItem("token");
+
+  useEffect(() => {
+      setIsFavorite(initialIsFavorite);
+    }, [initialIsFavorite]);
 
   const toggleFavs = async (e) => {
     e.stopPropagation();

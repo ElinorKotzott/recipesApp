@@ -57,10 +57,13 @@ function HomePage() {
     <>
       <Recipe
         allRecipes={allRecipes}
+        setAllRecipes={setAllRecipes}
         allCurrentPage={allCurrentPage}
         allTotalPages={allTotalPages}
         fetchAllRecipes={fetchAllRecipes}
+
         userRecipes={userRecipes}
+        setUserRecipes={setUserRecipes}
         userCurrentPage={userCurrentPage}
         userTotalPages={userTotalPages}
         fetchUserRecipes={fetchUserRecipes}
