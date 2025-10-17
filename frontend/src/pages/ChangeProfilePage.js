@@ -15,6 +15,11 @@ function ChangeProfilePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("profilePictureData updated (length):", profilePictureData.length);
+  }, [profilePictureData]);
+
+
+  useEffect(() => {
     const fetchProfile = async () => {
       if (!token) return;
       try {
@@ -37,6 +42,8 @@ function ChangeProfilePage() {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
+      console.log(profilePictureData.length);
+
       await request(
         "put",
         "/profile/change",
@@ -52,6 +59,7 @@ function ChangeProfilePage() {
         true
       );
       navigate("/profile");
+
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("Update failed!");

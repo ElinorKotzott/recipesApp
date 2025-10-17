@@ -31,6 +31,10 @@ header {
   width: 100%;
 }
 
+footer {
+  margin-top: 2rem;
+}
+
 .title-and-nav {
   display: flex;
   flex-direction: column;

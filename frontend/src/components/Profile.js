@@ -1,4 +1,7 @@
 import PrimaryButton from "./buttons/PrimaryButton.js";
+import ProfilePictureCropper from './ProfilePictureCropper';
+import { useState } from 'react';
+
 
 const Profile = ({
   username,
@@ -17,6 +20,8 @@ const Profile = ({
   setProfilePictureType,
   handleProfileUpdate,
 }) => {
+  const [isCropping, setIsCropping] = useState(false);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -24,13 +29,22 @@ const Profile = ({
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result.split(",")[1];
-      console.log("Base64 preview:", base64String.substring(0, 30));
-      console.log("Base64 length:", base64String.length);
       setProfilePictureData(base64String);
       setProfilePictureType(file.type);
+      setIsCropping(true);
     };
 
     reader.readAsDataURL(file);
+  };
+
+  const handleCropSave = (croppedData, croppedType) => {
+    setProfilePictureData(croppedData);
+    setProfilePictureType(croppedType);
+
+    console.log(profilePictureData.length);
+
+    setIsCropping(false);
+
   };
 
   return (
@@ -81,6 +95,17 @@ const Profile = ({
           onChange={(e) => setBio(e.target.value)}
         />
 
+        {isCropping && profilePictureData && profilePictureType && (
+          <ProfilePictureCropper
+            profilePictureData={profilePictureData}
+            profilePictureType={profilePictureType}
+            setProfilePictureData={setProfilePictureData}
+            setProfilePictureType={setProfilePictureType}
+            setIsCropping={setIsCropping}
+            onCropSave={handleCropSave}
+          />
+        )}
+
         <label htmlFor="image">Profile Picture</label>
         <input
           type="file"
@@ -88,6 +113,20 @@ const Profile = ({
           accept="image/*"
           onChange={handleImageChange}
         />
+
+        {profilePictureData && profilePictureType && !isCropping && (
+          <img
+            src={`data:${profilePictureType};base64,${profilePictureData}`}
+            alt="Cropped Preview"
+            style={{
+              width: 150,
+              height: 150,
+              objectFit: 'cover',
+              borderRadius: '50%',
+              marginBottom: '1rem',
+            }}
+          />
+        )}
 
         <PrimaryButton type="submit">Save Changes</PrimaryButton>
       </form>

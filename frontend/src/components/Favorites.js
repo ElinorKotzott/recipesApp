@@ -26,8 +26,6 @@ function Favorites({
           ) : (
             favorites.map((recipe) => (
               <div key={recipe.id} className="recipe-card">
-
-
                 <div className="favorite-button-container">
                   <Link to={`/recipes/${recipe.id}`}>
                     <img
@@ -49,13 +47,12 @@ function Favorites({
                   />
 
                   <h3>
-                      <Link to={`/recipes/${recipe.id}`} className="card-link">
+                    <Link to={`/recipes/${recipe.id}`} className="card-link">
                       {recipe.title}
-                      </Link>
+                    </Link>
                   </h3>
 
                   <p>{recipe.description}</p>
-
                 </div>
               </div>
             ))
