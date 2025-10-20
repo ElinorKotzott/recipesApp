@@ -1,4 +1,4 @@
-function UnitDropdown({ selectedUnit, onChange, units }) {
+function UnitDropdownMenu({ selectedUnit, onChange, units }) {
   return (
     <select value={selectedUnit} onChange={(e) => onChange(e.target.value)}>
       <option value="">-- Select Unit --</option>
@@ -11,4 +11,4 @@ function UnitDropdown({ selectedUnit, onChange, units }) {
   );
 }
 
-export default UnitDropdown;
+export default UnitDropdownMenu;

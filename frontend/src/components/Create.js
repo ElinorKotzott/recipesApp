@@ -2,6 +2,7 @@ import PrimaryButton from "./buttons/PrimaryButton.js";
 import IngredientsDropdownMenu from "./IngredientsDropdownMenu";
 import UnitDropdownMenu from "./UnitDropdownMenu";
 import TagDropdownMenu from "./TagDropdownMenu";
+import DifficultyDropdownMenu from "./DifficultyDropdownMenu";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import DarkButton from "./buttons/DarkButton";
@@ -39,6 +40,9 @@ const Create = ({
   stepsList,
   addStep,
   removeStep,
+  allDifficulties,
+  difficulty,
+  setDifficulty,
   servings,
   setServings,
   isUpdate,
@@ -327,6 +331,17 @@ const Create = ({
               />
             </div>
           </Form.Group>
+
+          <Form.Group className="mb-3" controlId="difficulty">
+                      <Form.Label>Difficulty</Form.Label>
+                      <div className="w-50">
+                        <DifficultyDropdownMenu
+                          selectedDifficulty={difficulty}
+                          onChange={setDifficulty}
+                          difficulties={allDifficulties}
+                        />
+                      </div>
+                    </Form.Group>
 
           <Form.Group className="mb-3" controlId="servings">
             <Form.Label>Servings</Form.Label>

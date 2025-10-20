@@ -25,6 +25,7 @@ function RecipeCloseup({ recipe, onDelete }) {
   return (
     <div className="recipe-closeup">
       <h2>{recipe.title}</h2>
+      <p>{recipe.description}</p>
       <p>
         {recipe.servings
           ? "Serves " + recipe.servings
@@ -35,12 +36,15 @@ function RecipeCloseup({ recipe, onDelete }) {
         recipeId={recipe.id}
         initialIsFavorite={recipe.favorite}
       />
-      <p>{recipe.description}</p>
+
+      <p>difficulty: {recipe.difficulty.toLowerCase()}</p>
+
       <p>
         {recipe.tagDTOList && recipe.tagDTOList.length > 0
           ? recipe.tagDTOList.map((tag) => tag.text).join(" | ")
           : "no tags found"}
       </p>
+
       <img
         className="image-closeup"
         src={

@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react'
 import Cropper from 'react-easy-crop'
+import PrimaryButton from "./buttons/PrimaryButton.js";
+import Modal from "react-bootstrap/Modal";
 
 function ProfilePictureCropper({
   profilePictureData,
@@ -7,7 +9,10 @@ function ProfilePictureCropper({
   setIsCropping,
   setProfilePictureData,
   setProfilePictureType,
-  onCropSave
+  onCropSave,
+  handleShowCropper,
+  handleCloseCropper,
+  showCropper
 }) {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
@@ -39,7 +44,6 @@ function ProfilePictureCropper({
       croppedAreaPixels.width,
       croppedAreaPixels.height
     )
-    console.log(croppedAreaPixels)
 
     const outputType = profilePictureType === 'image/png' ? 'image/png' : 'image/jpeg'
     const croppedBase64 = canvas.toDataURL(outputType)
@@ -49,43 +53,71 @@ function ProfilePictureCropper({
 
   }
 
+
   return (
-    <div style={{ position: 'relative', height: '50vh' }}>
-      <Cropper
-        image={`data:${profilePictureType};base64,${profilePictureData}`}
-        crop={crop}
-        zoom={zoom}
-        aspect={1}
-        cropShape="round"
-        showGrid={false}
-        onCropChange={setCrop}
-        onCropComplete={onCropComplete}
-        onZoomChange={setZoom}
-      />
+  <div>
 
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 10,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10,
-        }}
-      >
-        <input
-          type="range"
-          min={1}
-          max={3}
-          step={0.1}
-          value={zoom}
-          onChange={(e) => setZoom(Number(e.target.value))}
-        />
-        <button type="button" onClick={cropImage}>Save</button>
-        <button type="button" onClick={() => setIsCropping(false)}>Cancel</button>
+      <Modal show={showCropper} onHide={handleCloseCropper}>
+        <Modal.Header closeButton>
+        <Modal.Title>Crop Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
 
-      </div>
+        <div style={{ position: 'relative', height: '50vh' }}>
+          <Cropper
+            image={`data:${profilePictureType};base64,${profilePictureData}`}
+            crop={crop}
+            zoom={zoom}
+            aspect={1}
+            cropShape="round"
+            showGrid={false}
+            onCropChange={setCrop}
+            onCropComplete={onCropComplete}
+            onZoomChange={setZoom}
+          />
+
+          <div style={{
+            position: 'absolute',
+            bottom: '10px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '80%',
+            zIndex: 10,
+          }}>
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.1}
+              value={zoom}
+              onChange={(e) => setZoom(Number(e.target.value))}
+              style={{ width: '100%' }}
+            />
+          </div>
+        </div>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <PrimaryButton type="button" onClick={handleCloseCropper}>
+          Cancel
+          </PrimaryButton>
+          <PrimaryButton onClick={cropImage}>Save</PrimaryButton>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   )
 }
 
 export default ProfilePictureCropper
+
+
+
+
+
+
+
+
+
+
+

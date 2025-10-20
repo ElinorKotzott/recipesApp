@@ -28,7 +28,8 @@ public class RecipeMapper {
                 recipe.getFatPerServing(),
                 recipe.getServings(),
                 recipe.getCaloriesPerServing(),
-                recipe.getUser().getId()
+                recipe.getUser().getId(),
+                recipe.getDifficulty()
         );
     }
 
@@ -45,6 +46,7 @@ public class RecipeMapper {
         recipe.setImageType(dto.getImageType());
         recipe.setRecipeIngredientList(RecipeIngredientMapper.toEntityList(dto.getRecipeIngredientDTOList(), recipe));
         recipe.setServings(dto.getServings());
+        recipe.setDifficulty(dto.getDifficulty());
         recipe.setTagList(TagMapper.toEntityList(dto.getTagDTOList()));
         recipe.setCarbsPerServing(dto.getCarbsPerServing());
         recipe.setCaloriesPerServing(dto.getCaloriesPerServing());

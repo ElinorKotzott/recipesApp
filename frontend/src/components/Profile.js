@@ -21,6 +21,7 @@ const Profile = ({
   handleProfileUpdate,
 }) => {
   const [isCropping, setIsCropping] = useState(false);
+  const [showCropper, setShowCropper] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -31,7 +32,7 @@ const Profile = ({
       const base64String = reader.result.split(",")[1];
       setProfilePictureData(base64String);
       setProfilePictureType(file.type);
-      setIsCropping(true);
+      handleShowCropper();
     };
 
     reader.readAsDataURL(file);
@@ -40,17 +41,24 @@ const Profile = ({
   const handleCropSave = (croppedData, croppedType) => {
     setProfilePictureData(croppedData);
     setProfilePictureType(croppedType);
-
-    console.log(profilePictureData.length);
-
     setIsCropping(false);
-
   };
+
+
+   const handleShowCropper = () => {
+     setShowCropper(true);
+     setIsCropping(true);
+   };
+
+   const handleCloseCropper = () => {
+     setShowCropper(false);
+     setIsCropping(false);
+   };
 
   return (
     <div className="profile-container">
       <h2>Welcome to your profile, {username}</h2>
-      <form onSubmit={handleProfileUpdate}>
+      <form className="profile-form" onSubmit={handleProfileUpdate}>
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -60,7 +68,7 @@ const Profile = ({
           onChange={(e) => setUsername(e.target.value)}
         />
 
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" >Email</label>
         <input
           type="email"
           id="email"
@@ -103,6 +111,9 @@ const Profile = ({
             setProfilePictureType={setProfilePictureType}
             setIsCropping={setIsCropping}
             onCropSave={handleCropSave}
+            handleShowCropper={handleShowCropper}
+            handleCloseCropper={handleCloseCropper}
+            showCropper={showCropper}
           />
         )}
 
@@ -115,20 +126,28 @@ const Profile = ({
         />
 
         {profilePictureData && profilePictureType && !isCropping && (
+          <div>
           <img
             src={`data:${profilePictureType};base64,${profilePictureData}`}
             alt="Cropped Preview"
             style={{
-              width: 150,
-              height: 150,
+              display: 'block',
+              width: 100,
+              height: 100,
               objectFit: 'cover',
               borderRadius: '50%',
-              marginBottom: '1rem',
+              margin: '1rem 0',
             }}
           />
+          <PrimaryButton type="button" onClick={handleShowCropper}>Edit Crop</PrimaryButton>
+          </div>
         )}
 
-        <PrimaryButton type="submit">Save Changes</PrimaryButton>
+        <div>
+
+        <PrimaryButton style={{ width: "100%" }} type="submit">Save Changes</PrimaryButton>
+
+        </div>
       </form>
     </div>
   );

@@ -167,3 +167,9 @@ button.add-or-remove-button {
 .button-container {
     width: 7em;
 }
+
+.profile-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

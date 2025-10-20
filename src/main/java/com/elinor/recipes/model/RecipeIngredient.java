@@ -24,7 +24,7 @@ public class RecipeIngredient {
     private Double quantity;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(nullable = false)
     private Unit unit;
 
 }

@@ -1,5 +1,6 @@
 package com.elinor.recipes.model;
 
+import com.elinor.recipes.model.enumeration.Difficulty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,6 +39,10 @@ public class Recipe {
 
     @Column(name = "cooking_time")
     private Integer cookingTime;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty;
 
     @Column(name = "image_data", columnDefinition = "TEXT")
     private String imageData;

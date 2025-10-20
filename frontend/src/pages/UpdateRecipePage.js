@@ -22,20 +22,24 @@ const UpdateRecipePage = () => {
     const [stepsList, setStepsList] = useState([]);
     const [units, setUnits] = useState([]);
     const [servings, setServings] = useState(0);
+    const [allDifficulties, setAllDifficulties] = useState([]);
+    const [difficulty, setDifficulty] = useState("");
 
     useEffect(() => {
         (async () => {
             try {
-                const [ingredientsResponse, unitsResponse, tagsResponse] = await Promise.all([
+                const [ingredientsResponse, unitsResponse, tagsResponse, difficultyResponse] = await Promise.all([
                     request("get", "/ingredients", null, true),
                     request("get", "/units", null, true),
                     request("get", "/tags", null, true),
+                    request("get", "/difficulty", null, true)
                 ]);
                 setAllIngredients(ingredientsResponse.data);
                 setUnits(unitsResponse.data);
                 setAllTags(tagsResponse.data);
+                setAllDifficulties(difficultyResponse.data);
             } catch (error) {
-                console.error("Failed to load ingredients, units or tags:", error);
+                console.error("Failed to load ingredients, units, difficulty or tags:", error);
             }
         })();
     }, []);
@@ -54,6 +58,7 @@ const UpdateRecipePage = () => {
                 setImageData(recipe.imageData);
                 setImageType(recipe.imageType);
                 setServings(recipe.servings);
+                setDifficulty(recipe.difficulty);
 
                 if (recipe.recipeIngredientDTOList) {
                     const mappedIngredients = recipe.recipeIngredientDTOList.map(
@@ -181,6 +186,7 @@ const UpdateRecipePage = () => {
         if (servings <= 0) errors.push("Servings must be at least 1!");
         if (recipeIngredientDTOList.length === 0) errors.push("At least one ingredient is required!");
         if (stepDTOList.length === 0) errors.push("At least one step is required!");
+        if (!difficulty) errors.push("Please select a difficulty!")
 
         if (errors.length > 0) {
             alert(errors.join("\n"));
@@ -202,6 +208,7 @@ const UpdateRecipePage = () => {
                     tagDTOList: tagsList,
                     stepDTOList,
                     servings,
+                    difficulty
                 },
                 true
             );
@@ -252,6 +259,9 @@ const UpdateRecipePage = () => {
             units={units}
             servings={servings}
             setServings={setServings}
+            allDifficulties={allDifficulties}
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
             isUpdate={true}
         />
     );

@@ -10,6 +10,8 @@ const CreatePage = () => {
     const [cookingTime, setCookingTime] = useState(0);
     const [imageData, setImageData] = useState("");
     const [imageType, setImageType] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [allDifficulties, setAllDifficulties] = useState([]);
     const [ingredientsList, setIngredientsList] = useState([]);
     const [allIngredients, setAllIngredients] = useState([]);
     const [tempIngredientsList, setTempIngredientsList] = useState([]);
@@ -24,16 +26,18 @@ const CreatePage = () => {
     useEffect(() => {
         (async () => {
             try {
-                const [ingredientsResponse, unitsResponse, tagsResponse] = await Promise.all([
+                const [ingredientsResponse, unitsResponse, tagsResponse, difficultyResponse] = await Promise.all([
                     request("get", "/ingredients", null, true),
                     request("get", "/units", null, true),
                     request("get", "/tags", null, true),
+                    request("get", "/difficulty", null, true)
                 ]);
                 setAllIngredients(ingredientsResponse.data);
                 setUnits(unitsResponse.data);
                 setAllTags(tagsResponse.data);
+                setAllDifficulties(difficultyResponse.data);
             } catch (error) {
-                console.error("Failed to load ingredients, units or tags:", error);
+                console.error("Failed to load ingredients, units, difficulty or tags:", error);
             }
         })();
     }, []);
@@ -128,6 +132,7 @@ const CreatePage = () => {
         if (servings <= 0) errors.push("Servings must be at least 1!");
         if (recipeIngredientDTOList.length === 0) errors.push("At least one ingredient is required!");
         if (stepDTOList.length === 0) errors.push("At least one step is required!");
+        if (!difficulty) errors.push("Please select a difficulty!")
 
         if (errors.length > 0) {
             alert(errors.join("\n"));
@@ -149,6 +154,7 @@ const CreatePage = () => {
                     tagDTOList: tagsList,
                     stepDTOList,
                     servings,
+                    difficulty
                 },
                 true
             );
@@ -197,6 +203,9 @@ const CreatePage = () => {
             tempStepsList={tempStepsList}
             setTempStepsList={setTempStepsList}
             saveStepsList={saveStepsList}
+            allDifficulties={allDifficulties}
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
             servings={servings}
             setServings={setServings}
             isUpdate={false}
