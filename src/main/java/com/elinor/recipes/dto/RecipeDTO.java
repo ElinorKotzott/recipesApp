@@ -1,5 +1,6 @@
 package com.elinor.recipes.dto;
 
+import com.elinor.recipes.model.CropParameters;
 import com.elinor.recipes.model.enumeration.Difficulty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,4 +30,5 @@ public class RecipeDTO {
     private Double caloriesPerServing;
     private Long creatorId;
     private Difficulty difficulty;
+    private CropParameters cropParameters;
 }

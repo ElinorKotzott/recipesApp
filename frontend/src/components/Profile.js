@@ -35,8 +35,6 @@ const Profile = ({
       const base64String = reader.result.split(",")[1];
       setTempProfilePictureData(base64String);
       setTempProfilePictureType(file.type);
-      //setProfilePictureData(base64String);
-      //setProfilePictureType(file.type);
       handleShowCropper();
     };
 

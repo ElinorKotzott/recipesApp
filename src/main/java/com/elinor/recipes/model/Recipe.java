@@ -50,6 +50,10 @@ public class Recipe {
     @Column(name = "image_type", length = 50)
     private String imageType;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "crop_parameters_id", referencedColumnName = "id")
+    private CropParameters cropParameters;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;

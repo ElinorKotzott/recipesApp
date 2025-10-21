@@ -1,6 +1,7 @@
 package com.elinor.recipes.service;
 
 import com.elinor.recipes.dto.UserDTO;
+import com.elinor.recipes.mapper.UserMapper;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -19,29 +20,13 @@ public class ProfileService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return new UserDTO(
-                user.getUsername(),
-                user.getEmail(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getBio(),
-                user.getProfilePictureData(),
-                user.getProfilePictureType()
-        );
+        return UserMapper.toDTO(user);
     }
 
     public void updateUserProfile(String currentUsername, UserDTO updatedUser) {
         User user = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        user.setUsername(updatedUser.getUsername());
-        user.setEmail(updatedUser.getEmail());
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setBio(updatedUser.getBio());
-        user.setProfilePictureData(updatedUser.getProfilePictureData());
-        user.setProfilePictureType(updatedUser.getProfilePictureType());
-
-        userRepository.save(user);
+        userRepository.save(UserMapper.toEntity(user, updatedUser));
     }
 }

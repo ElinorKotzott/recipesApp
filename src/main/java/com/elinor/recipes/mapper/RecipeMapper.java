@@ -29,7 +29,8 @@ public class RecipeMapper {
                 recipe.getServings(),
                 recipe.getCaloriesPerServing(),
                 recipe.getUser().getId(),
-                recipe.getDifficulty()
+                recipe.getDifficulty(),
+                recipe.getCropParameters()
         );
     }
 
@@ -53,6 +54,7 @@ public class RecipeMapper {
         recipe.setFatPerServing(dto.getFatPerServing());
         recipe.setProteinPerServing(dto.getProteinPerServing());
         recipe.setUser(user);
+        recipe.setCropParameters(dto.getCropParameters());
         return recipe;
     }
 

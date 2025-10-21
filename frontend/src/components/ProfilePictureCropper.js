@@ -50,7 +50,6 @@ function ProfilePictureCropper({
     const base64Data = croppedBase64.split(',')[1]
 
     onCropSave(base64Data, outputType);
-
   }
 
 

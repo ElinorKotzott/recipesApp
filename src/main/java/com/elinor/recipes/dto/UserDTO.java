@@ -1,9 +1,11 @@
 package com.elinor.recipes.dto;
 
+import com.elinor.recipes.model.CropParameters;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class UserDTO {
@@ -14,4 +16,5 @@ public class UserDTO {
     private String bio;
     private String profilePictureData;
     private String profilePictureType;
+    private CropParameters cropParameters;
 }
