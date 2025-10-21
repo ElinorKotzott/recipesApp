@@ -4,11 +4,11 @@ import PrimaryButton from "./buttons/PrimaryButton.js";
 import Modal from "react-bootstrap/Modal";
 
 function ProfilePictureCropper({
-  profilePictureData,
-  profilePictureType,
+  tempProfilePictureData,
+  tempProfilePictureType,
   setIsCropping,
-  setProfilePictureData,
-  setProfilePictureType,
+  setTempProfilePictureData,
+  setTempProfilePictureType,
   onCropSave,
   handleShowCropper,
   handleCloseCropper,
@@ -24,7 +24,7 @@ function ProfilePictureCropper({
 
   const cropImage = async () => {
     const image = new Image()
-    image.src = `data:${profilePictureType};base64,${profilePictureData}`
+    image.src = `data:${tempProfilePictureType};base64,${tempProfilePictureData}`
 
     await new Promise((resolve) => (image.onload = resolve))
 
@@ -45,7 +45,7 @@ function ProfilePictureCropper({
       croppedAreaPixels.height
     )
 
-    const outputType = profilePictureType === 'image/png' ? 'image/png' : 'image/jpeg'
+    const outputType = tempProfilePictureType === 'image/png' ? 'image/png' : 'image/jpeg'
     const croppedBase64 = canvas.toDataURL(outputType)
     const base64Data = croppedBase64.split(',')[1]
 
@@ -65,7 +65,7 @@ function ProfilePictureCropper({
 
         <div style={{ position: 'relative', height: '50vh' }}>
           <Cropper
-            image={`data:${profilePictureType};base64,${profilePictureData}`}
+            image={`data:${tempProfilePictureType};base64,${tempProfilePictureData}`}
             crop={crop}
             zoom={zoom}
             aspect={1}

@@ -48,7 +48,6 @@ hr {
   width: 100%;
 }
 
-
 .your-recipes, .latest-recipes, .your-favs-container {
   display: flex;
   flex-wrap: wrap;

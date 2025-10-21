@@ -22,6 +22,9 @@ const Profile = ({
 }) => {
   const [isCropping, setIsCropping] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
+  const [tempProfilePictureData, setTempProfilePictureData] = useState("");
+  const [tempProfilePictureType, setTempProfilePictureType] = useState("");
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -30,8 +33,10 @@ const Profile = ({
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result.split(",")[1];
-      setProfilePictureData(base64String);
-      setProfilePictureType(file.type);
+      setTempProfilePictureData(base64String);
+      setTempProfilePictureType(file.type);
+      //setProfilePictureData(base64String);
+      //setProfilePictureType(file.type);
       handleShowCropper();
     };
 
@@ -49,6 +54,13 @@ const Profile = ({
      setShowCropper(true);
      setIsCropping(true);
    };
+
+   const handleShowCropperFromExistingImage = () => {
+     setTempProfilePictureData(profilePictureData);
+     setTempProfilePictureType(profilePictureType);
+     setShowCropper(true);
+     setIsCropping(true);
+   }
 
    const handleCloseCropper = () => {
      setShowCropper(false);
@@ -105,14 +117,14 @@ const Profile = ({
 
         {isCropping && profilePictureData && profilePictureType && (
           <ProfilePictureCropper
-            profilePictureData={profilePictureData}
-            profilePictureType={profilePictureType}
-            setProfilePictureData={setProfilePictureData}
-            setProfilePictureType={setProfilePictureType}
+            tempProfilePictureData={tempProfilePictureData}
+            tempProfilePictureType={tempProfilePictureType}
             setIsCropping={setIsCropping}
             onCropSave={handleCropSave}
             handleShowCropper={handleShowCropper}
             handleCloseCropper={handleCloseCropper}
+            setTempProfilePictureData={setTempProfilePictureData}
+            setTempProfilePictureType={setTempProfilePictureType}
             showCropper={showCropper}
           />
         )}
@@ -139,7 +151,7 @@ const Profile = ({
               margin: '1rem 0',
             }}
           />
-          <PrimaryButton type="button" onClick={handleShowCropper}>Edit Crop</PrimaryButton>
+          <PrimaryButton type="button" onClick={handleShowCropperFromExistingImage}>Edit Crop</PrimaryButton>
           </div>
         )}
 
