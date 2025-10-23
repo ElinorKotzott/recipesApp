@@ -6,11 +6,7 @@ import Modal from "react-bootstrap/Modal";
 function ProfilePictureCropper({
   tempProfilePictureData,
   tempProfilePictureType,
-  setIsCropping,
-  setTempProfilePictureData,
-  setTempProfilePictureType,
   onCropSave,
-  handleShowCropper,
   handleCloseCropper,
   showCropper
 }) {

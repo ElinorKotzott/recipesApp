@@ -4,6 +4,7 @@ import com.elinor.recipes.model.AuthenticationResponse;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.service.AuthenticationService;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthenticationController {
 
+    @Autowired
     private final AuthenticationService authService;
 
     @PostMapping("/register")
@@ -24,7 +26,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody User request) {
-        return ResponseEntity.ok(authService.authenticate(request));
+    public ResponseEntity<?> login(@RequestBody User request) {
+        try {
+            AuthenticationResponse response = authService.authenticate(request);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .status(401)
+                    .body(java.util.Map.of("error", e.getMessage()));
+        }
     }
 }

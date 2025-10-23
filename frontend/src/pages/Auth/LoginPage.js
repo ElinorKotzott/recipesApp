@@ -4,7 +4,6 @@ import { request } from "../../axiosHelper";
 import Login from "../../components/Login";
 import { jwtDecode } from "jwt-decode";
 
-//TODO there is a bug where after a failed login, clicking register will trigger another alert that the login failed
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -21,32 +20,22 @@ const LoginPage = () => {
     };
   }, []);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      //not sending an auth header for the login
-      const response = await request(
-        "post",
-        "/login",
-        { username, password },
-        false
-      );
-      const token = response.data.token;
-      sessionStorage.setItem("token", token);
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await request("post", "/login", { username, password }, false);
 
-      // decode token to get user id - for delete button - and store in sessionStorage
-      const decoded = jwtDecode(token);
-      sessionStorage.setItem("user", JSON.stringify({ id: decoded.sub }));
+    const token = response.data.token;
+    sessionStorage.setItem("token", token);
 
-      navigate("/home");
-    } catch (error) {
-      if (error.response) {
-        alert("Login failed: " + error.response.data.message);
-      } else {
-        alert("Error: " + error.message);
-      }
-    }
-  };
+    const decoded = jwtDecode(token);
+    sessionStorage.setItem("user", JSON.stringify({ id: decoded.sub }));
+
+    navigate("/home");
+  } catch (error) {
+    alert("Login failed"); //how to get error message from backend? axios intercepts 401 errors and will replace error message
+  }
+};
 
   return (
     <Login
