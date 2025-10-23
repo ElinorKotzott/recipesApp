@@ -1,6 +1,7 @@
 package com.elinor.recipes.controller;
 
 import com.elinor.recipes.dto.UserDTO;
+import com.elinor.recipes.model.User;
 import com.elinor.recipes.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +16,15 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public ResponseEntity<UserDTO> getUserInfo(Authentication authentication) {
-        String username = authentication.getName();
-        UserDTO currentUser = profileService.getUserProfile(username);
+        Long userId = ((User) authentication.getPrincipal()).getId();
+        UserDTO currentUser = profileService.getUserProfile(userId);
         return ResponseEntity.ok(currentUser);
     }
 
     @PutMapping("/profile/change")
-    public ResponseEntity<String> updateUserInfo(@RequestBody UserDTO updatedUser, Authentication authentication) {
-        String currentUsername = authentication.getName();
-        profileService.updateUserProfile(currentUsername, updatedUser);
+    public ResponseEntity<String> updateUserInfo(@RequestBody UserDTO updatedUser) {
+
+        profileService.updateUserProfile(updatedUser);
         return ResponseEntity.ok().build();
     }
 }

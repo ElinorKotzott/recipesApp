@@ -23,8 +23,10 @@ const Login = ({
                         <Form.Control
                             type="text"
                             name="username"
+                            required
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            className="form-control"
                         />
                     </Form.Group>
 
@@ -33,16 +35,16 @@ const Login = ({
                         <Form.Control
                             type="password"
                             name="password"
+                            required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            className="form-control"
                         />
                     </Form.Group>
 
-                    <br/>
-                    <br/>
 
                     <PrimaryButton type="submit">Login</PrimaryButton>
-                    <p>Don't have an account yet?</p>
+                    <p style={{ margin: "0" }}>Don't have an account yet?</p>
                     <PrimaryButton type="button" onClick={() => navigate("/register")}>
                         Register
                     </PrimaryButton>

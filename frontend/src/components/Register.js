@@ -22,7 +22,6 @@ const Register = ({
         <h2>Register</h2>
         <form onSubmit={handleRegister}>
           <label htmlFor="firstName">First name:</label>
-          <br />
           <input
             type="text"
             id="firstName"
@@ -30,13 +29,11 @@ const Register = ({
             required
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            className="form-control"
           />
 
-          <br />
-          <br />
-
           <label htmlFor="lastName">Last name:</label>
-          <br />
+
           <input
             type="text"
             id="lastName"
@@ -44,13 +41,12 @@ const Register = ({
             required
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            className="form-control"
           />
 
-          <br />
-          <br />
 
           <label htmlFor="email">Email:</label>
-          <br />
+
           <input
             type="email"
             id="email"
@@ -58,13 +54,12 @@ const Register = ({
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="form-control"
           />
 
-          <br />
-          <br />
 
           <label htmlFor="username">Username:</label>
-          <br />
+
           <input
             type="text"
             id="username"
@@ -72,13 +67,12 @@ const Register = ({
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            className="form-control"
           />
 
-          <br />
-          <br />
 
           <label htmlFor="password">Password:</label>
-          <br />
+
           <input
             type="password"
             id="password"
@@ -86,13 +80,11 @@ const Register = ({
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="form-control"
           />
 
-          <br />
-          <br />
-
           <PrimaryButton type="submit">Register</PrimaryButton>
-          <p>Already have an account?</p>
+          <p style={{ margin: "0" }}>Already have an account?</p>
           <PrimaryButton type="submit" onClick={() => navigate("/login")}>
             Login
           </PrimaryButton>

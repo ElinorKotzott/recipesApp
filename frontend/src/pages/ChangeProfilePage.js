@@ -48,7 +48,6 @@ function ChangeProfilePage() {
         "put",
         "/profile/change",
         {
-          username,
           firstName,
           lastName,
           email,
@@ -69,7 +68,6 @@ function ChangeProfilePage() {
   return (
     <Profile
       username={username}
-      setUsername={setUsername}
       firstName={firstName}
       setFirstName={setFirstName}
       lastName={lastName}

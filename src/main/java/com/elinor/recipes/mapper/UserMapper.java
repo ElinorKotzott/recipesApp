@@ -6,6 +6,21 @@ import com.elinor.recipes.model.User;
 
 public class UserMapper {
 
+    public static User updatedUserToEntity(User user, UserDTO userDTO) {
+        if (user == null) return null;
+
+        user.setBio(userDTO.getBio());
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setLastName(userDTO.getLastName());
+        user.setFirstName(userDTO.getFirstName());
+        user.setCropParameters(userDTO.getCropParameters());
+        user.setProfilePictureData(userDTO.getProfilePictureData());
+        user.setProfilePictureType(userDTO.getProfilePictureType());
+
+        return user;
+    }
+
     public static UserDTO toDTO(User user) {
         if (user == null) return null;
 
@@ -22,8 +37,10 @@ public class UserMapper {
         return userDTO;
     }
 
-    public static User toEntity(User user, UserDTO userDTO) {
+    public static User toEntity(UserDTO userDTO) {
         if (userDTO == null) return null;
+
+        User user = new User();
 
         user.setBio(userDTO.getBio());
         user.setUsername(userDTO.getUsername());

@@ -74,8 +74,8 @@ const Profile = ({
           type="text"
           id="username"
           value={username}
-          required
-          onChange={(e) => setUsername(e.target.value)}
+          readOnly
+          className="form-control"
         />
 
         <label htmlFor="email" >Email</label>
@@ -85,6 +85,7 @@ const Profile = ({
           value={email}
           required
           onChange={(e) => setEmail(e.target.value)}
+          className="form-control"
         />
 
         <label htmlFor="firstName">First Name</label>
@@ -94,6 +95,7 @@ const Profile = ({
           value={firstName}
           required
           onChange={(e) => setFirstName(e.target.value)}
+          className="form-control"
         />
 
         <label htmlFor="lastName">Last Name</label>
@@ -103,6 +105,7 @@ const Profile = ({
           value={lastName}
           required
           onChange={(e) => setLastName(e.target.value)}
+          className="form-control"
         />
 
         <label htmlFor="bio">Bio</label>
@@ -111,6 +114,7 @@ const Profile = ({
           id="bio"
           value={bio}
           onChange={(e) => setBio(e.target.value)}
+          className="form-control"
         />
 
         {isCropping && profilePictureData && profilePictureType && (
@@ -133,6 +137,7 @@ const Profile = ({
           id="image"
           accept="image/*"
           onChange={handleImageChange}
+          className="form-control"
         />
 
         {profilePictureData && profilePictureType && !isCropping && (
