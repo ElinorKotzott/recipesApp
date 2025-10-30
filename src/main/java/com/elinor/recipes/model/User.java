@@ -43,15 +43,9 @@ public class User implements UserDetails {
     @Column(name = "bio")
     private String bio;
 
-    @Column(name = "profile_picture_data", columnDefinition = "TEXT")
-    private String profilePictureData;
-
-    @Column(name = "profile_picture_type", length = 50)
-    private String profilePictureType;
-
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "crop_parameters_id", referencedColumnName = "id")
-    private CropParameters cropParameters;
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -22,9 +22,9 @@ public class ProfileController {
     }
 
     @PutMapping("/profile/change")
-    public ResponseEntity<String> updateUserInfo(@RequestBody UserDTO updatedUser) {
-
-        profileService.updateUserProfile(updatedUser);
+    public ResponseEntity<String> updateUserInfo(@RequestBody UserDTO updatedUser, Authentication authentication) {
+        Long userId = ((User) authentication.getPrincipal()).getId();
+        profileService.updateUserProfile(updatedUser, userId);
         return ResponseEntity.ok().build();
     }
 }

@@ -17,8 +17,7 @@ public class RecipeMapper {
                 recipe.getDescription(),
                 recipe.getPrepTime(),
                 recipe.getCookingTime(),
-                recipe.getImageData(),
-                recipe.getImageType(),
+                ImageMapper.toDTO(recipe.getImage()),
                 RecipeIngredientMapper.toDTOList(recipe.getRecipeIngredientList()),
                 StepMapper.toDTOList(recipe.getStepList()),
                 TagMapper.toDTOList(recipe.getTagList()),
@@ -29,8 +28,7 @@ public class RecipeMapper {
                 recipe.getServings(),
                 recipe.getCaloriesPerServing(),
                 recipe.getUser().getId(),
-                recipe.getDifficulty(),
-                recipe.getCropParameters()
+                recipe.getDifficulty()
         );
     }
 
@@ -43,9 +41,8 @@ public class RecipeMapper {
         recipe.setStepList(StepMapper.toEntityList(dto.getStepDTOList(), recipe));
         recipe.setPrepTime(dto.getPrepTime());
         recipe.setCookingTime(dto.getCookingTime());
-        recipe.setImageData(dto.getImageData());
-        recipe.setImageType(dto.getImageType());
         recipe.setRecipeIngredientList(RecipeIngredientMapper.toEntityList(dto.getRecipeIngredientDTOList(), recipe));
+        recipe.setImage(ImageMapper.toEntity(dto.getImageDTO()));
         recipe.setServings(dto.getServings());
         recipe.setDifficulty(dto.getDifficulty());
         recipe.setTagList(TagMapper.toEntityList(dto.getTagDTOList()));
@@ -54,7 +51,6 @@ public class RecipeMapper {
         recipe.setFatPerServing(dto.getFatPerServing());
         recipe.setProteinPerServing(dto.getProteinPerServing());
         recipe.setUser(user);
-        recipe.setCropParameters(dto.getCropParameters());
         return recipe;
     }
 

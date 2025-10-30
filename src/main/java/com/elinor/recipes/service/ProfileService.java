@@ -23,11 +23,10 @@ public class ProfileService {
         return UserMapper.toDTO(user);
     }
 
-    public void updateUserProfile(UserDTO updatedUser) {
-        User user = userRepository.findById(updatedUser.getId())
+    public void updateUserProfile(UserDTO updatedUser, Long userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         UserMapper.updatedUserToEntity(user, updatedUser);
     }
-
 }

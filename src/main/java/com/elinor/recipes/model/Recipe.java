@@ -44,15 +44,9 @@ public class Recipe {
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
-    @Column(name = "image_data", columnDefinition = "TEXT")
-    private String imageData;
-
-    @Column(name = "image_type", length = 50)
-    private String imageType;
-
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "crop_parameters_id", referencedColumnName = "id")
-    private CropParameters cropParameters;
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

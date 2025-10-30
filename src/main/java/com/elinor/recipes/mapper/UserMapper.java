@@ -10,13 +10,10 @@ public class UserMapper {
         if (user == null) return null;
 
         user.setBio(userDTO.getBio());
-        user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setLastName(userDTO.getLastName());
         user.setFirstName(userDTO.getFirstName());
-        user.setCropParameters(userDTO.getCropParameters());
-        user.setProfilePictureData(userDTO.getProfilePictureData());
-        user.setProfilePictureType(userDTO.getProfilePictureType());
+        user.setImage(ImageMapper.toEntity(userDTO.getImageDTO()));
 
         return user;
     }
@@ -30,9 +27,7 @@ public class UserMapper {
         userDTO.setEmail(user.getEmail());
         userDTO.setLastName(user.getLastName());
         userDTO.setFirstName(user.getFirstName());
-        userDTO.setCropParameters(user.getCropParameters());
-        userDTO.setProfilePictureData(user.getProfilePictureData());
-        userDTO.setProfilePictureType(user.getProfilePictureType());
+        userDTO.setImageDTO(ImageMapper.toDTO(user.getImage()));
 
         return userDTO;
     }
@@ -47,9 +42,7 @@ public class UserMapper {
         user.setEmail(userDTO.getEmail());
         user.setLastName(userDTO.getLastName());
         user.setFirstName(userDTO.getFirstName());
-        user.setCropParameters(userDTO.getCropParameters());
-        user.setProfilePictureData(userDTO.getProfilePictureData());
-        user.setProfilePictureType(userDTO.getProfilePictureType());
+        user.setImage(ImageMapper.toEntity(userDTO.getImageDTO()));
 
         return user;
     }

@@ -1,4 +1,5 @@
 import PrimaryButton from "./buttons/PrimaryButton.js";
+import DrawImage from "./DrawImage";
 import ProfilePictureCropper from './ProfilePictureCropper';
 import { useState } from 'react';
 
@@ -19,11 +20,14 @@ const Profile = ({
   profilePictureType,
   setProfilePictureType,
   handleProfileUpdate,
+  cropParams,
+  setCropParams
 }) => {
   const [isCropping, setIsCropping] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
-  const [tempProfilePictureData, setTempProfilePictureData] = useState("");
-  const [tempProfilePictureType, setTempProfilePictureType] = useState("");
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
 
 
   const handleImageChange = (e) => {
@@ -33,32 +37,31 @@ const Profile = ({
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result.split(",")[1];
-      setTempProfilePictureData(base64String);
-      setTempProfilePictureType(file.type);
+      setProfilePictureData(base64String);
+      setProfilePictureType(file.type);
       handleShowCropper();
     };
 
     reader.readAsDataURL(file);
   };
 
-  const handleCropSave = (croppedData, croppedType) => {
-    setProfilePictureData(croppedData);
-    setProfilePictureType(croppedType);
+  const handleCropSave = (croppedAreaPixels) => {
+    console.log(zoom);
+    setCropParams({
+      x: croppedAreaPixels.x,
+      y: croppedAreaPixels.y,
+      width: croppedAreaPixels.width,
+      height: croppedAreaPixels.height,
+      zoom: zoom
+    });
+    console.log(cropParams);
     setIsCropping(false);
   };
-
 
    const handleShowCropper = () => {
      setShowCropper(true);
      setIsCropping(true);
    };
-
-   const handleShowCropperFromExistingImage = () => {
-     setTempProfilePictureData(profilePictureData);
-     setTempProfilePictureType(profilePictureType);
-     setShowCropper(true);
-     setIsCropping(true);
-   }
 
    const handleCloseCropper = () => {
      setShowCropper(false);
@@ -119,14 +122,20 @@ const Profile = ({
 
         {isCropping && profilePictureData && profilePictureType && (
           <ProfilePictureCropper
-            tempProfilePictureData={tempProfilePictureData}
-            tempProfilePictureType={tempProfilePictureType}
+            profilePictureData={profilePictureData}
+            profilePictureType={profilePictureType}
             setIsCropping={setIsCropping}
             onCropSave={handleCropSave}
             handleShowCropper={handleShowCropper}
             handleCloseCropper={handleCloseCropper}
-            setTempProfilePictureData={setTempProfilePictureData}
-            setTempProfilePictureType={setTempProfilePictureType}
+            setProfilePictureData={setProfilePictureData}
+            setProfilePictureType={setProfilePictureType}
+            crop={crop}
+            setCrop={setCrop}
+            zoom={zoom}
+            setZoom={setZoom}
+            croppedAreaPixels={croppedAreaPixels}
+            setCroppedAreaPixels={setCroppedAreaPixels}
             showCropper={showCropper}
           />
         )}
@@ -140,23 +149,22 @@ const Profile = ({
           className="form-control"
         />
 
-        {profilePictureData && profilePictureType && !isCropping && (
+          {profilePictureData && profilePictureType && !isCropping && (
           <div>
-          <img
-            src={`data:${profilePictureType};base64,${profilePictureData}`}
-            alt="Cropped Preview"
-            style={{
-              display: 'block',
-              width: 100,
-              height: 100,
-              objectFit: 'cover',
-              borderRadius: '50%',
-              margin: '1rem 0',
-            }}
+
+          <DrawImage
+          cropParams={cropParams}
+          imageData={profilePictureData}
+          imageType={profilePictureType}
           />
-          <PrimaryButton type="button" onClick={handleShowCropperFromExistingImage}>Edit Crop</PrimaryButton>
+
+          <PrimaryButton type="button" onClick={handleShowCropper}>
+                          Edit Crop
+          </PrimaryButton>
+
           </div>
-        )}
+
+          )}
 
         <div>
 

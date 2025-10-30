@@ -83,14 +83,6 @@ hr {
   border: 1px solid #000000;
 }
 
-.profile-picture {
-  height: 4em;
-  width: 4em;
-  border-radius: 50%;
-  border: solid white 2px;
-  object-fit: cover;
-}
-
 .recipe-card-image {
   width: 100%;
   border-radius: 8px;

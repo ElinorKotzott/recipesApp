@@ -11,13 +11,9 @@ function ChangeProfilePage() {
   const [bio, setBio] = useState("");
   const [profilePictureData, setProfilePictureData] = useState("");
   const [profilePictureType, setProfilePictureType] = useState("");
+  const [cropParams, setCropParams] = useState("");
   const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("profilePictureData updated (length):", profilePictureData.length);
-  }, [profilePictureData]);
-
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -29,8 +25,9 @@ function ChangeProfilePage() {
         setLastName(response.data.lastName);
         setEmail(response.data.email);
         setBio(response.data.bio);
-        setProfilePictureData(response.data.profilePictureData);
-        setProfilePictureType(response.data.profilePictureType);
+        setProfilePictureData(response.data.imageDTO?.imageData);
+        setProfilePictureType(response.data.imageDTO?.imageType);
+        setCropParams(response.data.imageDTO?.cropParameters);
       } catch (error) {
         console.error("Error fetching profile:", error);
       }
@@ -42,8 +39,6 @@ function ChangeProfilePage() {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      console.log(profilePictureData.length);
-
       await request(
         "put",
         "/profile/change",
@@ -52,8 +47,8 @@ function ChangeProfilePage() {
           lastName,
           email,
           bio,
-          profilePictureData,
-          profilePictureType,
+          imageDTO: {imageData: profilePictureData,
+          imageType: profilePictureType, cropParameters: cropParams}
         },
         true
       );
@@ -81,6 +76,8 @@ function ChangeProfilePage() {
       profilePictureType={profilePictureType}
       setProfilePictureType={setProfilePictureType}
       handleProfileUpdate={handleProfileUpdate}
+      cropParams={cropParams}
+      setCropParams={setCropParams}
     />
   );
 }
