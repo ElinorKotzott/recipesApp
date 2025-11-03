@@ -47,18 +47,27 @@ function ChangeProfilePage() {
           lastName,
           email,
           bio,
-          imageDTO: {imageData: profilePictureData,
-          imageType: profilePictureType, cropParameters: cropParams}
+          imageDTO: {
+            imageData: profilePictureData,
+            imageType: profilePictureType,
+            cropParameters: cropParams ? {
+              x: cropParams.croppedAreaPixels.x,
+              y: cropParams.croppedAreaPixels.y,
+              width: cropParams.croppedAreaPixels.width,
+              height: cropParams.croppedAreaPixels.height,
+              zoom: cropParams.zoom
+            } : null
+          }
         },
         true
       );
       navigate("/profile");
-
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("Update failed!");
     }
   };
+
 
   return (
     <Profile

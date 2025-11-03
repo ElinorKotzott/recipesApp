@@ -54,6 +54,7 @@ function ProfilePage() {
         />
         :
         <img src={"/default-profile-picture-all-grey.png"}
+          alt="default-profile-picture"
           style={{overflow: "hidden",
                   borderRadius: "50%",
                   marginBottom: "1rem",
