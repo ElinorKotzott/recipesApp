@@ -28,6 +28,7 @@ const Profile = ({
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [tempProfilePictureData, setTempProfilePictureData] = useState("");
   const [tempProfilePictureType, setTempProfilePictureType] = useState("");
+  const [isCropping, setIsCropping] = useState(false);
 
   useEffect(() => {
       if (profilePictureData && profilePictureType) {
@@ -47,7 +48,6 @@ const Profile = ({
       setTempProfilePictureType(file.type);
       setCrop({ x: 0, y: 0 });
       setZoom(1);
-      //setCropParams(null); - this is needed but also not needed. what now? tempCropParams?
       handleShowCropper();
     };
 
@@ -62,11 +62,13 @@ const Profile = ({
       croppedAreaPixels,
       zoom
     });
+    setIsCropping(false);
     setShowCropper(false);
   };
 
 
    const handleShowCropper = () => {
+     setIsCropping(true);
      setShowCropper(true);
    };
 
@@ -79,6 +81,7 @@ const Profile = ({
 
      setCrop(crop);
      setZoom(zoom);
+     setIsCropping(true);
      setShowCropper(true);
    };
 
@@ -86,6 +89,7 @@ const Profile = ({
    const handleCloseCropper = () => {
      setTempProfilePictureData(profilePictureData);
      setTempProfilePictureType(profilePictureType);
+     setIsCropping(false)
      setShowCropper(false);
    };
 
@@ -168,7 +172,7 @@ const Profile = ({
           className="form-control"
         />
 
-          {tempProfilePictureData && tempProfilePictureType && (
+          {tempProfilePictureData && tempProfilePictureType && !isCropping && (
           <div>
 
           <DrawImage
