@@ -26,4 +26,10 @@ public class CropParameters {
 
     @Column(nullable = false)
     private Double zoom;
+
+    @Column(nullable = false)
+    private Double xForCropper;
+
+    @Column(nullable = false)
+    private Double yForCropper;
 }

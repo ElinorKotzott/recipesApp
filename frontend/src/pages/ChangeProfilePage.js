@@ -20,6 +20,8 @@ function ChangeProfilePage() {
       if (!token) return;
       try {
         const response = await request("get", "/profile", null, true);
+        const cropInfo = response.data.imageDTO?.cropParametersDTO;
+
         setUsername(response.data.username);
         setFirstName(response.data.firstName);
         setLastName(response.data.lastName);
@@ -27,7 +29,21 @@ function ChangeProfilePage() {
         setBio(response.data.bio);
         setProfilePictureData(response.data.imageDTO?.imageData);
         setProfilePictureType(response.data.imageDTO?.imageType);
-        setCropParams(response.data.imageDTO?.cropParameters);
+        if (cropInfo) {
+                  setCropParams({
+                    crop: {
+                      x: cropInfo.xForCropper ?? 0,
+                      y: cropInfo.yForCropper ?? 0
+                    },
+                    croppedAreaPixels: {
+                      x: cropInfo.x ?? 0,
+                      y: cropInfo.y ?? 0,
+                      width: cropInfo.width ?? 0,
+                      height: cropInfo.height ?? 0
+                    },
+                    zoom: cropInfo.zoom ?? 1
+                  });
+        }
       } catch (error) {
         console.error("Error fetching profile:", error);
       }
@@ -50,12 +66,14 @@ function ChangeProfilePage() {
           imageDTO: {
             imageData: profilePictureData,
             imageType: profilePictureType,
-            cropParameters: cropParams ? {
+            cropParametersDTO: cropParams ? {
               x: cropParams.croppedAreaPixels.x,
               y: cropParams.croppedAreaPixels.y,
               width: cropParams.croppedAreaPixels.width,
               height: cropParams.croppedAreaPixels.height,
-              zoom: cropParams.zoom
+              zoom: cropParams.zoom,
+              xForCropper: cropParams.crop?.x ?? 0,
+              yForCropper: cropParams.crop?.y ?? 0
             } : null
           }
         },

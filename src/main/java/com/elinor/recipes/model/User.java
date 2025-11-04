@@ -43,8 +43,8 @@ public class User implements UserDetails {
     @Column(name = "bio")
     private String bio;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "image_id", referencedColumnName = "id", unique = true)
     private Image image;
 
     @CreationTimestamp

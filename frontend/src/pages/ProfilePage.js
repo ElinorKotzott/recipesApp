@@ -24,6 +24,8 @@ function ProfilePage() {
       try {
         const response = await request("get", "/profile", null, true);
         const data = response.data;
+        const cropInfo = data.imageDTO?.cropParametersDTO;
+
         setUsername(data.username);
         setEmail(data.email);
         setFirstName(data.firstName);
@@ -31,7 +33,22 @@ function ProfilePage() {
         setBio(data.bio);
         setProfilePictureData(data.imageDTO?.imageData);
         setProfilePictureType(data.imageDTO?.imageType);
-        setCropParams(data.imageDTO?.cropParameters);
+        if (cropInfo) {
+          setCropParams({
+            crop: {
+              x: cropInfo.xForCropper ?? 0,
+              y: cropInfo.yForCropper ?? 0
+            },
+            croppedAreaPixels: {
+              x: cropInfo.x ?? 0,
+              y: cropInfo.y ?? 0,
+              width: cropInfo.width ?? 0,
+              height: cropInfo.height ?? 0
+            },
+            zoom: cropInfo.zoom ?? 1
+          });
+        }
+
       } catch (error) {
         console.error("Error fetching profile:", error);
       }

@@ -15,7 +15,7 @@ public class ImageMapper {
         ImageDTO imageDTO = new ImageDTO();
         imageDTO.setImageData(image.getImageData());
         imageDTO.setImageType(image.getImageType());
-        imageDTO.setCropParameters(image.getCropParameters());
+        imageDTO.setCropParametersDTO(CropParametersMapper.toDTO(image.getCropParameters()));
         return imageDTO;
     }
 
@@ -27,7 +27,7 @@ public class ImageMapper {
         image.setId(imageDTO.getId());
         image.setImageData(imageDTO.getImageData());
         image.setImageType(imageDTO.getImageType());
-        image.setCropParameters(imageDTO.getCropParameters());
+        image.setCropParameters(CropParametersMapper.toEntity(imageDTO.getCropParametersDTO()));
         return image;
     }
 
