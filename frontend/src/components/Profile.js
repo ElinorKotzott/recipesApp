@@ -1,6 +1,6 @@
 import PrimaryButton from "./buttons/PrimaryButton.js";
 import DrawImage from "./DrawImage";
-import ProfilePictureCropper from './ProfilePictureCropper';
+import ImageCropper from './ImageCropper';
 import { useState, useEffect } from 'react';
 
 
@@ -147,9 +147,9 @@ const Profile = ({
         />
 
         {tempProfilePictureData && tempProfilePictureType && (
-          <ProfilePictureCropper
-            tempProfilePictureData={tempProfilePictureData}
-            tempProfilePictureType={tempProfilePictureType}
+          <ImageCropper
+            tempImageData={tempProfilePictureData}
+            tempImageType={tempProfilePictureType}
             onCropSave={handleCropSave}
             handleShowCropper={handleShowCropper}
             handleCloseCropper={handleCloseCropper}
@@ -160,6 +160,8 @@ const Profile = ({
             croppedAreaPixels={croppedAreaPixels}
             setCroppedAreaPixels={setCroppedAreaPixels}
             showCropper={showCropper}
+            aspect={1}
+            cropShape={"round"}
           />
         )}
 
