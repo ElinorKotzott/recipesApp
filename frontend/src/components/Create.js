@@ -170,6 +170,7 @@ const Create = ({
               <Form.Group className="mb-3" controlId="ingredients">
                 <Form.Control
                   type="number"
+                  min={1}
                   placeholder="Quantity"
                   className="input-for-numbers"
                   value={quantity}
