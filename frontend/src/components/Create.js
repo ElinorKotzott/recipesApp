@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import DarkButton from "./buttons/DarkButton";
 import Modal from "react-bootstrap/Modal";
+import ManageImageCropper from "./ManageImageCropper";
 
 
 const Create = ({

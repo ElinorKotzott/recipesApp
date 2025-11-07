@@ -1,7 +1,5 @@
 import PrimaryButton from "./buttons/PrimaryButton.js";
-import DrawImage from "./DrawImage";
-import ImageCropper from './ImageCropper';
-import { useState, useEffect } from 'react';
+import ManageImageCropper from './ManageImageCropper';
 
 
 const Profile = ({
@@ -22,77 +20,6 @@ const Profile = ({
   cropParams,
   setCropParams
 }) => {
-  const [showCropper, setShowCropper] = useState(false);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [tempProfilePictureData, setTempProfilePictureData] = useState("");
-  const [tempProfilePictureType, setTempProfilePictureType] = useState("");
-  const [isCropping, setIsCropping] = useState(false);
-
-  useEffect(() => {
-      if (profilePictureData && profilePictureType) {
-        setTempProfilePictureData(profilePictureData);
-        setTempProfilePictureType(profilePictureType);
-      }
-    }, [profilePictureData, profilePictureType]);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result.split(",")[1];
-      setTempProfilePictureData(base64String);
-      setTempProfilePictureType(file.type);
-      setCrop({ x: 0, y: 0 });
-      setZoom(1);
-      handleShowCropper();
-    };
-
-    reader.readAsDataURL(file);
-  };
-
-  const handleCropSave = ({ croppedAreaPixels, crop, zoom }) => {
-    setProfilePictureData(tempProfilePictureData);
-    setProfilePictureType(tempProfilePictureType);
-    setCropParams({
-      crop,
-      croppedAreaPixels,
-      zoom
-    });
-    setIsCropping(false);
-    setShowCropper(false);
-  };
-
-
-   const handleShowCropper = () => {
-     setIsCropping(true);
-     setShowCropper(true);
-   };
-
-   const handleShowCropperFromExistingImage = () => {
-     setTempProfilePictureData(profilePictureData);
-     setTempProfilePictureType(profilePictureType);
-
-     const crop = cropParams?.crop ?? { x: 0, y: 0 };
-     const zoom = cropParams?.zoom ?? 1;
-
-     setCrop(crop);
-     setZoom(zoom);
-     setIsCropping(true);
-     setShowCropper(true);
-   };
-
-
-   const handleCloseCropper = () => {
-     setTempProfilePictureData(profilePictureData);
-     setTempProfilePictureType(profilePictureType);
-     setIsCropping(false)
-     setShowCropper(false);
-   };
-
 
   return (
     <div className="profile-container">
@@ -103,7 +30,7 @@ const Profile = ({
           type="text"
           id="username"
           value={username}
-          readOnly
+          disabled
           className="form-control"
         />
 
@@ -146,26 +73,21 @@ const Profile = ({
           className="form-control"
         />
 
-        {tempProfilePictureData && tempProfilePictureType && (
-          <ImageCropper
-            tempImageData={tempProfilePictureData}
-            tempImageType={tempProfilePictureType}
-            onCropSave={handleCropSave}
-            handleShowCropper={handleShowCropper}
-            handleCloseCropper={handleCloseCropper}
-            crop={crop}
-            setCrop={setCrop}
-            zoom={zoom}
-            setZoom={setZoom}
-            croppedAreaPixels={croppedAreaPixels}
-            setCroppedAreaPixels={setCroppedAreaPixels}
-            showCropper={showCropper}
+        {profilePictureData && profilePictureType && (
+          <ManageImageCropper
+            imageData={profilePictureData}
+            imageType={profilePictureType}
+            setImageData={setProfilePictureData}
+            setImageType={setProfilePictureType}
+            cropParams={cropParams}
+            setCropParams={setCropParams}
             aspect={1}
-            cropShape={"round"}
-          />
-        )}
+            cropShape="round"
+            />
 
-        <label htmlFor="image">Profile Picture</label>
+            )}
+
+        {/*<label htmlFor="image">Profile Picture</label>
         <input
           type="file"
           id="image"
@@ -174,22 +96,9 @@ const Profile = ({
           className="form-control"
         />
 
-          {tempProfilePictureData && tempProfilePictureType && !isCropping && (
-          <div>
-
-          <DrawImage
-          cropParams={cropParams}
-          imageData={tempProfilePictureData}
-          imageType={tempProfilePictureType}
-          />
-
           <PrimaryButton type="button" onClick={handleShowCropperFromExistingImage}>
             Edit Crop
-          </PrimaryButton>
-
-          </div>
-
-          )}
+          </PrimaryButton>*/}
 
         <div>
 
