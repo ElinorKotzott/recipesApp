@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import ToggleFavoritesButton from "./buttons/ToggleFavoritesButton";
 import Pagination from "./Pagination";
+import DrawImage from "./DrawImage";
 
 function Favorites({
   favorites,
-  className,
   setFavorites,
   fetchFavorites,
   currentPage,
@@ -28,15 +28,34 @@ function Favorites({
               <div key={recipe.id} className="recipe-card">
                 <div className="favorite-button-container">
                   <Link to={`/recipes/${recipe.id}`}>
-                    <img
-                      className="recipe-card-image"
-                      alt={recipe.title}
-                      src={
-                        recipe.imageData
-                          ? `data:${recipe.imageType};base64,${recipe.imageData}`
-                          : "/image-placeholder.jpeg"
-                      }
-                    />
+                      {recipe.imageDTO?.imageData ? (
+                          <DrawImage
+                              imageData={recipe.imageDTO.imageData}
+                              imageType={recipe.imageDTO.imageType}
+                              cropParams={recipe.imageDTO.cropParams}
+                              imageStyle={{
+                                  display: "block",
+                                  width: "200px",
+                                  aspectRatio: 3 / 4,
+                                  objectFit: "cover",
+                                  margin: "1rem 0"
+                              }}
+                              className="recipe-card-image"
+                          />
+                      ) : (
+                          <img
+                              className="recipe-card-image"
+                              alt={recipe.title}
+                              src="/image-placeholder.jpeg"
+                              style={{
+                                  display: "block",
+                                  width: "200px",
+                                  objectFit: "cover",
+                                  margin: "1rem 0"
+                              }}
+                          />
+                      )}
+
                   </Link>
 
                   <ToggleFavoritesButton

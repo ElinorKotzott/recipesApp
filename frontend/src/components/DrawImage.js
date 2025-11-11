@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-function DrawImage({ cropParams, imageData, imageType }) {
+function DrawImage({ cropParams, imageData, imageType, imageStyle, className }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -50,14 +50,8 @@ function DrawImage({ cropParams, imageData, imageType }) {
   return (
     <canvas
       ref={canvasRef}
-      style={{
-        display: "block",
-        width: "100px",
-        height: "100px",
-        borderRadius: "50%",
-        objectFit: "cover",
-        margin: "1rem 0",
-      }}
+      style={imageStyle}
+      className={className}
     />
   );
 }

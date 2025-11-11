@@ -24,6 +24,7 @@ const UpdateRecipePage = () => {
     const [servings, setServings] = useState(0);
     const [allDifficulties, setAllDifficulties] = useState([]);
     const [difficulty, setDifficulty] = useState("");
+    const [cropParams, setCropParams] = useState(null);
 
     useEffect(() => {
         (async () => {
@@ -50,13 +51,30 @@ const UpdateRecipePage = () => {
             try {
                 const response = await request("get", `/recipes/${id}`, null, true);
                 const recipe = response.data;
+                const cropInfo = response.data.imageDTO?.cropParametersDTO;
 
                 setTitle(recipe.title);
                 setDescription(recipe.description);
                 setPrepTime(recipe.prepTime);
                 setCookingTime(recipe.cookingTime);
-                setImageData(recipe.imageData);
-                setImageType(recipe.imageType);
+                setImageData(response.data.imageDTO?.imageData);
+                setImageType(response.data.imageDTO?.imageType);
+                if (cropInfo) {
+                    setCropParams({
+                        crop: {
+                            x: cropInfo.xForCropper ?? 0,
+                            y: cropInfo.yForCropper ?? 0
+                        },
+                        croppedAreaPixels: {
+                            x: cropInfo.x ?? 0,
+                            y: cropInfo.y ?? 0,
+                            width: cropInfo.width ?? 0,
+                            height: cropInfo.height ?? 0
+                        },
+                        zoom: cropInfo.zoom ?? 1
+                    });
+                }
+
                 setServings(recipe.servings);
                 setDifficulty(recipe.difficulty);
 
@@ -202,13 +220,24 @@ const UpdateRecipePage = () => {
                     description,
                     prepTime,
                     cookingTime,
-                    imageData,
-                    imageType,
                     recipeIngredientDTOList,
                     tagDTOList: tagsList,
                     stepDTOList,
                     servings,
-                    difficulty
+                    difficulty,
+                    imageDTO: {
+                        imageData: imageData,
+                        imageType: imageType,
+                        cropParametersDTO: cropParams ? {
+                            x: cropParams.croppedAreaPixels.x,
+                            y: cropParams.croppedAreaPixels.y,
+                            width: cropParams.croppedAreaPixels.width,
+                            height: cropParams.croppedAreaPixels.height,
+                            zoom: cropParams.zoom,
+                            xForCropper: cropParams.crop?.x ?? 0,
+                            yForCropper: cropParams.crop?.y ?? 0
+                        } : null
+                    }
                 },
                 true
             );
@@ -263,6 +292,8 @@ const UpdateRecipePage = () => {
             difficulty={difficulty}
             setDifficulty={setDifficulty}
             isUpdate={true}
+            cropParams={cropParams}
+            setCropParams={setCropParams}
         />
     );
 };

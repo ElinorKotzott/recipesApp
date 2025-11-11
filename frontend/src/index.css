@@ -92,8 +92,8 @@ hr {
 
 .favorite-button {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 30px;
+  right: 15px;
   cursor: pointer;
 }
 
@@ -150,7 +150,7 @@ button.add-or-remove-button {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    padding: 0px;
+    padding: 0;
     display: inline;
     margin: 0 5px !important;
 }

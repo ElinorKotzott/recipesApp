@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import DrawImage from "./DrawImage";
 import ImageCropper from "./ImageCropper";
 import PrimaryButton from "./buttons/PrimaryButton";
@@ -11,10 +11,12 @@ function ManageImageCropper({
                                 cropParams,
                                 setCropParams,
                                 aspect,
-                                cropShape
+                                cropShape,
+                                imageStyle,
+                                labelName
                             }) {
     const [showCropper, setShowCropper] = useState(false);
-    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [crop, setCrop] = useState({x: 0, y: 0});
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [tempImageData, setTempImageData] = useState("");
@@ -35,33 +37,44 @@ function ManageImageCropper({
             const base64 = reader.result.split(",")[1];
             setTempImageData(base64);
             setTempImageType(file.type);
-            setCrop({ x: 0, y: 0 });
+            setCrop({x: 0, y: 0});
             setZoom(1);
-            setShowCropper(true);
+            handleShowCropper();
         };
         reader.readAsDataURL(file);
     };
 
-    const handleCropSave = ({ croppedAreaPixels, crop, zoom }) => {
+    const handleCropSave = ({croppedAreaPixels, crop, zoom}) => {
         setImageData(tempImageData);
         setImageType(tempImageType);
-        setCropParams({ crop, croppedAreaPixels, zoom });
+        setCropParams({crop, croppedAreaPixels, zoom});
         setShowCropper(false);
     };
 
-    const handleShowCropperFromExisting = () => {
-        const crop = cropParams?.crop ?? { x: 0, y: 0 };
+    const handleShowCropper = () => {
+        setShowCropper(true);
+    };
+
+    const handleShowCropperFromExistingImage = () => {
+        setTempImageData(imageData);
+        setTempImageType(imageType);
+
+        const crop = cropParams?.crop ?? {x: 0, y: 0};
         const zoom = cropParams?.zoom ?? 1;
         setCrop(crop);
         setZoom(zoom);
         setShowCropper(true);
     };
 
-    const handleCloseCropper = () => setShowCropper(false);
+    const handleCloseCropper = () => {
+        setTempImageData(imageData);
+        setTempImageType(imageType);
+        setShowCropper(false);
+    };
 
     return (
         <div>
-            <label htmlFor="image">Profile Picture</label>
+            <label htmlFor="image"> {labelName} </label>
             <input type="file" accept="image/*" onChange={handleImageChange} className="form-control"/>
 
             {tempImageData && tempImageType && !showCropper && (
@@ -70,8 +83,9 @@ function ManageImageCropper({
                         cropParams={cropParams}
                         imageData={tempImageData}
                         imageType={tempImageType}
+                        imageStyle={imageStyle}
                     />
-                    <PrimaryButton type="button" onClick={handleShowCropperFromExisting}>
+                    <PrimaryButton type="button" onClick={handleShowCropperFromExistingImage}>
                         Edit Crop
                     </PrimaryButton>
                 </>
@@ -88,6 +102,7 @@ function ManageImageCropper({
                     croppedAreaPixels={croppedAreaPixels}
                     setCroppedAreaPixels={setCroppedAreaPixels}
                     showCropper={showCropper}
+                    handleShowCropper={handleShowCropper}
                     handleCloseCropper={handleCloseCropper}
                     onCropSave={handleCropSave}
                     aspect={aspect}

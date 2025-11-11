@@ -2,15 +2,15 @@ import { request } from "../axiosHelper";
 import ToggleFavoritesButton from "./buttons/ToggleFavoritesButton";
 import PrimaryButton from "./buttons/PrimaryButton.js";
 import { useNavigate } from "react-router-dom";
+import DrawImage from "./DrawImage";
 
-function RecipeCloseup({ recipe, onDelete }) {
+function RecipeCloseup({ recipe }) {
   const navigate = useNavigate();
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
-  const isOwner =
-    currentUser && Number(currentUser.id) === Number(recipe.creatorId);
+  const isOwner = currentUser && Number(currentUser.id) === Number(recipe.creatorId);
 
   const handleDelete = () => {
-    request("DELETE", `/recipes/${recipe.id}`)
+    request("DELETE", `/recipes/${recipe.id}`, null, true)
       .then(() => {
         alert("Recipe deleted");
         navigate("/home");
@@ -45,15 +45,17 @@ function RecipeCloseup({ recipe, onDelete }) {
           : "no tags found"}
       </p>
 
-      <img
-        className="image-closeup"
-        src={
-          recipe.imageData
-            ? `data:${recipe.imageType};base64,${recipe.imageData}`
-            : "/image-placeholder.jpeg"
-        }
-        alt={recipe.title}
+      <DrawImage
+      imageData={recipe.imageData}
+      imageType={recipe.imageType}
+      cropParams={recipe.cropParams}
+      imageStyle={{display: "block",
+          width: "300px",
+          objectFit: "cover",
+          margin: "1rem 0"}}
+      //className="image-closeup" - would it be better to use className and style that with css instead of passing style?
       />
+
       <h3>Prep Time:</h3>
       <p>{recipe.prepTime} min</p>
       <h3>Cooking Time:</h3>
@@ -113,9 +115,8 @@ function RecipeCloseup({ recipe, onDelete }) {
           : "No information found"}
       </p>
       <p>
-        Nutrition values are estimated using the Edamam API and may not be fully
-        accurate (they aren't accurate. The free version of the API uses 100g of an ingredient, no matter
-        which quantity is specified).
+        Nutrition values aren't accurate. The free version of the API uses 100g of an ingredient, no matter
+        which quantity is specified.
       </p>
 
       {isOwner && (

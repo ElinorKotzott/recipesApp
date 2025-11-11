@@ -68,6 +68,15 @@ function ProfilePage() {
             cropParams={cropParams}
             imageData={profilePictureData}
             imageType={profilePictureType}
+            imageStyle={{
+                display: "block",
+                width: "100px",
+                height: "100px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                margin: "1rem 0",
+            }}
+
         />
         :
         <img src={"/default-profile-picture-all-grey.png"}

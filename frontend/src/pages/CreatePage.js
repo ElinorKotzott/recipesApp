@@ -21,6 +21,7 @@ const CreatePage = () => {
     const [tagsList, setTagsList] = useState([]);
     const [stepsList, setStepsList] = useState([]);
     const [servings, setServings] = useState(0);
+    const [cropParams, setCropParams] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -148,13 +149,24 @@ const CreatePage = () => {
                     description,
                     prepTime,
                     cookingTime,
-                    imageData,
-                    imageType,
                     recipeIngredientDTOList,
                     tagDTOList: tagsList,
                     stepDTOList,
                     servings,
-                    difficulty
+                    difficulty,
+                    imageDTO: {
+                        imageData,
+                        imageType,
+                        cropParametersDTO: cropParams ? {
+                            x: cropParams.croppedAreaPixels.x,
+                            y: cropParams.croppedAreaPixels.y,
+                            width: cropParams.croppedAreaPixels.width,
+                            height: cropParams.croppedAreaPixels.height,
+                            zoom: cropParams.zoom,
+                            xForCropper: cropParams.crop?.x ?? 0,
+                            yForCropper: cropParams.crop?.y ?? 0
+                        } : null
+                    }
                 },
                 true
             );
@@ -209,6 +221,8 @@ const CreatePage = () => {
             servings={servings}
             setServings={setServings}
             isUpdate={false}
+            cropParams={cropParams}
+            setCropParams={setCropParams}
         />
     );
 };
