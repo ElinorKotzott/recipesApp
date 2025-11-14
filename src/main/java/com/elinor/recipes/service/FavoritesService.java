@@ -28,6 +28,9 @@ public class FavoritesService {
     @Autowired
     private RecipeRepository recipeRepository;
 
+    @Autowired
+    private RecipeMapper recipeMapper;
+
     public PageInfoDTO getFavoriteRecipes(String username, int page, int size) {
         if (username == null) {
             throw new UsernameNotFoundException("Username is null!");
@@ -37,7 +40,7 @@ public class FavoritesService {
 
         Page<Recipe> recipePage = recipeRepository.findFavoriteRecipesByUsername(username, pageable);
 
-        List<RecipeDTO> recipeDTOList = RecipeMapper.toDTOList(recipePage.stream().toList(), true);
+        List<RecipeDTO> recipeDTOList = recipeMapper.toDTOList(recipePage.stream().toList(), true);
 
         return new PageInfoDTO(
                 recipeDTOList,

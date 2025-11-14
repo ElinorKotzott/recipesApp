@@ -3,76 +3,53 @@ package com.elinor.recipes.mapper;
 import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.model.Recipe;
 import com.elinor.recipes.model.User;
+import org.mapstruct.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
-public class RecipeMapper {
+@Mapper(
+        componentModel = "spring",
+        uses = {
+                ImageMapper.class,
+                RecipeIngredientMapper.class,
+                StepMapper.class,
+                TagMapper.class
+        }
+)
+public interface RecipeMapper {
 
-    public static RecipeDTO toDTO(Recipe recipe, boolean isFavorite) {
+    @Mapping(target = "imageDTO", source = "image")
+    @Mapping(target = "recipeIngredientDTOList", source = "recipeIngredientList")
+    @Mapping(target = "stepDTOList", source = "stepList")
+    @Mapping(target = "tagDTOList", source = "tagList")
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "favorite", expression = "java(isFavorite)")
+    RecipeDTO toDTO(Recipe recipe, @Context boolean isFavorite);
 
-        return new RecipeDTO(
-                recipe.getId(),
-                recipe.getTitle(),
-                recipe.getDescription(),
-                recipe.getPrepTime(),
-                recipe.getCookingTime(),
-                ImageMapper.toDTO(recipe.getImage()),
-                RecipeIngredientMapper.toDTOList(recipe.getRecipeIngredientList()),
-                StepMapper.toDTOList(recipe.getStepList()),
-                TagMapper.toDTOList(recipe.getTagList()),
-                isFavorite,
-                recipe.getProteinPerServing(),
-                recipe.getCarbsPerServing(),
-                recipe.getFatPerServing(),
-                recipe.getServings(),
-                recipe.getCaloriesPerServing(),
-                recipe.getUser().getId(),
-                recipe.getDifficulty()
-        );
+    List<RecipeDTO> toDTOList(List<Recipe> recipes, @Context boolean isFavorite);
+
+    default List<RecipeDTO> toDtoListWithFavorites(List<Recipe> recipes, List<Recipe> favorites) {
+        Set<Long> favoriteIds = favorites.stream().map(Recipe::getId).collect(java.util.stream.Collectors.toSet());
+        return recipes.stream()
+                .map(r -> toDTO(r, favoriteIds.contains(r.getId())))
+                .toList();
     }
 
-    public static Recipe toEntity(RecipeDTO dto, User user) {
+    @Mapping(target = "user", source = "user")
+    @Mapping(target = "image", source = "dto.imageDTO")
+    @Mapping(target = "recipeIngredientList", source = "dto.recipeIngredientDTOList")
+    @Mapping(target = "stepList", source = "dto.stepDTOList")
+    @Mapping(target = "tagList", source = "dto.tagDTOList")
+    Recipe toEntity(RecipeDTO dto, @Context User user);
 
+    List<Recipe> toEntityList(List<RecipeDTO> dtos, @Context User user);
+
+    @ObjectFactory
+    default Recipe createRecipe(RecipeDTO dto, @Context User user) {
         Recipe recipe = new Recipe();
         recipe.setId(dto.getId());
-        recipe.setTitle(dto.getTitle());
-        recipe.setDescription(dto.getDescription());
-        recipe.setStepList(StepMapper.toEntityList(dto.getStepDTOList(), recipe));
-        recipe.setPrepTime(dto.getPrepTime());
-        recipe.setCookingTime(dto.getCookingTime());
-        recipe.setRecipeIngredientList(RecipeIngredientMapper.toEntityList(dto.getRecipeIngredientDTOList(), recipe));
-        recipe.setImage(ImageMapper.toEntity(dto.getImageDTO()));
-        recipe.setServings(dto.getServings());
-        recipe.setDifficulty(dto.getDifficulty());
-        recipe.setTagList(TagMapper.toEntityList(dto.getTagDTOList()));
-        recipe.setCarbsPerServing(dto.getCarbsPerServing());
-        recipe.setCaloriesPerServing(dto.getCaloriesPerServing());
-        recipe.setFatPerServing(dto.getFatPerServing());
-        recipe.setProteinPerServing(dto.getProteinPerServing());
         recipe.setUser(user);
         return recipe;
     }
-
-    public static List<RecipeDTO> toDTOList(List<Recipe> recipeList, boolean isFavorite) {
-        return recipeList.stream()
-                .map(recipe -> toDTO(recipe, isFavorite))
-                .collect(Collectors.toList());
-    }
-
-    public static List<RecipeDTO> toDTOList(List<Recipe> recipeList, List<Recipe> favoriteRecipeList) {
-        return recipeList.stream()
-                .map(recipe -> toDTO(recipe, favoriteRecipeList.contains(recipe)))
-                .collect(Collectors.toList());
-    }
-
-
-    public static List<Recipe> toEntityList(List<RecipeDTO> dtos, User user) {
-        return dtos.stream()
-                .map(dto -> toEntity(dto, user))
-                .collect(Collectors.toList());
-    }
-
-
-
 }

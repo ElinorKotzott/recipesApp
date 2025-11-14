@@ -16,17 +16,19 @@ public class ProfileService {
     @Autowired
     private UserRepository userRepository;
 
+    private UserMapper userMapper;
+
     public UserDTO getUserProfile(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return UserMapper.toDTO(user);
+        return userMapper.toDTO(user);
     }
 
     public void updateUserProfile(UserDTO updatedUser, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        UserMapper.updatedUserToEntity(user, updatedUser);
+        userMapper.updatedUserToEntity(updatedUser, user);
     }
 }

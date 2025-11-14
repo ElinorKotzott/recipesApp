@@ -3,42 +3,33 @@ package com.elinor.recipes.mapper;
 import com.elinor.recipes.dto.RecipeIngredientDTO;
 import com.elinor.recipes.model.RecipeIngredient;
 import com.elinor.recipes.model.Recipe;
+import org.mapstruct.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class RecipeIngredientMapper {
+@Mapper(
+        componentModel = "spring",
+        uses = { IngredientMapper.class }
+)
+public interface RecipeIngredientMapper {
 
-    public static RecipeIngredientDTO toDTO(RecipeIngredient entity) {
-        if (entity == null) return null;
+    @Mapping(target = "ingredientDTO", source = "ingredient")
+    RecipeIngredientDTO toDTO(RecipeIngredient entity);
 
-        RecipeIngredientDTO dto = new RecipeIngredientDTO();
-        dto.setIngredientDTO(IngredientMapper.toDTO(entity.getIngredient()));
-        dto.setQuantity(entity.getQuantity());
-        dto.setUnit(entity.getUnit());
-        return dto;
-    }
+    List<RecipeIngredientDTO> toDTOList(List<RecipeIngredient> entities);
 
-    public static RecipeIngredient toEntity(RecipeIngredientDTO dto, Recipe recipe) {
-        if (dto == null) return null;
 
+    @Mapping(target = "recipe", source = "recipe")
+    @Mapping(target = "ingredient", source = "dto.ingredientDTO")
+    RecipeIngredient toEntity(RecipeIngredientDTO dto, @Context Recipe recipe);
+
+    List<RecipeIngredient> toEntityList(List<RecipeIngredientDTO> dtos, @Context Recipe recipe);
+
+
+    @ObjectFactory
+    default RecipeIngredient createEntity(@Context Recipe recipe) {
         RecipeIngredient entity = new RecipeIngredient();
         entity.setRecipe(recipe);
-        entity.setIngredient(IngredientMapper.toEntity(dto.getIngredientDTO()));
-        entity.setQuantity(dto.getQuantity());
-        entity.setUnit(dto.getUnit());
         return entity;
-    }
-
-    public static List<RecipeIngredientDTO> toDTOList(List<RecipeIngredient> entities) {
-        return entities.stream()
-                .map(RecipeIngredientMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    public static List<RecipeIngredient> toEntityList(List<RecipeIngredientDTO> dtos, Recipe recipe) {
-        return dtos.stream()
-                .map(dto -> toEntity(dto, recipe))
-                .collect(Collectors.toList());
     }
 }

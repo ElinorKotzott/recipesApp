@@ -38,12 +38,18 @@ public class RecipeService {
     @Autowired
     private NutritionService nutritionService;
 
+    @Autowired
+    private RecipeMapper recipeMapper;
+
+    @Autowired
+    private RecipeIngredientMapper recipeIngredientMapper;
+
     public RecipeDTO createNewRecipe(RecipeDTO dto, String username) {
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        Recipe recipe = RecipeMapper.toEntity(dto, user);
+        Recipe recipe = recipeMapper.toEntity(dto, user);
 
         if (dto.getServings() != null && dto.getServings() > 0 && dto.getRecipeIngredientDTOList() != null) {
 
@@ -63,7 +69,7 @@ public class RecipeService {
 
         recipeRepository.save(recipe);
 
-        return RecipeMapper.toDTO(recipe, false);
+        return recipeMapper.toDTO(recipe, false);
     }
 
 
@@ -76,7 +82,7 @@ public class RecipeService {
 
 
         List<RecipeDTO> recipeDTOList = recipePage.stream()
-                .map(recipe -> RecipeMapper.toDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
+                .map(recipe -> recipeMapper.toDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
                 .collect(Collectors.toList());
 
         return new PageInfoDTO(
@@ -95,7 +101,7 @@ public class RecipeService {
         Page<Recipe> recipePage = recipeRepository.findByUserUsername(username, pageable);
 
         List<RecipeDTO> recipeDTOList = recipePage.stream()
-                .map(recipe -> RecipeMapper.toDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
+                .map(recipe -> recipeMapper.toDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
                 .collect(Collectors.toList());
 
         return new PageInfoDTO(
@@ -119,7 +125,7 @@ public class RecipeService {
 
         boolean isFavorite = user.getFavoriteRecipesList().contains(recipe);
 
-        return RecipeMapper.toDTO(recipe, isFavorite);
+        return recipeMapper.toDTO(recipe, isFavorite);
 
     }
 
@@ -135,7 +141,7 @@ public class RecipeService {
 
     public void updateRecipe(Long id, RecipeDTO updatedRecipeDTO, User user) {
         List<RecipeIngredientDTO> updatedRecipeIngredientList = updatedRecipeDTO.getRecipeIngredientDTOList();
-        List<RecipeIngredientDTO> currentRecipeIngredientList = RecipeIngredientMapper.toDTOList(recipeIngredientRepository.findById(id).stream().toList());
+        List<RecipeIngredientDTO> currentRecipeIngredientList = recipeIngredientMapper.toDTOList(recipeIngredientRepository.findById(id).stream().toList());
 
         if (!areEqual(updatedRecipeIngredientList, currentRecipeIngredientList)) {
             NutritionInfoDTO updatedRecipeNutritionInfoDTO = nutritionService.calculateNutrition(updatedRecipeIngredientList, updatedRecipeDTO.getServings());
@@ -145,7 +151,7 @@ public class RecipeService {
             updatedRecipeDTO.setProteinPerServing(updatedRecipeNutritionInfoDTO.getProteinPerServing());
         }
 
-        Recipe updatedRecipe = RecipeMapper.toEntity(updatedRecipeDTO, user);
+        Recipe updatedRecipe = recipeMapper.toEntity(updatedRecipeDTO, user);
         updatedRecipe.setId(id);
         recipeRepository.save(updatedRecipe);
     }

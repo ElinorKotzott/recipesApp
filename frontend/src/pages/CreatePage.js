@@ -133,7 +133,8 @@ const CreatePage = () => {
         if (servings <= 0) errors.push("Servings must be at least 1!");
         if (recipeIngredientDTOList.length === 0) errors.push("At least one ingredient is required!");
         if (stepDTOList.length === 0) errors.push("At least one step is required!");
-        if (!difficulty) errors.push("Please select a difficulty!")
+        if (!difficulty) errors.push("Please select a difficulty!");
+        if (title.length > 30) errors.push("Title must be less than 30 characters long!");
 
         if (errors.length > 0) {
             alert(errors.join("\n"));

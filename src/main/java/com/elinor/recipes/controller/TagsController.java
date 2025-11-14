@@ -16,8 +16,11 @@ public class TagsController {
     @Autowired
     private TagRepository tagRepository;
 
+    @Autowired
+    private TagMapper tagMapper;
+
     @GetMapping("/tags")
     public ResponseEntity<List<TagDTO>> getTagList() {
-        return ResponseEntity.ok(TagMapper.toDTOList(tagRepository.findAll()));
+        return ResponseEntity.ok(tagMapper.toDTOList(tagRepository.findAll()));
     }
 }
