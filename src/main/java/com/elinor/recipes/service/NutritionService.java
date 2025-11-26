@@ -42,7 +42,7 @@ public class NutritionService {
         for (RecipeIngredientDTO riDTO : recipeIngredientDTOList) {
             try {
                 String url = foodApiUrl + "?app_id=" + appId + "&app_key=" + appKey +
-                        "&ingr=" + URLEncoder.encode(riDTO.getQuantity().toString() + " " + riDTO.getUnit() + " " + riDTO.getIngredientDTO().getName(), StandardCharsets.UTF_8);
+                        "&ingr=" + URLEncoder.encode(riDTO.getQuantity().toString() + " " + riDTO.getUnit() + " " + riDTO.getIngredient().getName(), StandardCharsets.UTF_8);
 
                 ResponseEntity<EdamamAPIResponseDTO> response =
                         restTemplate.getForEntity(url, EdamamAPIResponseDTO.class);

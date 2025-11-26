@@ -13,13 +13,13 @@ const UpdateRecipePage = () => {
     const [cookingTime, setCookingTime] = useState(0);
     const [imageData, setImageData] = useState("");
     const [imageType, setImageType] = useState("");
-    const [ingredientsList, setIngredientsList] = useState([]);
+    const [recipeIngredientList, setRecipeIngredientList] = useState([]);
     const [allIngredients, setAllIngredients] = useState([]);
-    const [tempIngredientsList, setTempIngredientsList] = useState([]);
-    const [tempStepsList, setTempStepsList] = useState([]);
+    const [tempRecipeIngredientList, setTempRecipeIngredientList] = useState([]);
+    const [tempStepListUI, setTempStepListUI] = useState([]);
     const [allTags, setAllTags] = useState([]);
-    const [tagsList, setTagsList] = useState([]);
-    const [stepsList, setStepsList] = useState([]);
+    const [tagList, setTagList] = useState([]);
+    const [stepListUI, setStepListUI] = useState([]);
     const [units, setUnits] = useState([]);
     const [servings, setServings] = useState(0);
     const [allDifficulties, setAllDifficulties] = useState([]);
@@ -51,14 +51,14 @@ const UpdateRecipePage = () => {
             try {
                 const response = await request("get", `/recipes/${id}`, null, true);
                 const recipe = response.data;
-                const cropInfo = response.data.imageDTO?.cropParametersDTO;
+                const cropInfo = response.data.image?.cropParameters;
 
                 setTitle(recipe.title);
                 setDescription(recipe.description);
                 setPrepTime(recipe.prepTime);
                 setCookingTime(recipe.cookingTime);
-                setImageData(response.data.imageDTO?.imageData);
-                setImageType(response.data.imageDTO?.imageType);
+                setImageData(response.data.image?.imageData);
+                setImageType(response.data.image?.imageType);
                 if (cropInfo) {
                     setCropParams({
                         crop: {
@@ -78,32 +78,34 @@ const UpdateRecipePage = () => {
                 setServings(recipe.servings);
                 setDifficulty(recipe.difficulty);
 
-                if (recipe.recipeIngredientDTOList) {
-                    const mappedIngredients = recipe.recipeIngredientDTOList.map(
+                //is this following mapping needed or does it produce the exact same structure again
+
+                if (recipe.recipeIngredientList) {
+                    const mappedIngredients = recipe.recipeIngredientList.map(
                         (item) => ({
                             ingredient: {
-                                id: item.ingredientDTO.id,
-                                name: item.ingredientDTO.name,
+                                id: item.ingredient.id,
+                                name: item.ingredient.name,
                             },
                             quantity: item.quantity,
                             unit: item.unit,
                         })
                     );
-                    setIngredientsList(mappedIngredients);
+                    setRecipeIngredientList(mappedIngredients);
                 } else {
-                    setIngredientsList([]);
+                    setRecipeIngredientList([]);
                 }
 
-                if (recipe.tagDTOList) {
-                    setTagsList(recipe.tagDTOList);
+                if (recipe.tagList) {
+                    setTagList(recipe.tagList);
                 } else {
-                    setTagsList([]);
+                    setTagList([]);
                 }
 
-                if (recipe.stepDTOList) {
-                    setStepsList(recipe.stepDTOList);
+                if (recipe.stepList) {
+                    setStepListUI(recipe.stepList);
                 } else {
-                    setStepsList([]);
+                    setStepListUI([]);
                 }
 
             } catch (error) {
@@ -119,26 +121,26 @@ const UpdateRecipePage = () => {
         const ingredient = allIngredients.find(
             (i) => i.id === parseInt(ingredientId)
         );
-        setTempIngredientsList((previousList) => [
+        setTempRecipeIngredientList((previousList) => [
             ...previousList,
             {ingredient, quantity, unit},
         ]);
     };
 
     const removeIngredient = (ingredientId) => {
-        setTempIngredientsList((previousList) =>
+        setTempRecipeIngredientList((previousList) =>
             previousList.filter((item) => item.ingredient.id !== ingredientId)
         );
     };
 
-    const saveIngredientsList = () => {
-        setIngredientsList(tempIngredientsList);
+    const saveRecipeIngredientList = () => {
+        setRecipeIngredientList(tempRecipeIngredientList);
     }
 
     const addTag = (tag) => {
         if (!tag) return;
 
-        setTagsList((previousList) => {
+        setTagList((previousList) => {
             if (previousList.some((t) => t.id === tag.id)) {
                 alert("This tag has already been added!");
                 return previousList;
@@ -148,7 +150,7 @@ const UpdateRecipePage = () => {
     };
 
     const removeTag = (tagId) => {
-        setTagsList((previousList) =>
+        setTagList((previousList) =>
             previousList.filter((item) => item.id !== tagId)
         );
     };
@@ -159,39 +161,30 @@ const UpdateRecipePage = () => {
             return;
         }
 
-        setTempStepsList((previousList) => {
+        setTempStepListUI((previousList) => {
             return [...previousList, step];
         });
     };
 
     const removeStep = (step) => {
-        setTempStepsList((previousList) =>
+        setTempStepListUI((previousList) =>
             previousList.filter((item) => item !== step)
         );
     };
 
     const saveStepsList = () => {
-        setStepsList(tempStepsList);
+        setStepListUI(tempStepListUI);
     }
 
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        const recipeIngredientDTOList = ingredientsList.map((item) => ({
-            ingredientDTO: {
-                id: item.ingredient.id,
-                name: item.ingredient.name,
-            },
-            quantity: item.quantity,
-            unit: item.unit,
-        }));
-
-        let stepDTOList = [];
-        for (let i = 0; i < stepsList.length; i++) {
-            stepDTOList.push({
-                id: stepsList[i].id,
+        let stepList = [];
+        for (let i = 0; i < stepListUI.length; i++) {
+            stepList.push({
+                id: stepListUI[i].id,
                 stepNumber: i + 1,
-                instructionText: stepsList[i].instructionText,
+                instructionText: stepListUI[i].instructionText,
             });
         }
 
@@ -202,8 +195,8 @@ const UpdateRecipePage = () => {
         if (prepTime <= 0) errors.push("Preparation time must be greater than 0!");
         if (cookingTime <= 0) errors.push("Cooking time must be greater than 0!");
         if (servings <= 0) errors.push("Servings must be at least 1!");
-        if (recipeIngredientDTOList.length === 0) errors.push("At least one ingredient is required!");
-        if (stepDTOList.length === 0) errors.push("At least one step is required!");
+        if (recipeIngredientList.length === 0) errors.push("At least one ingredient is required!");
+        if (stepList.length === 0) errors.push("At least one step is required!");
         if (!difficulty) errors.push("Please select a difficulty!");
         if (title.length > 30) errors.push("Title must be less than 30 characters long!");
 
@@ -221,15 +214,15 @@ const UpdateRecipePage = () => {
                     description,
                     prepTime,
                     cookingTime,
-                    recipeIngredientDTOList,
-                    tagDTOList: tagsList,
-                    stepDTOList,
+                    recipeIngredientList,
+                    tagList,
+                    stepList,
                     servings,
                     difficulty,
-                    imageDTO: {
+                    image: {
                         imageData: imageData,
                         imageType: imageType,
-                        cropParametersDTO: cropParams ? {
+                        cropParameters: cropParams ? {
                             x: cropParams.croppedAreaPixels.x,
                             y: cropParams.croppedAreaPixels.y,
                             width: cropParams.croppedAreaPixels.width,
@@ -268,22 +261,22 @@ const UpdateRecipePage = () => {
             setImageData={setImageData}
             imageType={imageType}
             setImageType={setImageType}
-            ingredientsList={ingredientsList}
+            recipeIngredientList={recipeIngredientList}
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
-            saveIngredientsList={saveIngredientsList}
-            tempIngredientsList={tempIngredientsList}
-            setTempIngredientsList={setTempIngredientsList}
+            saveRecipeIngredientList={saveRecipeIngredientList}
+            tempRecipeIngredientList={tempRecipeIngredientList}
+            setTempRecipeIngredientList={setTempRecipeIngredientList}
             allIngredients={allIngredients}
-            tagsList={tagsList}
-            setTagsList={setTagsList}
+            tagList={tagList}
+            setTagList={setTagList}
             addTag={addTag}
             removeTag={removeTag}
-            stepsList={stepsList}
+            stepListUI={stepListUI}
             addStep={addStep}
             removeStep={removeStep}
-            tempStepsList={tempStepsList}
-            setTempStepsList={setTempStepsList}
+            tempStepListUI={tempStepListUI}
+            setTempStepListUI={setTempStepListUI}
             saveStepsList={saveStepsList}
             allTags={allTags}
             units={units}

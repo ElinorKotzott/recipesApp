@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipeIngredientDTO {
-    private IngredientDTO ingredientDTO;
+    private IngredientDTO ingredient;
     private Double quantity;
     private Unit unit;
 }

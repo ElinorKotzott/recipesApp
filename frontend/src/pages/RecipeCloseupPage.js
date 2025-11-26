@@ -12,7 +12,7 @@ function RecipeCloseupPage() {
             try {
                 const r = await request("get", `/recipes/${id}`, null, true);
                 const recipeData = r.data;
-                const cropInfo = recipeData.imageDTO?.cropParametersDTO;
+                const cropInfo = recipeData.image?.cropParameters;
 
                 const cropParams = cropInfo
                     ? {
@@ -32,11 +32,11 @@ function RecipeCloseupPage() {
 
                 const renamedRecipe = {
                     ...recipeData,
-                    stepsList: recipeData.stepDTOList,
-                    tagsList: recipeData.tagDTOList,
+                    stepListUI: recipeData.stepList,
+                    tagList: recipeData.tagList,
                     cropParams: cropParams,
-                    imageData: recipeData.imageDTO?.imageData,
-                    imageType: recipeData.imageDTO?.imageType,
+                    imageData: recipeData.image?.imageData,
+                    imageType: recipeData.image?.imageType,
                 };
 
                 console.log(renamedRecipe);

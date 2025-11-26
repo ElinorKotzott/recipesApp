@@ -24,21 +24,21 @@ function Create({
                     imageType,
                     setImageData,
                     setImageType,
-                    ingredientsList,
+                    recipeIngredientList,
                     addIngredient,
                     removeIngredient,
-                    tempIngredientsList,
-                    setTempIngredientsList,
-                    saveIngredientsList,
-                    tempStepsList,
-                    setTempStepsList,
-                    saveStepsList,
+                    tempRecipeIngredientList,
+                    setTempRecipeIngredientList,
+                    saveRecipeIngredientList,
+                    tempStepListUI,
+                    setTempStepListUI,
+                    saveStepListUI,
                     allIngredients,
-                    tagsList,
-                    setTagsList,
+                    tagList,
+                    setTagList,
                     allTags,
                     units,
-                    stepsList,
+                    stepListUI,
                     addStep,
                     removeStep,
                     allDifficulties,
@@ -58,33 +58,33 @@ function Create({
 
     const [showIngredients, setShowIngredients] = useState(false);
     const handleShowIngredients = () => {
-        setTempIngredientsList(ingredientsList);
+        setTempRecipeIngredientList(recipeIngredientList);
         setShowIngredients(true);
     };
     const handleCloseIngredients = () => setShowIngredients(false);
 
     const [showSteps, setShowSteps] = useState(false);
     const handleShowSteps = () => {
-        setTempStepsList(stepsList);
+        setTempStepListUI(stepListUI);
         setShowSteps(true);
     };
     const handleCloseSteps = () => setShowSteps(false);
 
     const handleSaveIngredients = () => {
-        if (tempIngredientsList.length === 0) {
+        if (tempRecipeIngredientList.length === 0) {
             alert("No ingredients added!");
             return;
         }
-        saveIngredientsList();
+        saveRecipeIngredientList();
         setShowIngredients(false);
     };
 
     const handleSaveSteps = () => {
-        if (tempStepsList.length === 0) {
+        if (tempStepListUI.length === 0) {
             alert("No steps added!");
             return;
         }
-        saveStepsList();
+        saveStepListUI();
         setShowSteps(false);
     };
 
@@ -188,7 +188,7 @@ function Create({
                             </Form.Group>
 
                             <ul className="mt-2">
-                                {tempIngredientsList?.map((item, index) => (
+                                {tempRecipeIngredientList?.map((item, index) => (
                                     <li key={index}>
                                         {item.quantity}{" "}
                                         {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()}{" "}
@@ -214,7 +214,7 @@ function Create({
                 </Modal>
 
                 <ul className="mt-2">
-                    {ingredientsList?.map((item, index) => (
+                    {recipeIngredientList?.map((item, index) => (
                         <li key={index}>
                             {item.quantity}{" "}
                             {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()}{" "}
@@ -239,7 +239,7 @@ function Create({
                                 <Form.Label>Steps</Form.Label>
 
                                 <div>
-                                    <p className="mb-0">{tempStepsList.length + 1}.</p>
+                                    <p className="mb-0">{tempStepListUI.length + 1}.</p>
 
                                     <Form.Control
                                         as="textarea"
@@ -258,7 +258,7 @@ function Create({
                                 </div>
 
                                 <ol className="mt-2">
-                                    {tempStepsList?.map((step, index) => (
+                                    {tempStepListUI?.map((step, index) => (
                                         <li key={index}>
                                             {step.instructionText}
                                             <DarkButton
@@ -280,7 +280,7 @@ function Create({
                     </Modal>
 
                     <ol className="mt-2">
-                        {stepsList?.map((step, index) => (
+                        {stepListUI?.map((step, index) => (
                             <li key={index}>{step.instructionText}</li>
                         ))}
                     </ol>
@@ -292,8 +292,8 @@ function Create({
 
                         <div className="w-50">
                             <TagDropdownMenu
-                                selectedTags={tagsList}
-                                onChange={setTagsList}
+                                selectedTags={tagList}
+                                onChange={setTagList}
                                 tags={allTags}
                             />
                         </div>

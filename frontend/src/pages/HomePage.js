@@ -23,7 +23,7 @@ function HomePage() {
                 null,
                 true
             );
-            setAllRecipes(response.data.recipes);
+            setAllRecipes(response.data.recipeList);
             setAllCurrentPage(response.data.currentPage);
             setAllTotalPages(response.data.totalPages);
         } catch (error) {
@@ -40,7 +40,7 @@ function HomePage() {
                 null,
                 true
             );
-            setUserRecipes(response.data.recipes);
+            setUserRecipes(response.data.recipeList);
             setUserCurrentPage(response.data.currentPage);
             setUserTotalPages(response.data.totalPages);
 

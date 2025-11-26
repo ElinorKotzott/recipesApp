@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { request } from "../axiosHelper";
+import {useEffect, useState} from "react";
+import {request} from "../axiosHelper";
 import Favorites from "../components/Favorites";
 
 function FavoritesPage() {
@@ -17,7 +17,7 @@ function FavoritesPage() {
         null,
         true
       );
-      setFavorites(response.data.recipes);
+        setFavorites(response.data.recipeList);
       setCurrentPage(response.data.currentPage);
       setTotalPages(response.data.totalPages);
     } catch (error) {

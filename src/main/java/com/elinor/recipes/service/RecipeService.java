@@ -1,6 +1,9 @@
 package com.elinor.recipes.service;
 
-import com.elinor.recipes.dto.*;
+import com.elinor.recipes.dto.NutritionInfoDTO;
+import com.elinor.recipes.dto.PageInfoDTO;
+import com.elinor.recipes.dto.RecipeDTO;
+import com.elinor.recipes.dto.RecipeIngredientDTO;
 import com.elinor.recipes.mapper.RecipeIngredientMapper;
 import com.elinor.recipes.mapper.RecipeMapper;
 import com.elinor.recipes.model.Recipe;
@@ -14,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Objects;
@@ -49,12 +52,13 @@ public class RecipeService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        Recipe recipe = recipeMapper.toEntity(dto, user);
+        Recipe recipe = recipeMapper.toEntity(dto);
+        recipe.setUser(user);
 
-        if (dto.getServings() != null && dto.getServings() > 0 && dto.getRecipeIngredientDTOList() != null) {
+        if (dto.getServings() != null && dto.getServings() > 0 && dto.getRecipeIngredientList() != null) {
 
 
-            NutritionInfoDTO nutrition = nutritionService.calculateNutrition(dto.getRecipeIngredientDTOList(), dto.getServings());
+            NutritionInfoDTO nutrition = nutritionService.calculateNutrition(dto.getRecipeIngredientList(), dto.getServings());
 
             recipe.setProteinPerServing(nutrition.getProteinPerServing());
             recipe.setCarbsPerServing(nutrition.getCarbsPerServing());
@@ -67,9 +71,12 @@ public class RecipeService {
             recipe.setCaloriesPerServing(null);
         }
 
+
         recipeRepository.save(recipe);
 
-        return recipeMapper.toDTO(recipe, false);
+        RecipeDTO result = recipeMapper.toDTO(recipe);
+        result.setFavorite(false);
+        return result;
     }
 
 
@@ -82,8 +89,12 @@ public class RecipeService {
 
 
         List<RecipeDTO> recipeDTOList = recipePage.stream()
-                .map(recipe -> recipeMapper.toDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
+                .map(recipe -> recipeMapper.toDTO(recipe))
                 .collect(Collectors.toList());
+
+        for (RecipeDTO r : recipeDTOList) {
+            r.setFavorite(user.getFavoriteRecipesList().stream().anyMatch(recipe -> recipe.getId().equals(r.getId())));
+        }
 
         return new PageInfoDTO(
                 recipeDTOList,
@@ -101,8 +112,12 @@ public class RecipeService {
         Page<Recipe> recipePage = recipeRepository.findByUserUsername(username, pageable);
 
         List<RecipeDTO> recipeDTOList = recipePage.stream()
-                .map(recipe -> recipeMapper.toDTO(recipe, user.getFavoriteRecipesList().contains(recipe)))
+                .map(recipe -> recipeMapper.toDTO(recipe))
                 .collect(Collectors.toList());
+
+        for (RecipeDTO r : recipeDTOList) {
+            r.setFavorite(user.getFavoriteRecipesList().stream().anyMatch(recipe -> recipe.getId().equals(r.getId())));
+        }
 
         return new PageInfoDTO(
                 recipeDTOList,
@@ -125,8 +140,9 @@ public class RecipeService {
 
         boolean isFavorite = user.getFavoriteRecipesList().contains(recipe);
 
-        return recipeMapper.toDTO(recipe, isFavorite);
-
+        RecipeDTO result = recipeMapper.toDTO(recipe);
+        result.setFavorite(isFavorite);
+        return result;
     }
 
     public void deleteRecipe(String currentUsername, Long recipeId) {
@@ -140,7 +156,7 @@ public class RecipeService {
     }
 
     public void updateRecipe(Long id, RecipeDTO updatedRecipeDTO, User user) {
-        List<RecipeIngredientDTO> updatedRecipeIngredientList = updatedRecipeDTO.getRecipeIngredientDTOList();
+        List<RecipeIngredientDTO> updatedRecipeIngredientList = updatedRecipeDTO.getRecipeIngredientList();
         List<RecipeIngredientDTO> currentRecipeIngredientList = recipeIngredientMapper.toDTOList(recipeIngredientRepository.findById(id).stream().toList());
 
         if (!areEqual(updatedRecipeIngredientList, currentRecipeIngredientList)) {
@@ -151,11 +167,11 @@ public class RecipeService {
             updatedRecipeDTO.setProteinPerServing(updatedRecipeNutritionInfoDTO.getProteinPerServing());
         }
 
-        Recipe updatedRecipe = recipeMapper.toEntity(updatedRecipeDTO, user);
+        Recipe updatedRecipe = recipeMapper.toEntity(updatedRecipeDTO);
+        updatedRecipe.setUser(user);
         updatedRecipe.setId(id);
         recipeRepository.save(updatedRecipe);
     }
-
 
 
     public boolean areEqual(List<RecipeIngredientDTO> list1, List<RecipeIngredientDTO> list2) {
@@ -163,7 +179,7 @@ public class RecipeService {
 
         for (RecipeIngredientDTO dto1 : list1) {
             boolean matchFound = list2.stream().anyMatch(dto2 ->
-                    Objects.equals(dto1.getIngredientDTO().getId(), dto2.getIngredientDTO().getId()) &&
+                    Objects.equals(dto1.getIngredient().getId(), dto2.getIngredient().getId()) &&
                             Objects.equals(dto1.getQuantity(), dto2.getQuantity()) &&
                             dto1.getUnit() == dto2.getUnit()
             );

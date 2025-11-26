@@ -40,7 +40,7 @@ public class FavoritesService {
 
         Page<Recipe> recipePage = recipeRepository.findFavoriteRecipesByUsername(username, pageable);
 
-        List<RecipeDTO> recipeDTOList = recipeMapper.toDTOList(recipePage.stream().toList(), true);
+        List<RecipeDTO> recipeDTOList = recipeMapper.toDTOList(recipePage.stream().toList()).stream().peek(recipe -> recipe.setFavorite(true)).toList();
 
         return new PageInfoDTO(
                 recipeDTOList,

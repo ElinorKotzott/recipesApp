@@ -16,10 +16,10 @@ public class RecipeDTO {
     private String description;
     private Integer prepTime;
     private Integer cookingTime;
-    private ImageDTO imageDTO;
-    private List<RecipeIngredientDTO> recipeIngredientDTOList;
-    private List<StepDTO> stepDTOList;
-    private List<TagDTO> tagDTOList;
+    private ImageDTO image;
+    private List<RecipeIngredientDTO> recipeIngredientList;
+    private List<StepDTO> stepList;
+    private List<TagDTO> tagList;
     private boolean favorite;
     private Double proteinPerServing;
     private Double carbsPerServing;

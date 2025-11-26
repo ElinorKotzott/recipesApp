@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import Profile from "../components/Profile";
 import {request} from "../axiosHelper";
 import {useNavigate} from "react-router-dom";
@@ -20,15 +20,15 @@ function ChangeProfilePage() {
             if (!token) return;
             try {
                 const response = await request("get", "/profile", null, true);
-                const cropInfo = response.data.imageDTO?.cropParametersDTO;
+                const cropInfo = response.data.image?.cropParameters;
 
                 setUsername(response.data.username);
                 setFirstName(response.data.firstName);
                 setLastName(response.data.lastName);
                 setEmail(response.data.email);
                 setBio(response.data.bio);
-                setProfilePictureData(response.data.imageDTO?.imageData);
-                setProfilePictureType(response.data.imageDTO?.imageType);
+                setProfilePictureData(response.data.image?.imageData);
+                setProfilePictureType(response.data.image?.imageType);
                 if (cropInfo) {
                     setCropParams({
                         crop: {
@@ -63,10 +63,10 @@ function ChangeProfilePage() {
                     lastName,
                     email,
                     bio,
-                    imageDTO: {
+                    image: {
                         imageData: profilePictureData,
                         imageType: profilePictureType,
-                        cropParametersDTO: cropParams ? {
+                        cropParameters: cropParams ? {
                             x: cropParams.croppedAreaPixels.x,
                             y: cropParams.croppedAreaPixels.y,
                             width: cropParams.croppedAreaPixels.width,

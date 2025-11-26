@@ -2,11 +2,13 @@ package com.elinor.recipes.mapper;
 
 import com.elinor.recipes.dto.RecipeDTO;
 import com.elinor.recipes.model.Recipe;
-import com.elinor.recipes.model.User;
-import org.mapstruct.*;
+import com.elinor.recipes.model.RecipeIngredient;
+import com.elinor.recipes.model.Step;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
-import java.util.Set;
 
 @Mapper(
         componentModel = "spring",
@@ -19,37 +21,31 @@ import java.util.Set;
 )
 public interface RecipeMapper {
 
-    @Mapping(target = "imageDTO", source = "image")
-    @Mapping(target = "recipeIngredientDTOList", source = "recipeIngredientList")
-    @Mapping(target = "stepDTOList", source = "stepList")
-    @Mapping(target = "tagDTOList", source = "tagList")
-    @Mapping(target = "userId", source = "user.id")
-    @Mapping(target = "favorite", expression = "java(isFavorite)")
-    RecipeDTO toDTO(Recipe recipe, @Context boolean isFavorite);
+    RecipeDTO toDTO(Recipe recipe);
 
-    List<RecipeDTO> toDTOList(List<Recipe> recipes, @Context boolean isFavorite);
+    List<RecipeDTO> toDTOList(List<Recipe> recipes);
 
-    default List<RecipeDTO> toDtoListWithFavorites(List<Recipe> recipes, List<Recipe> favorites) {
-        Set<Long> favoriteIds = favorites.stream().map(Recipe::getId).collect(java.util.stream.Collectors.toSet());
-        return recipes.stream()
-                .map(r -> toDTO(r, favoriteIds.contains(r.getId())))
-                .toList();
+    Recipe toEntity(RecipeDTO dto);
+
+    List<Recipe> toEntityList(List<RecipeDTO> dtos);
+
+    @AfterMapping
+    default void setExtraFields(Recipe recipe, @MappingTarget RecipeDTO dto) {
+        dto.setCreatorId(recipe.getUser().getId());
     }
 
-    @Mapping(target = "user", source = "user")
-    @Mapping(target = "image", source = "dto.imageDTO")
-    @Mapping(target = "recipeIngredientList", source = "dto.recipeIngredientDTOList")
-    @Mapping(target = "stepList", source = "dto.stepDTOList")
-    @Mapping(target = "tagList", source = "dto.tagDTOList")
-    Recipe toEntity(RecipeDTO dto, @Context User user);
+    @AfterMapping
+    default void linkStepsAndIngredients(@MappingTarget Recipe recipe) {
+        if (recipe.getStepList() != null) {
+            for (Step step : recipe.getStepList()) {
+                step.setRecipe(recipe);
+            }
+        }
 
-    List<Recipe> toEntityList(List<RecipeDTO> dtos, @Context User user);
-
-    @ObjectFactory
-    default Recipe createRecipe(RecipeDTO dto, @Context User user) {
-        Recipe recipe = new Recipe();
-        recipe.setId(dto.getId());
-        recipe.setUser(user);
-        return recipe;
+        if (recipe.getRecipeIngredientList() != null) {
+            for (RecipeIngredient ingredient : recipe.getRecipeIngredientList()) {
+                ingredient.setRecipe(recipe);
+            }
+        }
     }
 }

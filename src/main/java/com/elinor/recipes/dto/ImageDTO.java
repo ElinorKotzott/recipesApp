@@ -11,5 +11,5 @@ public class ImageDTO {
     private Long id;
     private String imageData;
     private String imageType;
-    private CropParametersDTO cropParametersDTO;
+    private CropParametersDTO cropParameters;
 }

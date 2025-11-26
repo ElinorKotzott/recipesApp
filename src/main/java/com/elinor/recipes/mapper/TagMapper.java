@@ -13,7 +13,7 @@ public interface TagMapper {
 
         Tag toEntity(TagDTO tagDTO);
 
-        List<TagDTO> toDTOList(List<Tag> tags);
+    List<TagDTO> toDTOList(List<Tag> tagList);
 
-        List<Tag> toEntityList(List<TagDTO> tagDTOs);
+    List<Tag> toEntityList(List<TagDTO> tagDTOList);
 }

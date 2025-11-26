@@ -30,7 +30,7 @@ public class AuthenticationService {
 
         Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
         if (userOpt.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("userOpt is empty.");
         }
 
         User user = userOpt.get();

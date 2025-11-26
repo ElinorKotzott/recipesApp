@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { request } from "../axiosHelper";
-import { useNavigate, useLocation } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {request} from "../axiosHelper";
+import {useLocation, useNavigate} from "react-router-dom";
 import PrimaryButton from "../components/buttons/PrimaryButton.js";
 import DrawImage from "../components/DrawImage.js";
 
@@ -24,15 +24,15 @@ function ProfilePage() {
       try {
         const response = await request("get", "/profile", null, true);
         const data = response.data;
-        const cropInfo = data.imageDTO?.cropParametersDTO;
+          const cropInfo = data.image?.cropParameters;
 
         setUsername(data.username);
         setEmail(data.email);
         setFirstName(data.firstName);
         setLastName(data.lastName);
         setBio(data.bio);
-        setProfilePictureData(data.imageDTO?.imageData);
-        setProfilePictureType(data.imageDTO?.imageType);
+          setProfilePictureData(data.image?.imageData);
+          setProfilePictureType(data.image?.imageType);
         if (cropInfo) {
           setCropParams({
             crop: {

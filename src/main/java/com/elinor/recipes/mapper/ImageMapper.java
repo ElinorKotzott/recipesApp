@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = { CropParametersMapper.class })
+@Mapper(componentModel = "spring", uses = {CropParametersMapper.class})
 public interface ImageMapper {
 
     ImageDTO toDTO(Image image);

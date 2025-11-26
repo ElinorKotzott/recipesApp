@@ -13,7 +13,9 @@ public interface StepMapper {
 
     Step toEntity(StepDTO stepDTO);
 
-    List<StepDTO> toDTOList(List<Step> steps);
+    List<StepDTO> toDTOList(List<Step> stepList);
 
     List<Step> toEntityList(List<StepDTO> stepDTOs);
+
+
 }

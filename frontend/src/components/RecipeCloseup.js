@@ -1,7 +1,7 @@
-import { request } from "../axiosHelper";
+import {request} from "../axiosHelper";
 import ToggleFavoritesButton from "./buttons/ToggleFavoritesButton";
 import PrimaryButton from "./buttons/PrimaryButton.js";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import DrawImage from "./DrawImage";
 
 function RecipeCloseup({ recipe }) {
@@ -40,8 +40,8 @@ function RecipeCloseup({ recipe }) {
       <p>difficulty: {recipe.difficulty.toLowerCase()}</p>
 
       <p>
-        {recipe.tagDTOList && recipe.tagDTOList.length > 0
-          ? recipe.tagDTOList.map((tag) => tag.text).join(" | ")
+          {recipe.tagList && recipe.tagList.length > 0
+              ? recipe.tagList.map((tag) => tag.text).join(" | ")
           : "no tags found"}
       </p>
 
@@ -62,13 +62,13 @@ function RecipeCloseup({ recipe }) {
       <p> {recipe.cookingTime} min</p>
       <h3>Ingredients:</h3>
       <ul>
-        {recipe.recipeIngredientDTOList &&
-        recipe.recipeIngredientDTOList.length > 0 ? (
-          recipe.recipeIngredientDTOList.map((item, index) => (
+          {recipe.recipeIngredientList &&
+          recipe.recipeIngredientList.length > 0 ? (
+              recipe.recipeIngredientList.map((item, index) => (
             <li key={index}>
               {item.quantity}{" "}
               {item.unit !== "WHOLE" ? item.unit.toLowerCase() + " " : ""}
-              {item.ingredientDTO?.name.toLowerCase() || "Unnamed ingredient"}
+                {item.ingredient?.name.toLowerCase() || "Unnamed ingredient"}
             </li>
           ))
         ) : (
@@ -77,9 +77,9 @@ function RecipeCloseup({ recipe }) {
       </ul>
 
       <h3> Directions:</h3>
-      {recipe.stepsList && recipe.stepsList.length > 0 ? (
+        {recipe.stepListUI && recipe.stepListUI.length > 0 ? (
         <ol>
-          {recipe.stepsList.map((item) => (
+            {recipe.stepListUI.map((item) => (
             <li key={item.id}>
               {item.instructionText}
             </li>

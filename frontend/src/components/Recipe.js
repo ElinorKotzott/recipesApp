@@ -40,11 +40,11 @@ function Recipe({
                                 <div className="favorite-button-container">
                                     <Link to={`/recipes/${recipe.id}`}>
 
-                                        {recipe.imageDTO?.imageData ? (
+                                        {recipe.image?.imageData ? (
                                             <DrawImage
-                                                imageData={recipe.imageDTO.imageData}
-                                                imageType={recipe.imageDTO.imageType}
-                                                cropParams={recipe.imageDTO.cropParams}
+                                                imageData={recipe.image.imageData}
+                                                imageType={recipe.image.imageType}
+                                                cropParams={recipe.image.cropParams}
                                                 imageStyle={{
                                                     display: "block",
                                                     width: "200px",
@@ -67,8 +67,6 @@ function Recipe({
                                                 }}
                                             />
                                         )}
-
-
 
                                     </Link>
 
@@ -110,11 +108,11 @@ function Recipe({
                             <div key={recipe.id} className="recipe-card">
                                 <div className="favorite-button-container">
                                     <Link to={`/recipes/${recipe.id}`}>
-                                        {recipe.imageDTO?.imageData ? (
+                                        {recipe.image?.imageData ? (
                                             <DrawImage
-                                                imageData={recipe.imageDTO.imageData}
-                                                imageType={recipe.imageDTO.imageType}
-                                                cropParams={recipe.imageDTO.cropParams}
+                                                imageData={recipe.image.imageData}
+                                                imageType={recipe.image.imageType}
+                                                cropParams={recipe.image.cropParams}
                                                 imageStyle={{
                                                     display: "block",
                                                     width: "200px",
