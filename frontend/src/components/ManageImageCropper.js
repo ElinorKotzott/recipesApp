@@ -1,15 +1,11 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import DrawImage from "./DrawImage";
 import ImageCropper from "./ImageCropper";
 import PrimaryButton from "./buttons/PrimaryButton";
 
 function ManageImageCropper({
-                                imageData,
-                                imageType,
-                                setImageData,
-                                setImageType,
-                                cropParams,
-                                setCropParams,
+                                imageOwner,
+                                onSaveImage,
                                 aspect,
                                 cropShape,
                                 imageStyle,
@@ -23,11 +19,11 @@ function ManageImageCropper({
     const [tempImageType, setTempImageType] = useState("");
 
     useEffect(() => {
-        if (imageData && imageType) {
-            setTempImageData(imageData);
-            setTempImageType(imageType);
+        if (imageOwner?.image?.imageData && imageOwner?.image?.imageType) {
+            setTempImageData(imageOwner.image.imageData);
+            setTempImageType(imageOwner.image.imageType);
         }
-    }, [imageData, imageType]);
+    }, [imageOwner?.image?.imageData, imageOwner?.image?.imageType]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -45,30 +41,49 @@ function ManageImageCropper({
     };
 
     const handleCropSave = ({croppedAreaPixels, crop, zoom}) => {
-        setImageData(tempImageData);
-        setImageType(tempImageType);
-        setCropParams({crop, croppedAreaPixels, zoom});
+        const imageObj = {
+            imageData: tempImageData,
+            imageType: tempImageType,
+            cropParameters: {
+                x: croppedAreaPixels.x,
+                y: croppedAreaPixels.y,
+                width: croppedAreaPixels.width,
+                height: croppedAreaPixels.height,
+                xForCropper: crop.x,
+                yForCropper: crop.y,
+                zoom
+            }
+        };
+
+        onSaveImage(imageObj);
+
         setShowCropper(false);
     };
+
 
     const handleShowCropper = () => {
         setShowCropper(true);
     };
 
     const handleShowCropperFromExistingImage = () => {
-        setTempImageData(imageData);
-        setTempImageType(imageType);
+        setTempImageData(imageOwner.image.imageData);
+        setTempImageType(imageOwner.image.imageType);
 
-        const crop = cropParams?.crop ?? {x: 0, y: 0};
-        const zoom = cropParams?.zoom ?? 1;
-        setCrop(crop);
-        setZoom(zoom);
+        const cp = imageOwner?.image?.cropParameters;
+
+        const initialCrop = cp
+            ? {x: cp.xForCropper, y: cp.yForCropper}
+            : {x: 0, y: 0};
+
+        const initialZoom = imageOwner?.image?.cropParameters?.zoom ?? 1;
+        setCrop(initialCrop);
+        setZoom(initialZoom);
         setShowCropper(true);
     };
 
     const handleCloseCropper = () => {
-        setTempImageData(imageData);
-        setTempImageType(imageType);
+        setTempImageData(imageOwner.image.imageData);
+        setTempImageType(imageOwner.image.imageType);
         setShowCropper(false);
     };
 
@@ -80,7 +95,7 @@ function ManageImageCropper({
             {tempImageData && tempImageType && !showCropper && (
                 <>
                     <DrawImage
-                        cropParams={cropParams}
+                        cropParameters={imageOwner.image.cropParameters}
                         imageData={tempImageData}
                         imageType={tempImageType}
                         imageStyle={imageStyle}

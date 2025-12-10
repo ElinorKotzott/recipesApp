@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(
         componentModel = "spring",
-        uses = { IngredientMapper.class }
+        uses = {IngredientMapper.class}
 )
 public interface RecipeIngredientMapper {
 

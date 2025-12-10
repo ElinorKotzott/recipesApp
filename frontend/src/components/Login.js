@@ -44,7 +44,7 @@ const Login = ({
 
 
                     <PrimaryButton type="submit">Login</PrimaryButton>
-                    <p style={{ margin: "0" }}>Don't have an account yet?</p>
+                    <p style={{margin: "0"}}>Don't have an account yet?</p>
                     <PrimaryButton type="button" onClick={() => navigate("/register")}>
                         Register
                     </PrimaryButton>

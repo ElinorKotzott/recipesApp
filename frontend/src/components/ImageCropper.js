@@ -1,114 +1,113 @@
-import { useCallback } from 'react'
+import {useCallback} from 'react'
 import Cropper from 'react-easy-crop'
 import PrimaryButton from "./buttons/PrimaryButton.js";
 import Modal from "react-bootstrap/Modal";
 
 function ImageCropper({
+                          tempImageData,
+                          tempImageType,
+                          onCropSave,
+                          handleCloseCropper,
+                          showCropper,
+                          zoom,
+                          setZoom,
+                          crop,
+                          setCrop,
+                          croppedAreaPixels,
+                          setCroppedAreaPixels,
+                          aspect,
+                          cropShape
+                      }) {
 
-  tempImageData,
-  tempImageType,
-  onCropSave,
-  handleCloseCropper,
-  showCropper,
-  zoom,
-  setZoom,
-  crop,
-  setCrop,
-  croppedAreaPixels,
-  setCroppedAreaPixels,
-  aspect,
-  cropShape
-}) {
 
+    const onCropComplete = useCallback((_, croppedPixels) => {
+        setCroppedAreaPixels(croppedPixels)
+    }, [])
 
-  const onCropComplete = useCallback((_, croppedPixels) => {
-    setCroppedAreaPixels(croppedPixels)
-  }, [])
+    const cropImage = async () => {
+        const image = new Image()
+        image.src = `data:${tempImageType};base64,${tempImageData}`
 
-  const cropImage = async () => {
-    const image = new Image()
-    image.src = `data:${tempImageType};base64,${tempImageData}`
+        await new Promise((resolve) => (image.onload = resolve))
 
-    await new Promise((resolve) => (image.onload = resolve))
+        const canvas = document.createElement('canvas')
+        canvas.width = croppedAreaPixels.width
+        canvas.height = croppedAreaPixels.height
 
-    const canvas = document.createElement('canvas')
-    canvas.width = croppedAreaPixels.width
-    canvas.height = croppedAreaPixels.height
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(
+            image,
+            croppedAreaPixels.x,
+            croppedAreaPixels.y,
+            croppedAreaPixels.width,
+            croppedAreaPixels.height,
+            0,
+            0,
+            croppedAreaPixels.width,
+            croppedAreaPixels.height
+        )
 
-    const ctx = canvas.getContext('2d')
-    ctx.drawImage(
-      image,
-      croppedAreaPixels.x,
-      croppedAreaPixels.y,
-      croppedAreaPixels.width,
-      croppedAreaPixels.height,
-      0,
-      0,
-      croppedAreaPixels.width,
-      croppedAreaPixels.height
-    )
+        onCropSave({
+            croppedAreaPixels,
+            crop,
+            zoom
+        });
 
-    onCropSave({
-      croppedAreaPixels,
-      crop,
-      zoom
-    });
+    }
 
-  }
+    return (
+        <div>
 
-  return (
-  <div>
+            <Modal show={showCropper} onHide={handleCloseCropper}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Crop Image</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
 
-      <Modal show={showCropper} onHide={handleCloseCropper}>
-        <Modal.Header closeButton>
-        <Modal.Title>Crop Image</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+                    <div style={{position: 'relative', height: '50vh'}}>
+                        <Cropper
+                            image={`data:${tempImageType};base64,${tempImageData}`}
+                            crop={crop}
+                            zoom={zoom}
+                            aspect={aspect}
+                            cropShape={cropShape}
+                            showGrid={false}
+                            onCropChange={setCrop}
+                            onCropComplete={onCropComplete}
+                            onZoomChange={setZoom}
+                        />
 
-        <div style={{ position: 'relative', height: '50vh' }}>
-          <Cropper
-            image={`data:${tempImageType};base64,${tempImageData}`}
-            crop={crop}
-            zoom={zoom}
-            aspect={aspect}
-            cropShape={cropShape}
-            showGrid={false}
-            onCropChange={setCrop}
-            onCropComplete={onCropComplete}
-            onZoomChange={setZoom}
-          />
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '10px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: '80%',
+                            zIndex: 10,
+                        }}>
+                            <input
+                                type="range"
+                                min={1}
+                                max={3}
+                                step={0.1}
+                                value={zoom}
+                                onChange={(e) => setZoom(Number(e.target.value))}
+                                style={{width: '100%'}}
+                            />
+                        </div>
+                    </div>
 
-          <div style={{
-            position: 'absolute',
-            bottom: '10px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '80%',
-            zIndex: 10,
-          }}>
-            <input
-              type="range"
-              min={1}
-              max={3}
-              step={0.1}
-              value={zoom}
-              onChange={(e) => setZoom(Number(e.target.value))}
-              style={{ width: '100%' }}
-            />
-          </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <PrimaryButton type="button" onClick={handleCloseCropper}>
+                        Cancel
+                    </PrimaryButton>
+                    <PrimaryButton onClick={cropImage}>Save</PrimaryButton>
+                </Modal.Footer>
+            </Modal>
+
         </div>
-
-        </Modal.Body>
-        <Modal.Footer>
-          <PrimaryButton type="button" onClick={handleCloseCropper}>
-          Cancel
-          </PrimaryButton>
-          <PrimaryButton onClick={cropImage}>Save</PrimaryButton>
-        </Modal.Footer>
-      </Modal>
-
-    </div>
-  )
+    )
 }
 
 export default ImageCropper

@@ -1,17 +1,23 @@
 import {useEffect, useState} from "react";
-import Profile from "../components/Profile";
+import ChangeProfile from "../components/ChangeProfile";
 import {request} from "../axiosHelper";
 import {useNavigate} from "react-router-dom";
 
 function ChangeProfilePage() {
-    const [username, setUsername] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [bio, setBio] = useState("");
-    const [profilePictureData, setProfilePictureData] = useState("");
-    const [profilePictureType, setProfilePictureType] = useState("");
-    const [cropParams, setCropParams] = useState(null);
+    const emptyProfile = {
+        username: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        bio: "",
+        image: {
+            imageData: "",
+            imageType: "",
+            cropParameters: null
+        }
+    };
+    const [profile, setProfile] = useState(emptyProfile);
+
     const token = sessionStorage.getItem("token");
     const navigate = useNavigate();
 
@@ -20,30 +26,7 @@ function ChangeProfilePage() {
             if (!token) return;
             try {
                 const response = await request("get", "/profile", null, true);
-                const cropInfo = response.data.image?.cropParameters;
-
-                setUsername(response.data.username);
-                setFirstName(response.data.firstName);
-                setLastName(response.data.lastName);
-                setEmail(response.data.email);
-                setBio(response.data.bio);
-                setProfilePictureData(response.data.image?.imageData);
-                setProfilePictureType(response.data.image?.imageType);
-                if (cropInfo) {
-                    setCropParams({
-                        crop: {
-                            x: cropInfo.xForCropper ?? 0,
-                            y: cropInfo.yForCropper ?? 0
-                        },
-                        croppedAreaPixels: {
-                            x: cropInfo.x ?? 0,
-                            y: cropInfo.y ?? 0,
-                            width: cropInfo.width ?? 0,
-                            height: cropInfo.height ?? 0
-                        },
-                        zoom: cropInfo.zoom ?? 1
-                    });
-                }
+                setProfile(response.data);
             } catch (error) {
                 console.error("Error fetching profile:", error);
             }
@@ -58,25 +41,7 @@ function ChangeProfilePage() {
             await request(
                 "put",
                 "/profile/change",
-                {
-                    firstName,
-                    lastName,
-                    email,
-                    bio,
-                    image: {
-                        imageData: profilePictureData,
-                        imageType: profilePictureType,
-                        cropParameters: cropParams ? {
-                            x: cropParams.croppedAreaPixels.x,
-                            y: cropParams.croppedAreaPixels.y,
-                            width: cropParams.croppedAreaPixels.width,
-                            height: cropParams.croppedAreaPixels.height,
-                            zoom: cropParams.zoom,
-                            xForCropper: cropParams.crop?.x ?? 0,
-                            yForCropper: cropParams.crop?.y ?? 0
-                        } : null
-                    }
-                },
+                profile,
                 true
             );
             navigate("/profile");
@@ -88,23 +53,10 @@ function ChangeProfilePage() {
 
 
     return (
-        <Profile
-            username={username}
-            firstName={firstName}
-            setFirstName={setFirstName}
-            lastName={lastName}
-            setLastName={setLastName}
-            email={email}
-            setEmail={setEmail}
-            bio={bio}
-            setBio={setBio}
-            profilePictureData={profilePictureData}
-            setProfilePictureData={setProfilePictureData}
-            profilePictureType={profilePictureType}
-            setProfilePictureType={setProfilePictureType}
+        <ChangeProfile
+            profile={profile}
+            setProfile={setProfile}
             handleProfileUpdate={handleProfileUpdate}
-            cropParams={cropParams}
-            setCropParams={setCropParams}
         />
     );
 }

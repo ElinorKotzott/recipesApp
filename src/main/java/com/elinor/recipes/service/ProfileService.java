@@ -1,6 +1,7 @@
 package com.elinor.recipes.service;
 
 import com.elinor.recipes.dto.UserDTO;
+import com.elinor.recipes.mapper.CropParametersMapper;
 import com.elinor.recipes.mapper.ImageMapper;
 import com.elinor.recipes.mapper.UserMapper;
 import com.elinor.recipes.model.User;
@@ -22,6 +23,8 @@ public class ProfileService {
 
     @Autowired
     private ImageMapper imageMapper;
+    @Autowired
+    private CropParametersMapper cropParametersMapper;
 
     public UserDTO getUserProfile(Long userId) {
         User user = userRepository.findById(userId)
@@ -30,24 +33,19 @@ public class ProfileService {
         return userMapper.toDTO(user);
     }
 
-    public void updateUserProfile(UserDTO updatedUser, Long userId) {
-        User user = userRepository.findById(userId)
+    public void updateUserProfile(UserDTO updatedUser) {
+        User user = userRepository.findById(updatedUser.getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        if (updatedUser.getFirstName() != null) {
-            user.setFirstName(updatedUser.getFirstName());
-        }
-        if (updatedUser.getLastName() != null) {
-            user.setLastName(updatedUser.getLastName());
-        }
-        if (updatedUser.getEmail() != null) {
-            user.setEmail(updatedUser.getEmail());
-        }
-        if (updatedUser.getBio() != null) {
-            user.setBio(updatedUser.getBio());
-        }
+        userMapper.updateEntity(updatedUser, user);
+
         if (updatedUser.getImage() != null) {
             user.setImage(imageMapper.toEntity(updatedUser.getImage()));
+            if (updatedUser.getImage().getCropParameters() != null) {
+                user.getImage().setCropParameters(cropParametersMapper.toEntity(updatedUser.getImage().getCropParameters()));
+            }
         }
+
+        userRepository.save(user);
     }
 }

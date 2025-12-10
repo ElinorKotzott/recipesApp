@@ -17,12 +17,7 @@ function HomePage() {
     const fetchAllRecipes = async (page = 0) => {
         if (!token) return;
         try {
-            const response = await request(
-                "get",
-                `/recipes?page=${page}&size=8`,
-                null,
-                true
-            );
+            const response = await request("get", `/recipes?page=${page}&size=8`, null, true);
             setAllRecipes(response.data.recipeList);
             setAllCurrentPage(response.data.currentPage);
             setAllTotalPages(response.data.totalPages);
@@ -34,12 +29,7 @@ function HomePage() {
     const fetchUserRecipes = async (page = 0) => {
         if (!token) return;
         try {
-            const response = await request(
-                "get",
-                `/recipes/mine?page=${page}&size=8`,
-                null,
-                true
-            );
+            const response = await request("get", `/recipes/mine?page=${page}&size=8`, null, true);
             setUserRecipes(response.data.recipeList);
             setUserCurrentPage(response.data.currentPage);
             setUserTotalPages(response.data.totalPages);
@@ -54,8 +44,7 @@ function HomePage() {
         fetchUserRecipes(0);
     }, [token]);
 
-    return (
-        <>
+    return (<>
             <Recipe
                 allRecipes={allRecipes}
                 setAllRecipes={setAllRecipes}
@@ -69,8 +58,7 @@ function HomePage() {
                 userTotalPages={userTotalPages}
                 fetchUserRecipes={fetchUserRecipes}
             />
-        </>
-    );
+    </>);
 }
 
 export default HomePage;

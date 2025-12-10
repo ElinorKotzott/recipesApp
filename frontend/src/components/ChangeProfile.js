@@ -2,34 +2,29 @@ import PrimaryButton from "./buttons/PrimaryButton.js";
 import ManageImageCropper from './ManageImageCropper';
 
 
-const Profile = ({
-                     username,
-                     email,
-                     setEmail,
-                     firstName,
-                     setFirstName,
-                     lastName,
-                     setLastName,
-                     bio,
-                     setBio,
-                     profilePictureData,
-                     setProfilePictureData,
-                     profilePictureType,
-                     setProfilePictureType,
-                     handleProfileUpdate,
-                     cropParams,
-                     setCropParams
-                 }) => {
+const ChangeProfile = ({
+                           handleProfileUpdate,
+                           profile,
+                           setProfile
+                       }) => {
+
+    function updateProfile(key, value) {
+        setProfile(prev => ({
+            ...prev,
+            [key]: value
+        }));
+    }
+
 
     return (
         <div className="profile-container">
-            <h2>Welcome to your profile, {username}</h2>
+            <h2>Welcome to your profile, {profile.username}</h2>
             <form className="profile-form" onSubmit={handleProfileUpdate}>
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
                     id="username"
-                    value={username}
+                    value={profile.username}
                     disabled
                     className="form-control"
                 />
@@ -38,9 +33,9 @@ const Profile = ({
                 <input
                     type="email"
                     id="email"
-                    value={email}
+                    value={profile.email}
                     required
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => updateProfile("email", e.target.value)}
                     className="form-control"
                 />
 
@@ -48,9 +43,9 @@ const Profile = ({
                 <input
                     type="text"
                     id="firstName"
-                    value={firstName}
+                    value={profile.firstName}
                     required
-                    onChange={(e) => setFirstName(e.target.value)}
+                    onChange={(e) => updateProfile("firstName", e.target.value)}
                     className="form-control"
                 />
 
@@ -58,9 +53,9 @@ const Profile = ({
                 <input
                     type="text"
                     id="lastName"
-                    value={lastName}
+                    value={profile.lastName}
                     required
-                    onChange={(e) => setLastName(e.target.value)}
+                    onChange={(e) => updateProfile("lastName", e.target.value)}
                     className="form-control"
                 />
 
@@ -68,18 +63,13 @@ const Profile = ({
                 <input
                     type="text"
                     id="bio"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    value={profile.bio}
+                    onChange={(e) => updateProfile("bio", e.target.value)}
                     className="form-control"
                 />
 
                 <ManageImageCropper
-                    imageData={profilePictureData}
-                    imageType={profilePictureType}
-                    setImageData={setProfilePictureData}
-                    setImageType={setProfilePictureType}
-                    cropParams={cropParams}
-                    setCropParams={setCropParams}
+                    imageOwner={profile}
                     aspect={1}
                     cropShape="round"
                     imageStyle={{
@@ -90,7 +80,8 @@ const Profile = ({
                         objectFit: "cover",
                         margin: "1rem 0"
                     }}
-                    labelName="Profile Picture"
+                    labelName="ChangeProfile Picture"
+                    onSaveImage={(imageObj) => updateProfile("image", imageObj)}
                 />
 
                 <div>
@@ -103,4 +94,4 @@ const Profile = ({
     );
 };
 
-export default Profile;
+export default ChangeProfile;

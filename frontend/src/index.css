@@ -1,145 +1,145 @@
 html {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  background-color: #f4e7e1;
-  font-family: "Arial", sans-serif !important;
-  font-weight: 100;
-  color: #333333;
-  height: 100vh;
-  margin: 20px;
-  display: flex;
-  justify-content: center;
+    background-color: #f4e7e1;
+    font-family: "Arial", sans-serif !important;
+    font-weight: 100;
+    color: #333333;
+    height: 100vh;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .page-container {
-  width: 80vw;
+    width: 80vw;
 }
 
 
 header {
-  width: 80vw;
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0 0 0;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 0 0;
 }
 
 .header-top {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 footer {
-  margin-top: 2rem;
+    margin-top: 2rem;
 }
 
 .title-and-nav {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 nav {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 
 hr {
-  width: 100%;
+    width: 100%;
 }
 
 .your-recipes, .latest-recipes, .your-favs-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .auth-container {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .auth {
-  display: inline-block;
-  background-color: #f2f2f2;
-  margin: 60px;
-  padding: 60px 60px;
-  border-radius: 25px;
+    display: inline-block;
+    background-color: #f2f2f2;
+    margin: 60px;
+    padding: 60px 60px;
+    border-radius: 25px;
 }
 
 .button {
-  font-family: "Raleway", sans-serif;
-  background-color: #f2f2f2;
-  padding: 5px 15px;
-  border-radius: 15px;
-  color: #333333;
-  border: 1px solid #333333;
+    font-family: "Raleway", sans-serif;
+    background-color: #f2f2f2;
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: #333333;
+    border: 1px solid #333333;
 }
 
 .button:hover {
-  background-color: #ededed;
-  border: 1px solid #000000;
+    background-color: #ededed;
+    border: 1px solid #000000;
 }
 
 .recipe-card-image {
-  width: 100%;
-  border-radius: 8px;
-  border: solid white 2px;
-  object-fit: cover;
+    width: 100%;
+    border-radius: 8px;
+    border: solid white 2px;
+    object-fit: cover;
 }
 
 .favorite-button {
-  position: absolute;
-  top: 30px;
-  right: 15px;
-  cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    cursor: pointer;
 }
 
 .recipe-image-container {
-  display: inline-block;
+    display: inline-block;
 }
 
 .favorite-button-container {
-  display: inline-block;
-  position: relative;
+    display: inline-block;
+    position: relative;
 }
 
 .recipe-card {
-  display: inline-block;
-  margin: 5px 15px;
-  width: 20%;
+    display: inline-block;
+    margin: 5px 15px;
+    width: 20%;
 }
 
 .pagination-button {
-  margin: 0 10px;
+    margin: 0 10px;
 }
 
 .card-link {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .image-closeup {
-  height: 30em;
-  width: 22em;
-  border: solid white 2px;
-  object-fit: cover;
+    height: 30em;
+    width: 22em;
+    border: solid white 2px;
+    object-fit: cover;
 }
 
 .recipe-closeup {
-  display: inline-block;
-  background-color: white;
-  margin: 10px;
-  padding: 10px 25px;
-  border-radius: 10px;
-  position: relative;
-  width: 550px;
+    display: inline-block;
+    background-color: white;
+    margin: 10px;
+    padding: 10px 25px;
+    border-radius: 10px;
+    position: relative;
+    width: 550px;
 }
 
 #currentStep {
-  display: inline-block;
+    display: inline-block;
 }
 
 .form-control.input-for-numbers {
@@ -159,7 +159,7 @@ button.add-or-remove-button {
     width: 7em;
 }
 
-.profile-form{
+.profile-form {
     display: flex;
     flex-direction: column;
     justify-content: center;

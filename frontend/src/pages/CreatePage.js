@@ -4,24 +4,29 @@ import Create from "../components/Create";
 import {useNavigate} from "react-router-dom";
 
 const CreatePage = () => {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [prepTime, setPrepTime] = useState(0);
-    const [cookingTime, setCookingTime] = useState(0);
-    const [imageData, setImageData] = useState("");
-    const [imageType, setImageType] = useState("");
-    const [difficulty, setDifficulty] = useState("");
+    const [recipe, setRecipe] = useState({
+        title: "",
+        description: "",
+        prepTime: 0,
+        cookingTime: 0,
+        servings: 0,
+        difficulty: "",
+        image: {
+            imageData: "",
+            imageType: "",
+            cropParameters: null
+        }
+    });
+
     const [allDifficulties, setAllDifficulties] = useState([]);
-    const [recipeIngredientList, setRecipeIngredientList] = useState([]);
     const [allIngredients, setAllIngredients] = useState([]);
     const [tempRecipeIngredientList, setTempRecipeIngredientList] = useState([]);
     const [tempStepListUI, setTempStepListUI] = useState([]);
     const [units, setUnits] = useState([]);
     const [allTags, setAllTags] = useState([]);
-    const [tagList, setTagList] = useState([]);
     const [stepListUI, setStepListUI] = useState([]);
-    const [servings, setServings] = useState(0);
-    const [cropParams, setCropParams] = useState(null);
+    const [recipeIngredientList, setRecipeIngredientList] = useState([]);
+    const [tagList, setTagList] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -105,89 +110,64 @@ const CreatePage = () => {
     }
 
     const handleCreate = async (e) => {
-        e.preventDefault();
+            e.preventDefault();
 
-        let stepList = [];
-        for (let i = 1; i <= stepListUI.length; i++) {
-            stepList.push({
-                stepNumber: i,
-                instructionText: stepListUI[i - 1].instructionText,
-            });
-        }
+            let stepList = [];
+            for (let i = 1; i <= stepListUI.length; i++) {
+                stepList.push({
+                    stepNumber: i,
+                    instructionText: stepListUI[i - 1].instructionText,
+                });
+            }
 
-        const errors = [];
+            const errors = [];
 
-        if (!title.trim()) errors.push("Title is required!");
-        if (!description.trim()) errors.push("Description is required!");
-        if (prepTime <= 0) errors.push("Preparation time must be greater than 0!");
-        if (cookingTime <= 0) errors.push("Cooking time must be greater than 0!");
-        if (servings <= 0) errors.push("Servings must be at least 1!");
-        if (recipeIngredientList.length === 0) errors.push("At least one ingredient is required!");
-        if (stepList.length === 0) errors.push("At least one step is required!");
-        if (!difficulty) errors.push("Please select a difficulty!");
-        if (title.length > 30) errors.push("Title must be less than 30 characters long!");
+            if (!recipe.title.trim()) errors.push("Title is required!");
+            if (!recipe.description.trim()) errors.push("Description is required!");
+            if (recipe.prepTime <= 0) errors.push("Preparation time must be greater than 0!");
+            if (recipe.cookingTime <= 0) errors.push("Cooking time must be greater than 0!");
+            if (recipe.servings <= 0) errors.push("Servings must be at least 1!");
+            if (recipeIngredientList.length === 0) errors.push("At least one ingredient is required!");
+            if (stepList.length === 0) errors.push("At least one step is required!");
+            if (!recipe.difficulty) errors.push("Please select a difficulty!");
+            if (recipe.title.length > 30) errors.push("Title must be less than 30 characters long!");
 
-        if (errors.length > 0) {
-            alert(errors.join("\n"));
-            return;
-        }
+            if (errors.length > 0) {
+                alert(errors.join("\n"));
+                return;
+            }
 
-        try {
-            await request(
-                "post",
-                "/recipes",
-                {
-                    title,
-                    description,
-                    prepTime,
-                    cookingTime,
-                    recipeIngredientList,
-                    tagList,
-                    stepList,
-                    servings,
-                    difficulty,
-                    image: {
-                        imageData,
-                        imageType,
-                        cropParameters: cropParams ? {
-                            x: cropParams.croppedAreaPixels.x,
-                            y: cropParams.croppedAreaPixels.y,
-                            width: cropParams.croppedAreaPixels.width,
-                            height: cropParams.croppedAreaPixels.height,
-                            zoom: cropParams.zoom,
-                            xForCropper: cropParams.crop?.x ?? 0,
-                            yForCropper: cropParams.crop?.y ?? 0
-                        } : null
-                    }
-                },
-                true
-            );
-            navigate("/home");
-            alert("Recipe created successfully!");
-        } catch (error) {
-            if (error.response) {
-                alert("Submission failed: " + error.response.data.message);
-            } else {
-                alert("Error: " + error.message);
+            try {
+                console.log(recipe);
+                await request(
+                    "post",
+                    "/recipes",
+                    {
+                        ...recipe,
+                        recipeIngredientList,
+                        tagList,
+                        stepList
+                    },
+                    true
+                );
+                navigate("/home");
+                alert("Recipe created successfully!");
+            } catch
+                (error) {
+                if (error.response) {
+                    alert("Submission failed: " + error.response.data.message);
+                } else {
+                    alert("Error: " + error.message);
+                }
             }
         }
-    };
+    ;
 
     return (
         <Create
-            title={title}
-            setTitle={setTitle}
-            description={description}
-            setDescription={setDescription}
-            prepTime={prepTime}
-            setPrepTime={setPrepTime}
-            cookingTime={cookingTime}
-            setCookingTime={setCookingTime}
+            recipe={recipe}
+            setRecipe={setRecipe}
             handleSubmit={handleCreate}
-            imageData={imageData}
-            setImageData={setImageData}
-            imageType={imageType}
-            setImageType={setImageType}
             recipeIngredientList={recipeIngredientList}
             tempRecipeIngredientList={tempRecipeIngredientList}
             setTempRecipeIngredientList={setTempRecipeIngredientList}
@@ -208,13 +188,7 @@ const CreatePage = () => {
             setTempStepListUI={setTempStepListUI}
             saveStepListUI={saveStepListUI}
             allDifficulties={allDifficulties}
-            difficulty={difficulty}
-            setDifficulty={setDifficulty}
-            servings={servings}
-            setServings={setServings}
             isUpdate={false}
-            cropParams={cropParams}
-            setCropParams={setCropParams}
         />
     );
 };

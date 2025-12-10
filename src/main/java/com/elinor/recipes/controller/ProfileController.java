@@ -6,7 +6,10 @@ import com.elinor.recipes.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ProfileController {
@@ -22,9 +25,8 @@ public class ProfileController {
     }
 
     @PutMapping("/profile/change")
-    public ResponseEntity<String> updateUserInfo(@RequestBody UserDTO updatedUser, Authentication authentication) {
-        Long userId = ((User) authentication.getPrincipal()).getId();
-        profileService.updateUserProfile(updatedUser, userId);
+    public ResponseEntity<String> updateUserInfo(@RequestBody UserDTO updatedUser) {
+        profileService.updateUserProfile(updatedUser);
         return ResponseEntity.ok().build();
     }
 }

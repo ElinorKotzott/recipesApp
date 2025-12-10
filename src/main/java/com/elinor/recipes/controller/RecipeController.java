@@ -43,7 +43,7 @@ public class RecipeController {
     @GetMapping("/{id}")
     public ResponseEntity<RecipeDTO> getRecipeById(
             Authentication authentication,
-            @PathVariable("id") Long recipeId){
+            @PathVariable("id") Long recipeId) {
         String username = authentication.getName();
         return ResponseEntity.ok(recipeService.getRecipeById(username, recipeId));
     }

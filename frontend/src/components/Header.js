@@ -2,12 +2,10 @@ import LogoutButton from "./buttons/LogoutButton";
 import Nav from 'react-bootstrap/Nav';
 
 function Header() {
-    return (
-        <header>
+    return (<header>
             <div className="header-top">
                 <div className="title-and-nav">
                     <h1>My recipes app</h1>
-
 
                     <Nav variant="underline">
                         <Nav.Item>

@@ -11,19 +11,9 @@ import ManageImageCropper from "./ManageImageCropper";
 
 
 function Create({
-                    title,
-                    setTitle,
-                    description,
-                    setDescription,
-                    prepTime,
-                    setPrepTime,
-                    cookingTime,
-                    setCookingTime,
+                    recipe,
+                    setRecipe,
                     handleSubmit,
-                    imageData,
-                    imageType,
-                    setImageData,
-                    setImageType,
                     recipeIngredientList,
                     addIngredient,
                     removeIngredient,
@@ -42,13 +32,7 @@ function Create({
                     addStep,
                     removeStep,
                     allDifficulties,
-                    difficulty,
-                    setDifficulty,
-                    servings,
-                    setServings,
-                    isUpdate,
-                    cropParams,
-                    setCropParams
+                    isUpdate
                 }) {
 
     const [selectedIngredient, setSelectedIngredient] = useState("");
@@ -117,6 +101,14 @@ function Create({
         removeStep(step);
     };
 
+    const updateRecipe = (key, value) => {
+        setRecipe(prev => ({
+            ...prev,
+            [key]: value,
+        }));
+    };
+
+
     return (
         <Form className="create-container" onSubmit={handleSubmit}>
             <h2>{isUpdate ? "Update Recipe" : "Create New Recipe"}</h2>
@@ -125,9 +117,9 @@ function Create({
                 <Form.Label>Title</Form.Label>
                 <Form.Control
                     type="text"
-                    value={title}
+                    value={recipe.title}
                     className="w-50"
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => updateRecipe("title", e.target.value)}
                 />
             </Form.Group>
 
@@ -137,8 +129,8 @@ function Create({
                     as="textarea"
                     rows={3}
                     className="w-50"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={recipe.description}
+                    onChange={(e) => updateRecipe("description", e.target.value)}
                 />
             </Form.Group>
 
@@ -306,8 +298,8 @@ function Create({
                                 type="number"
                                 min="0"
                                 className="input-for-numbers"
-                                value={prepTime}
-                                onChange={(e) => setPrepTime(Number(e.target.value))}
+                                value={recipe.prepTime}
+                                onChange={(e) => updateRecipe("prepTime", Number(e.target.value))}
                             />
                         </div>
 
@@ -317,8 +309,8 @@ function Create({
                                 type="number"
                                 min="0"
                                 className="input-for-numbers"
-                                value={cookingTime}
-                                onChange={(e) => setCookingTime(Number(e.target.value))}
+                                value={recipe.cookingTime}
+                                onChange={(e) => updateRecipe("cookingTime", Number(e.target.value))}
                             />
                         </div>
                     </Form.Group>
@@ -327,8 +319,8 @@ function Create({
                         <Form.Label>Difficulty</Form.Label>
                         <div className="w-50">
                             <DifficultyDropdownMenu
-                                selectedDifficulty={difficulty}
-                                onChange={setDifficulty}
+                                selectedDifficulty={recipe.difficulty}
+                                onChange={(value) => updateRecipe("difficulty", value)}
                                 difficulties={allDifficulties}
                             />
                         </div>
@@ -340,22 +332,24 @@ function Create({
                             type="number"
                             min="1"
                             className="w-25"
-                            value={servings}
-                            onChange={(e) => setServings(Number(e.target.value))}
+                            value={recipe.servings}
+                            onChange={(e) => updateRecipe("servings", Number(e.target.value))}
                         />
                     </Form.Group>
 
                     <ManageImageCropper
-                        imageData={imageData}
-                        imageType={imageType}
-                        setImageData={setImageData}
-                        setImageType={setImageType}
-                        cropParams={cropParams}
-                        setCropParams={setCropParams}
+                        imageOwner={recipe}
+                        imageData={recipe.imageData}
+                        imageType={recipe.imageType}
+                        setImageData={(value) => setRecipe(prev => ({...prev, imageData: value}))}
+                        setImageType={(value) => setRecipe(prev => ({...prev, imageType: value}))}
+                        cropParameters={recipe.cropParameters}
+                        setCropParameters={(value) => setRecipe(prev => ({...prev, cropParameters: value}))}
                         aspect={3 / 4}
                         cropShape="rect"
                         imageStyle={{width: "200px", margin: "1rem 0", display: "block"}}
                         labelName="Recipe Image"
+                        onSaveImage={(imageObj) => updateRecipe("image", imageObj)}
                     />
 
                     <PrimaryButton type="submit">

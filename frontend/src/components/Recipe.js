@@ -44,7 +44,7 @@ function Recipe({
                                             <DrawImage
                                                 imageData={recipe.image.imageData}
                                                 imageType={recipe.image.imageType}
-                                                cropParams={recipe.image.cropParams}
+                                                cropParameters={recipe.image.cropParameters}
                                                 imageStyle={{
                                                     display: "block",
                                                     width: "200px",
@@ -112,7 +112,7 @@ function Recipe({
                                             <DrawImage
                                                 imageData={recipe.image.imageData}
                                                 imageType={recipe.image.imageType}
-                                                cropParams={recipe.image.cropParams}
+                                                cropParameters={recipe.image.cropParameters}
                                                 imageStyle={{
                                                     display: "block",
                                                     width: "200px",

@@ -5,14 +5,7 @@ import PrimaryButton from "../components/buttons/PrimaryButton.js";
 import DrawImage from "../components/DrawImage.js";
 
 function ProfilePage() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [bio, setBio] = useState("");
-  const [profilePictureData, setProfilePictureData] = useState("");
-  const [profilePictureType, setProfilePictureType] = useState("");
-  const [cropParams, setCropParams] = useState("");
+    const [profile, setProfile] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
   const token = sessionStorage.getItem("token");
@@ -24,30 +17,7 @@ function ProfilePage() {
       try {
         const response = await request("get", "/profile", null, true);
         const data = response.data;
-          const cropInfo = data.image?.cropParameters;
-
-        setUsername(data.username);
-        setEmail(data.email);
-        setFirstName(data.firstName);
-        setLastName(data.lastName);
-        setBio(data.bio);
-          setProfilePictureData(data.image?.imageData);
-          setProfilePictureType(data.image?.imageType);
-        if (cropInfo) {
-          setCropParams({
-            crop: {
-              x: cropInfo.xForCropper ?? 0,
-              y: cropInfo.yForCropper ?? 0
-            },
-            croppedAreaPixels: {
-              x: cropInfo.x ?? 0,
-              y: cropInfo.y ?? 0,
-              width: cropInfo.width ?? 0,
-              height: cropInfo.height ?? 0
-            },
-            zoom: cropInfo.zoom ?? 1
-          });
-        }
+          setProfile(data);
 
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -62,12 +32,12 @@ function ProfilePage() {
         <h2>My Profile</h2>
 
         <div>
-        {(profilePictureData && profilePictureType) ?
+            {(profile.image?.imageData && profile.image?.imageType) ?
 
         <DrawImage
-            cropParams={cropParams}
-            imageData={profilePictureData}
-            imageType={profilePictureType}
+            cropParameters={profile.image.cropParameters}
+            imageData={profile.image.imageData}
+            imageType={profile.image.imageType}
             imageStyle={{
                 display: "block",
                 width: "100px",
@@ -92,11 +62,11 @@ function ProfilePage() {
 
         </div>
 
-        <p>Username: {username}</p>
-        <p>Email: {email}</p>
-        <p>First Name: {firstName}</p>
-        <p>Last Name: {lastName}</p>
-        <p>Bio: {bio || "Tell us something about yourself!"}</p>
+          <p>Username: {profile.username}</p>
+          <p>Email: {profile.email}</p>
+          <p>First Name: {profile.firstName}</p>
+          <p>Last Name: {profile.lastName}</p>
+          <p>Bio: {profile.bio || "Tell us something about yourself!"}</p>
 
         <PrimaryButton onClick={() => navigate("/profile/change")}>
           Edit Profile
