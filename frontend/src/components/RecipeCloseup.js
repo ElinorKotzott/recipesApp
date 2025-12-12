@@ -121,17 +121,21 @@ function RecipeCloseup({recipe}) {
                 which quantity is specified.
             </p>
 
-            {isOwner && (
-                <PrimaryButton onClick={handleDelete} className="delete-button">
-                    Delete
-                </PrimaryButton>
-            )}
+            <div className="delete-update-buttons-container">
+                {isOwner && (
+                    <PrimaryButton onClick={handleUpdate} className="update-button">
+                        Update
+                    </PrimaryButton>
+                )}
 
-            {isOwner && (
-                <PrimaryButton onClick={handleUpdate} className="update-button">
-                    Update
-                </PrimaryButton>
-            )}
+                {isOwner && (
+                    <PrimaryButton onClick={handleDelete} className="delete-button">
+                        Delete
+                    </PrimaryButton>
+                )}
+            </div>
+
+
         </div>
     );
 }

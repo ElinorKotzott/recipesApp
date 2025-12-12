@@ -90,7 +90,7 @@ function ManageImageCropper({
     return (
         <div>
             <label htmlFor="image"> {labelName} </label>
-            <input type="file" accept="image/*" onChange={handleImageChange} className="form-control"/>
+            <input type="file" accept="image/*" onChange={handleImageChange} className="form-control w-25"/>
 
             {tempImageData && tempImageType && !showCropper && (
                 <>

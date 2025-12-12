@@ -2,10 +2,10 @@ import Button from 'react-bootstrap/Button';
 
 function Pagination({fetchRecipes, currentPage, totalPages}) {
     return (
-        <div className="change-page-buttons">
+        <div className="pagination-buttons">
             <Button
                 variant="light"
-                className="button pagination-button"
+                className="button pagination-button pagination-button-previous"
                 onClick={() => fetchRecipes(currentPage - 1)}
                 disabled={currentPage === 0}
             >
@@ -18,7 +18,7 @@ function Pagination({fetchRecipes, currentPage, totalPages}) {
 
             <Button
                 variant="light"
-                className="button pagination-button"
+                className="button pagination-button pagination-button-next"
                 onClick={() => fetchRecipes(currentPage + 1)}
                 disabled={currentPage + 1 >= totalPages}
             >

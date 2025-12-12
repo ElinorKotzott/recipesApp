@@ -2,6 +2,9 @@ import {Link} from "react-router-dom";
 import ToggleFavoritesButton from "./buttons/ToggleFavoritesButton";
 import Pagination from "./Pagination";
 import DrawImage from "./DrawImage";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function Recipe({
                     allRecipes,
@@ -28,144 +31,148 @@ function Recipe({
     };
 
     return (
-        <div className="recipes-container">
-            <div className="recipe-card-container">
+        <Container className="recipe-card-section-container">
+
+            <div className="recipe-card-section">
                 <h2>Latest Uploads</h2>
-                <div className="latest-recipes">
-                    {allRecipes.length === 0 ? (
-                        <p>Nothing to see here yet.</p>
-                    ) : (
-                        allRecipes.map((recipe) => (
-                            <div key={recipe.id} className="recipe-card">
-                                <div className="favorite-button-container">
-                                    <Link to={`/recipes/${recipe.id}`}>
 
-                                        {recipe.image?.imageData ? (
-                                            <DrawImage
-                                                imageData={recipe.image.imageData}
-                                                imageType={recipe.image.imageType}
-                                                cropParameters={recipe.image.cropParameters}
-                                                imageStyle={{
-                                                    display: "block",
-                                                    width: "200px",
-                                                    aspectRatio: 3 / 4,
-                                                    objectFit: "cover",
-                                                    margin: "1rem 0"
-                                                }}
-                                                className="recipe-card-image"
-                                            />
-                                        ) : (
-                                            <img
-                                                className="recipe-card-image"
-                                                alt={recipe.title}
-                                                src="/image-placeholder.jpeg"
-                                                style={{
-                                                    display: "block",
-                                                    width: "200px",
-                                                    objectFit: "cover",
-                                                    margin: "1rem 0"
-                                                }}
-                                            />
-                                        )}
+                {allRecipes.length === 0 ? (
+                    <p>Nothing to see here yet.</p>
+                ) : (
+                    <Row>
+                        {allRecipes.map(recipe => (
+                            <Col key={recipe.id} xs={12} sm={6} md={4} lg={3}>
+                                <div className="recipe-card">
+                                    <div className="favorite-button-container">
+                                        <Link to={`/recipes/${recipe.id}`}>
+                                            {recipe.image?.imageData ? (
+                                                <DrawImage
+                                                    imageData={recipe.image.imageData}
+                                                    imageType={recipe.image.imageType}
+                                                    cropParameters={recipe.image.cropParameters}
+                                                    imageStyle={{
+                                                        display: "block",
+                                                        width: "100%",
+                                                        aspectRatio: 3 / 4,
+                                                        objectFit: "cover",
+                                                        margin: "1rem 0"
+                                                    }}
+                                                    className="recipe-card-image"
+                                                />
+                                            ) : (
+                                                <img
+                                                    className="recipe-card-image"
+                                                    alt={recipe.title}
+                                                    src="/image-placeholder.jpeg"
+                                                    style={{
+                                                        display: "block",
+                                                        width: "100%",
+                                                        objectFit: "cover",
+                                                        margin: "1rem 0"
+                                                    }}
+                                                />
+                                            )}
+                                        </Link>
 
-                                    </Link>
+                                        <ToggleFavoritesButton
+                                            className="favorite-button"
+                                            recipeId={recipe.id}
+                                            initialIsFavorite={recipe.favorite}
+                                            onToggle={handleFavoriteToggle(recipe.id)}
+                                        />
+                                    </div>
 
-                                    <ToggleFavoritesButton
-                                        className="favorite-button"
-                                        recipeId={recipe.id}
-                                        initialIsFavorite={recipe.favorite}
-                                        onToggle={handleFavoriteToggle(recipe.id)}
-                                    />
+                                    <h3>
+                                        <Link to={`/recipes/${recipe.id}`} className="card-link">
+                                            {recipe.title}
+                                        </Link>
+                                    </h3>
+
+                                    <p>{recipe.description}</p>
                                 </div>
-
-                                <h3>
-                                    <Link to={`/recipes/${recipe.id}`} className="card-link">
-                                        {recipe.title}
-                                    </Link>
-                                </h3>
-
-                                <p>{recipe.description}</p>
-                            </div>
-                        ))
-                    )}
-                </div>
+                            </Col>
+                        ))}
+                    </Row>
+                )}
 
                 <Pagination
-                    className="pagination"
                     currentPage={allCurrentPage}
                     totalPages={allTotalPages}
                     fetchRecipes={fetchAllRecipes}
                 />
             </div>
 
-            <div className="recipe-card-container">
+
+            <div className="recipe-card-section">
                 <h2>Your Recipes</h2>
-                <div className="your-recipes">
-                    {userRecipes.length === 0 ? (
-                        <p>You haven't created any recipes yet.</p>
-                    ) : (
-                        userRecipes.map((recipe) => (
-                            <div key={recipe.id} className="recipe-card">
-                                <div className="favorite-button-container">
-                                    <Link to={`/recipes/${recipe.id}`}>
-                                        {recipe.image?.imageData ? (
-                                            <DrawImage
-                                                imageData={recipe.image.imageData}
-                                                imageType={recipe.image.imageType}
-                                                cropParameters={recipe.image.cropParameters}
-                                                imageStyle={{
-                                                    display: "block",
-                                                    width: "200px",
-                                                    aspectRatio: 3 / 4,
-                                                    objectFit: "cover",
-                                                    margin: "1rem 0"
-                                                }}
-                                                className="recipe-card-image"
-                                            />
-                                        ) : (
-                                            <img
-                                                className="recipe-card-image"
-                                                alt={recipe.title}
-                                                src="/image-placeholder.jpeg"
-                                                style={{
-                                                    display: "block",
-                                                    width: "200px",
-                                                    objectFit: "cover",
-                                                    margin: "1rem 0"
-                                                }}
-                                            />
-                                        )}
 
+                {userRecipes.length === 0 ? (
+                    <p>You haven't created any recipes yet.</p>
+                ) : (
+                    <Row className="g-4">
+                        {userRecipes.map(recipe => (
+                            <Col key={recipe.id} xs={12} sm={6} md={4} lg={3}>
+                                <div className="recipe-card">
+                                    <div className="favorite-button-container">
+                                        <Link to={`/recipes/${recipe.id}`}>
+                                            {recipe.image?.imageData ? (
+                                                <DrawImage
+                                                    imageData={recipe.image.imageData}
+                                                    imageType={recipe.image.imageType}
+                                                    cropParameters={recipe.image.cropParameters}
+                                                    imageStyle={{
+                                                        display: "block",
+                                                        width: "100%",
+                                                        aspectRatio: 3 / 4,
+                                                        objectFit: "cover",
+                                                        margin: "1rem 0"
+                                                    }}
+                                                    className="recipe-card-image"
+                                                />
+                                            ) : (
+                                                <img
+                                                    className="recipe-card-image"
+                                                    alt={recipe.title}
+                                                    src="/image-placeholder.jpeg"
+                                                    style={{
+                                                        display: "block",
+                                                        width: "100%",
+                                                        objectFit: "cover",
+                                                        margin: "1rem 0"
+                                                    }}
+                                                />
+                                            )}
+                                        </Link>
 
-                                    </Link>
+                                        <ToggleFavoritesButton
+                                            className="favorite-button"
+                                            recipeId={recipe.id}
+                                            initialIsFavorite={recipe.favorite}
+                                            onToggle={handleFavoriteToggle(recipe.id)}
+                                        />
+                                    </div>
 
-                                    <ToggleFavoritesButton
-                                        className="favorite-button"
-                                        recipeId={recipe.id}
-                                        initialIsFavorite={recipe.favorite}
-                                        onToggle={handleFavoriteToggle(recipe.id)}
-                                    />
+                                    <h3>
+                                        <Link to={`/recipes/${recipe.id}`} className="card-link">
+                                            {recipe.title}
+                                        </Link>
+                                    </h3>
+
+                                    <p>{recipe.description}</p>
                                 </div>
-                                <h3>
-                                    <Link to={`/recipes/${recipe.id}`} className="card-link">
-                                        {recipe.title}
-                                    </Link>
-                                </h3>
+                            </Col>
+                        ))}
+                    </Row>
+                )}
 
-                                <p>{recipe.description}</p>
-                            </div>
-                        ))
-                    )}
-                </div>
+                <Pagination
+                    currentPage={userCurrentPage}
+                    totalPages={userTotalPages}
+                    fetchRecipes={fetchUserRecipes}
+                />
             </div>
 
-            <Pagination
-                className="pagination"
-                currentPage={userCurrentPage}
-                totalPages={userTotalPages}
-                fetchRecipes={fetchUserRecipes}
-            />
-        </div>
+        </Container>
     );
 }
 

@@ -282,7 +282,7 @@ function Create({
                     <Form.Group className="mb-3" controlId="tags">
                         <Form.Label>Tags</Form.Label>
 
-                        <div className="w-50">
+                        <div className="w-25">
                             <TagDropdownMenu
                                 selectedTags={tagList}
                                 onChange={setTagList}
@@ -317,7 +317,7 @@ function Create({
 
                     <Form.Group className="mb-3" controlId="difficulty">
                         <Form.Label>Difficulty</Form.Label>
-                        <div className="w-50">
+                        <div className="w-25">
                             <DifficultyDropdownMenu
                                 selectedDifficulty={recipe.difficulty}
                                 onChange={(value) => updateRecipe("difficulty", value)}
@@ -331,7 +331,7 @@ function Create({
                         <Form.Control
                             type="number"
                             min="1"
-                            className="w-25"
+                            className="input-for-numbers"
                             value={recipe.servings}
                             onChange={(e) => updateRecipe("servings", Number(e.target.value))}
                         />
@@ -352,9 +352,12 @@ function Create({
                         onSaveImage={(imageObj) => updateRecipe("image", imageObj)}
                     />
 
-                    <PrimaryButton type="submit">
+                    <div className="button-container">
+                        <PrimaryButton className="w-100" type="submit">
                         {isUpdate ? "Update" : "Create"}
                     </PrimaryButton>
+                    </div>
+
                 </div>
             </div>
         </Form>
