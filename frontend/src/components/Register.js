@@ -21,73 +21,75 @@ const Register = ({
             <div className="auth">
                 <h2>Register</h2>
                 <form onSubmit={handleRegister}>
-                    <label htmlFor="firstName">First name:</label>
                     <input
                         type="text"
                         id="firstName"
                         name="firstName"
+                        placeholder="First name"
                         required
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="form-control"
+                        className="form-control mb-2 mt-3"
                     />
 
-                    <label htmlFor="lastName">Last name:</label>
 
                     <input
                         type="text"
                         id="lastName"
                         name="lastName"
+                        placeholder="Last name"
                         required
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="form-control"
+                        className="form-control mb-2"
                     />
 
 
-                    <label htmlFor="email">Email:</label>
 
                     <input
                         type="email"
                         id="email"
                         name="email"
+                        placeholder="Email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="form-control"
+                        className="form-control mb-2"
                     />
 
 
-                    <label htmlFor="username">Username:</label>
 
                     <input
                         type="text"
                         id="username"
                         name="username"
+                        placeholder="Username"
                         required
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="form-control"
+                        className="form-control mb-2"
                     />
 
 
-                    <label htmlFor="password">Password:</label>
 
                     <input
                         type="password"
                         id="password"
                         name="password"
                         required
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="form-control"
+                        className="form-control mb-2"
                     />
-
                     <PrimaryButton type="submit">Register</PrimaryButton>
-                    <p style={{margin: "0"}}>Already have an account?</p>
+
+                    <p className="mt-4 mb-1">Already have an account?</p>
+
                     <PrimaryButton type="submit" onClick={() => navigate("/login")}>
                         Login
                     </PrimaryButton>
+
                 </form>
             </div>
         </div>

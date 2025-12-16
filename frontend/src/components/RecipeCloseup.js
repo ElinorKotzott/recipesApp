@@ -3,6 +3,9 @@ import ToggleFavoritesButton from "./buttons/ToggleFavoritesButton";
 import PrimaryButton from "./buttons/PrimaryButton.js";
 import {useNavigate} from "react-router-dom";
 import DrawImage from "./DrawImage";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
 
 function RecipeCloseup({recipe}) {
     const navigate = useNavigate();
@@ -91,45 +94,85 @@ function RecipeCloseup({recipe}) {
                 <p>No directions found for this recipe!</p>
             )}
 
-            <h3>Nutrition information per serving:</h3>
-            <p>
-                Calories:{" "}
-                {recipe.caloriesPerServing
-                    ? Number(recipe.caloriesPerServing).toFixed(1)
-                    : "No information found"}
-            </p>
-            <p>
-                Protein:{" "}
-                {recipe.proteinPerServing
-                    ? Number(recipe.proteinPerServing).toFixed(1)
-                    : "No information found"}
-            </p>
-            <p>
-                Carbohydrates:{" "}
-                {recipe.carbsPerServing
-                    ? Number(recipe.carbsPerServing).toFixed(1)
-                    : "No information found"}
-            </p>
-            <p>
-                Fat:{" "}
-                {recipe.fatPerServing
-                    ? Number(recipe.fatPerServing).toFixed(1)
-                    : "No information found"}
-            </p>
-            <p>
-                Nutrition values aren't accurate. The free version of the API uses 100g of an ingredient, no matter
-                which quantity is specified.
-            </p>
+            <Container className="px-0">
+                <h3>Nutrition information per serving:</h3>
 
-            <div className="delete-update-buttons-container">
+                <Row className="g-0">
+
+                    <Col xs={6}>
+                        <p>Calories:</p>
+                    </Col>
+                    <Col xs={6}>
+                        <p>
+                            {recipe.caloriesPerServing
+                                ? Number(recipe.caloriesPerServing).toFixed(1)
+                                : "No information found"}
+                        </p>
+                    </Col>
+                </Row>
+
+                <Row className="g-0">
+
+                    <Col xs={6}>
+                        <p>Protein:</p>
+                    </Col>
+                    <Col xs={6}>
+                        <p>
+                            {recipe.proteinPerServing
+                                ? Number(recipe.proteinPerServing).toFixed(1)
+                                : "No information found"}
+                        </p>
+                    </Col>
+                </Row>
+
+                <Row className="g-0">
+
+                    <Col xs={6}>
+                        <p>Carbohydrates:</p>
+                    </Col>
+                    <Col xs={6}>
+                        <p>
+                            {recipe.carbsPerServing
+                                ? Number(recipe.carbsPerServing).toFixed(1)
+                                : "No information found"}
+                        </p>
+                    </Col>
+                </Row>
+
+                <Row className="g-0">
+
+                    <Col xs={6}>
+                        <p>Fat:</p>
+                    </Col>
+                    <Col xs={6}>
+                        <p>
+                            {recipe.fatPerServing
+                                ? Number(recipe.fatPerServing).toFixed(1)
+                                : "No information found"}
+                        </p>
+                    </Col>
+                </Row>
+
+                <Row className="mt-3">
+                    <Col>
+                        <p className="text-muted">
+                            Nutrition values aren't accurate. The free version of the API uses 100g of an ingredient,
+                            no matter which quantity is specified.
+                        </p>
+                    </Col>
+                </Row>
+            </Container>
+
+
+            <div className="d-flex gap-2 mb-2">
                 {isOwner && (
-                    <PrimaryButton onClick={handleUpdate} className="update-button">
+                    <PrimaryButton onClick={handleUpdate}>
                         Update
                     </PrimaryButton>
                 )}
 
                 {isOwner && (
-                    <PrimaryButton onClick={handleDelete} className="delete-button">
+                    <PrimaryButton onClick={handleDelete}>
                         Delete
                     </PrimaryButton>
                 )}

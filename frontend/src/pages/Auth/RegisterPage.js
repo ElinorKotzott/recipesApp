@@ -1,7 +1,7 @@
 //cares for the register logic, sends props to register component and gets the full html back
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { request } from "../../axiosHelper";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {request} from "../../axiosHelper";
 import Register from "../../components/Register";
 
 const RegisterPage = () => {
@@ -12,15 +12,15 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.body.style.backgroundImage = "url('/veggies2.jpg')";
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundRepeat = "no-repeat";
+    /*useEffect(() => {
+      document.body.style.backgroundImage = "url('/veggies2.jpg')";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
 
-    return () => {
-      document.body.style.backgroundImage = "";
-    };
-  }, []);
+      return () => {
+        document.body.style.backgroundImage = "";
+      };
+    }, []);*/
 
   const handleRegister = async (e) => {
     e.preventDefault();

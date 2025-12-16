@@ -9,22 +9,20 @@ function Header() {
 
                     <Nav variant="underline">
                         <Nav.Item>
-                            <Nav.Link href="/home">Home</Nav.Link>
+                            <Nav.Link href="/home" className="primary-nav-link">Home</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/create">Create</Nav.Link>
+                            <Nav.Link href="/create" className="primary-nav-link">Create</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/favorites">Favorites</Nav.Link>
+                            <Nav.Link href="/favorites" className="primary-nav-link">Favorites</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/profile">Profile</Nav.Link>
+                            <Nav.Link href="/profile" className="primary-nav-link">Profile</Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </div>
-                <div className="logout-button-container">
-                    <LogoutButton/>
-                </div>
+                <LogoutButton/>
             </div>
             <hr/>
         </header>

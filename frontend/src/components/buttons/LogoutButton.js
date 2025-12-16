@@ -10,7 +10,7 @@ function LogoutButton() {
     };
 
     return (
-        <PrimaryButton type="submit" className="button" onClick={handleLogout}>
+        <PrimaryButton type="submit" onClick={handleLogout}>
             Logout
         </PrimaryButton>
     );

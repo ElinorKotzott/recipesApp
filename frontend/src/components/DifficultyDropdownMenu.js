@@ -22,7 +22,7 @@ function DifficultyDropdownMenu({selectedDifficulty, onChange, difficulties = []
             options={options}
             value={selectedOption}
             onChange={handleChange}
-            placeholder="-- Select Difficulty --"
+            placeholder="-- Difficulty --"
             isClearable
         />
     );

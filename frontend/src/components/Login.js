@@ -13,42 +13,46 @@ const Login = ({
     const navigate = useNavigate();
 
     return (
-        <div className="auth-container">
-            <div className="auth">
-                <h2>Login</h2>
+        <div className="w-100 h-100">
+            <div className="auth-container">
+                <div className="auth">
+                    <h3>Login</h3>
 
-                <form onSubmit={handleLogin}>
-                    <Form.Group controlId="username">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="username"
-                            required
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="form-control"
-                        />
-                    </Form.Group>
+                    <form onSubmit={handleLogin}>
+                        <Form.Group controlId="username">
+                            <Form.Control
+                                type="text"
+                                name="username"
+                                placeholder="Username"
+                                required
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                className="form-control mb-2 mt-3"
+                            />
+                        </Form.Group>
 
-                    <Form.Group controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            name="password"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="form-control"
-                        />
-                    </Form.Group>
+                        <Form.Group controlId="password">
+                            <Form.Control
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="form-control mb-2"
+                            />
+                        </Form.Group>
+                        <PrimaryButton type="submit">Login</PrimaryButton>
 
 
-                    <PrimaryButton type="submit">Login</PrimaryButton>
-                    <p style={{margin: "0"}}>Don't have an account yet?</p>
-                    <PrimaryButton type="button" onClick={() => navigate("/register")}>
-                        Register
-                    </PrimaryButton>
-                </form>
+                        <p className="mt-4 mb-1">Don't have an account yet?</p>
+
+                        <PrimaryButton type="button" onClick={() => navigate("/register")}>
+                            Register
+                        </PrimaryButton>
+
+                    </form>
+                </div>
             </div>
         </div>
     );

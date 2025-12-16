@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { request } from "../../axiosHelper";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {request} from "../../axiosHelper";
 import Login from "../../components/Login";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 
 const LoginPage = () => {
@@ -10,15 +10,15 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.body.style.backgroundImage = "url('/veggies2.jpg')";
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundRepeat = "no-repeat";
+    /*  useEffect(() => {
+        document.body.style.backgroundImage = "url('/veggies2.jpg')";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundRepeat = "no-repeat";
 
-    return () => {
-      document.body.style.backgroundImage = "";
-    };
-  }, []);
+        return () => {
+          document.body.style.backgroundImage = "";
+        };
+      }, []);*/
 
 const handleLogin = async (e) => {
   e.preventDefault();

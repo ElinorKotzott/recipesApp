@@ -26,6 +26,7 @@ function FavoritesPage() {
     };
 
     useEffect(() => {
+
         fetchFavorites(0);
     }, [token]);
 
