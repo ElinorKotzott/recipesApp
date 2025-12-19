@@ -45,7 +45,7 @@ function TagDropdownMenu({selectedTags = [], onChange, tags = []}) {
             onChange={handleChange}
             closeMenuOnSelect={false}
             isMulti
-            placeholder="-- Tags --"
+            placeholder="Tags"
             isOptionDisabled={(option) => option.isDisabled}
         />
     );

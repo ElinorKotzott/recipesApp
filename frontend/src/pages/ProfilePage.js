@@ -41,8 +41,8 @@ function ProfilePage() {
                             imageType={profile.image.imageType}
                             imageStyle={{
                                 display: "block",
-                                width: "100px",
-                                height: "100px",
+                                width: "150px",
+                                height: "150px",
                                 borderRadius: "50%",
                                 objectFit: "cover",
                                 margin: "1rem 0",

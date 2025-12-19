@@ -9,7 +9,8 @@ function ManageImageCropper({
                                 aspect,
                                 cropShape,
                                 imageStyle,
-                                labelName
+                                labelName,
+                                labelClassName
                             }) {
     const [showCropper, setShowCropper] = useState(false);
     const [crop, setCrop] = useState({x: 0, y: 0});
@@ -89,8 +90,8 @@ function ManageImageCropper({
 
     return (
         <div>
-            <label htmlFor="image"> {labelName} </label>
-            <input type="file" accept="image/*" onChange={handleImageChange} className="form-control w-25"/>
+            <label className={labelClassName} htmlFor="image"> {labelName} </label>
+            <input type="file" accept="image/*" onChange={handleImageChange} className="form-control"/>
 
             {tempImageData && tempImageType && !showCropper && (
                 <>
@@ -100,7 +101,7 @@ function ManageImageCropper({
                         imageType={tempImageType}
                         imageStyle={imageStyle}
                     />
-                    <PrimaryButton type="button" onClick={handleShowCropperFromExistingImage}>
+                    <PrimaryButton className="mb-3" type="button" onClick={handleShowCropperFromExistingImage}>
                         Edit Crop
                     </PrimaryButton>
                 </>

@@ -10,9 +10,11 @@ function LogoutButton() {
     };
 
     return (
-        <PrimaryButton type="submit" onClick={handleLogout}>
-            Logout
-        </PrimaryButton>
+        <div className="button-container">
+            <PrimaryButton className="w-100" type="submit" onClick={handleLogout}>
+                Logout
+            </PrimaryButton>
+        </div>
     );
 }
 

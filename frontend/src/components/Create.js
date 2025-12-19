@@ -8,6 +8,8 @@ import {Form} from "react-bootstrap";
 import DarkButton from "./buttons/DarkButton";
 import Modal from "react-bootstrap/Modal";
 import ManageImageCropper from "./ManageImageCropper";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 
 function Create({
@@ -113,219 +115,129 @@ function Create({
         <div className="create-page">
             <Form className="create-container" onSubmit={handleSubmit}>
                 <h2>{isUpdate ? "Update Recipe" : "Create New Recipe"}</h2>
+                <Row>
 
-                <Form.Group className="mb-3" controlId="title">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={recipe.title}
-                        className="w-50"
-                        onChange={(e) => updateRecipe("title", e.target.value)}
-                    />
-                </Form.Group>
+                    <Col md={6}>
+                        <Form.Group className="mb-3" controlId="title">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={recipe.title}
+                                onChange={(e) => updateRecipe("title", e.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group className="mb-3" controlId="description">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        rows={3}
-                        className="w-50"
-                        value={recipe.description}
-                        onChange={(e) => updateRecipe("description", e.target.value)}
-                    />
-                </Form.Group>
 
-                <div>
-                    <PrimaryButton onClick={handleShowIngredients}>
-                        Ingredients
-                    </PrimaryButton>
+                    <Col md={3}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Preparation Time (min)</Form.Label>
+                            <Form.Control
+                                type="number"
+                                min="0"
+                                value={recipe.prepTime}
+                                onChange={(e) => updateRecipe("prepTime", Number(e.target.value))}
+                            />
+                        </Form.Group>
+                    </Col>
 
-                    <Modal show={showIngredients} onHide={handleCloseIngredients}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Add ingredients</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form.Group className="mb-3" controlId="ingredients">
-                                <Form.Label className="me-2">Ingredients</Form.Label>
+                    <Col md={3}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Cooking Time (min)</Form.Label>
+                            <Form.Control
+                                type="number"
+                                min="0"
+                                value={recipe.cookingTime}
+                                onChange={(e) => updateRecipe("cookingTime", Number(e.target.value))}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                                <Form.Group className="mb-3" controlId="ingredients">
-                                    <Form.Control
-                                        type="number"
-                                        min={1}
-                                        placeholder="Quantity"
-                                        className="input-for-numbers"
-                                        value={quantity}
-                                        onChange={(e) => setQuantity(Number(e.target.value))}
-                                    />
+                <Row>
+                    <Col md={6}>
+                        <Form.Group className="mb-3" controlId="description">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                value={recipe.description}
+                                onChange={(e) => updateRecipe("description", e.target.value)}
+                            />
+                        </Form.Group>
 
-                                    <UnitDropdownMenu
-                                        selectedUnit={selectedUnit}
-                                        onChange={setSelectedUnit}
-                                        units={units}
-                                    />
+                    </Col>
+                    <Col md={3}>
+                        <Form.Group className="mb-3" controlId="tags">
+                            <Form.Label>Tags</Form.Label>
 
-                                    <IngredientsDropdownMenu
-                                        selectedIngredient={selectedIngredient}
-                                        onChange={setSelectedIngredient}
-                                        ingredients={allIngredients}
-                                    />
+                            <TagDropdownMenu
+                                selectedTags={tagList}
+                                onChange={setTagList}
+                                tags={allTags}
+                            />
+                        </Form.Group>
 
-                                    <DarkButton
-                                        className="mt-2 add-or-remove-button"
-                                        onClick={handleAddIngredient}
-                                    >
-                                        +
-                                    </DarkButton>
-                                </Form.Group>
+                    </Col>
 
-                                <ul className="mt-2">
-                                    {tempRecipeIngredientList?.map((item, index) => (
-                                        <li key={index}>
-                                            {item.quantity}{" "}
-                                            {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()}{" "}
-                                            {item.ingredient.name.toLowerCase()}
-                                            <DarkButton
-                                                className="add-or-remove-button"
-                                                onClick={() => handleRemoveIngredient(item.ingredient.id)}
-                                            >
-                                                -
-                                            </DarkButton>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </Form.Group>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <div className="d-flex gap-2 mb-2">
-                                <PrimaryButton onClick={handleCloseIngredients}>
-                                    Close
-                                </PrimaryButton>
-                                <PrimaryButton onClick={handleSaveIngredients}>
-                                    Save
-                                </PrimaryButton>
-                            </div>
-                        </Modal.Footer>
-                    </Modal>
+                    <Col md={3}>
+                        <Form.Group className="mb-3" controlId="difficulty">
+                            <Form.Label>Difficulty</Form.Label>
+                            <DifficultyDropdownMenu
+                                selectedDifficulty={recipe.difficulty}
+                                onChange={(value) => updateRecipe("difficulty", value)}
+                                difficulties={allDifficulties}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                    <ul className="mt-2">
-                        {recipeIngredientList?.map((item, index) => (
-                            <li key={index}>
-                                {item.quantity}{" "}
-                                {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()}{" "}
-                                {item.ingredient.name.toLowerCase()}
-                            </li>
-                        ))}
-                    </ul>
 
-                    <div>
-                        <PrimaryButton onClick={handleShowSteps}>
-                            Steps
+                <Row>
+
+                    <Col md={3}>
+                        <h5>Ingredient list</h5>
+                        <PrimaryButton className="mt-2 mb-3 w-100" onClick={handleShowIngredients}>
+                            Add Ingredients
                         </PrimaryButton>
+                    </Col>
 
-                        <Modal show={showSteps} onHide={handleCloseSteps}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Add steps</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <Form.Group className="mb-3" controlId="steps">
-                                    <Form.Label>Steps</Form.Label>
+                    <Col md={3}></Col>
 
-                                    <div>
-                                        <p className="mb-0">{tempStepListUI.length + 1}.</p>
+                    <Col md={3}>
+                        <h5>Instructions</h5>
+                        <PrimaryButton className="mt-2 mb-3 w-100" onClick={handleShowSteps}>
+                            Add Steps
+                        </PrimaryButton>
+                    </Col>
+                </Row>
 
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={2}
-                                            className="w-50"
-                                            value={stepInput}
-                                            onChange={(e) => setStepInput(e.target.value)}
-                                        />
+                <Row>
 
-                                        <DarkButton
-                                            onClick={handleAddStep}
-                                            className="mt-2 add-or-remove-button"
-                                        >
-                                            +
-                                        </DarkButton>
-                                    </div>
+                    <Col>
+                        <ul>
+                            {recipeIngredientList?.map((item, index) => (
+                                <li key={index}>
+                                    {item.quantity}{" "}
+                                    {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()}{" "}
+                                    {item.ingredient.name.toLowerCase()}
+                                </li>
+                            ))}
+                        </ul>
+                    </Col>
 
-                                    <ol className="mt-2">
-                                        {tempStepListUI?.map((step, index) => (
-                                            <li key={index}>
-                                                {step.instructionText}
-                                                <DarkButton
-                                                    size="sm"
-                                                    className="add-or-remove-button"
-                                                    onClick={() => handleRemoveStep(step)}
-                                                >
-                                                    -
-                                                </DarkButton>
-                                            </li>
-                                        ))}
-                                    </ol>
-                                </Form.Group>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <PrimaryButton onClick={handleCloseSteps}>Close</PrimaryButton>
-                                <PrimaryButton onClick={handleSaveSteps}>Save</PrimaryButton>
-                            </Modal.Footer>
-                        </Modal>
-
-                        <ol className="mt-2">
+                    <Col>
+                        <ol>
                             {stepListUI?.map((step, index) => (
                                 <li key={index}>{step.instructionText}</li>
                             ))}
                         </ol>
-                    </div>
+                    </Col>
 
-                    <div>
-                        <Form.Group className="mb-3" controlId="tags">
-                            <Form.Label>Tags</Form.Label>
+                </Row>
 
-                            <div className="w-25">
-                                <TagDropdownMenu
-                                    selectedTags={tagList}
-                                    onChange={setTagList}
-                                    tags={allTags}
-                                />
-                            </div>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <div>
-                                <Form.Label>Preparation Time (mins)</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    min="0"
-                                    className="input-for-numbers"
-                                    value={recipe.prepTime}
-                                    onChange={(e) => updateRecipe("prepTime", Number(e.target.value))}
-                                />
-                            </div>
-
-                            <div>
-                                <Form.Label>Cooking Time (mins)</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    min="0"
-                                    className="input-for-numbers"
-                                    value={recipe.cookingTime}
-                                    onChange={(e) => updateRecipe("cookingTime", Number(e.target.value))}
-                                />
-                            </div>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="difficulty">
-                            <Form.Label>Difficulty</Form.Label>
-                            <div className="w-25">
-                                <DifficultyDropdownMenu
-                                    selectedDifficulty={recipe.difficulty}
-                                    onChange={(value) => updateRecipe("difficulty", value)}
-                                    difficulties={allDifficulties}
-                                />
-                            </div>
-                        </Form.Group>
-
+                <Row>
+                    <Col md={3}>
                         <Form.Group className="mb-3" controlId="servings">
                             <Form.Label>Servings</Form.Label>
                             <Form.Control
@@ -336,7 +248,11 @@ function Create({
                                 onChange={(e) => updateRecipe("servings", Number(e.target.value))}
                             />
                         </Form.Group>
+                    </Col>
+                </Row>
 
+                <Row>
+                    <Col md={6}>
                         <ManageImageCropper
                             imageOwner={recipe}
                             imageData={recipe.imageData}
@@ -347,17 +263,140 @@ function Create({
                             setCropParameters={(value) => setRecipe(prev => ({...prev, cropParameters: value}))}
                             aspect={3 / 4}
                             cropShape="rect"
-                            imageStyle={{width: "200px", margin: "1rem 0", display: "block"}}
+                            imageStyle={{width: "100%", margin: "1rem 0", display: "block"}}
                             labelName="Recipe Image"
+                            labelClassName="mb-2"
                             onSaveImage={(imageObj) => updateRecipe("image", imageObj)}
                         />
+                    </Col>
+                </Row>
 
-                        <PrimaryButton className="mt-3" type="submit">
+                <Row>
+                    <Col>
+                        <PrimaryButton className="mt-3 w-100" type="submit">
                             {isUpdate ? "Update" : "Create"}
                         </PrimaryButton>
+                    </Col>
+                </Row>
 
-                    </div>
-                </div>
+
+                <Modal show={showIngredients} onHide={handleCloseIngredients}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add ingredients</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group className="mb-3" controlId="ingredients">
+                            <Form.Label className="me-2">Ingredients</Form.Label>
+
+                            <Form.Group className="mb-3" controlId="ingredients">
+                                <Form.Control
+                                    type="number"
+                                    min={1}
+                                    placeholder="Quantity"
+                                    className="input-for-numbers"
+                                    value={quantity}
+                                    onChange={(e) => setQuantity(Number(e.target.value))}
+                                />
+
+                                <UnitDropdownMenu
+                                    selectedUnit={selectedUnit}
+                                    onChange={setSelectedUnit}
+                                    units={units}
+                                />
+
+                                <IngredientsDropdownMenu
+                                    selectedIngredient={selectedIngredient}
+                                    onChange={setSelectedIngredient}
+                                    ingredients={allIngredients}
+                                />
+
+                                <DarkButton
+                                    className="mt-2 add-or-remove-button"
+                                    onClick={handleAddIngredient}
+                                >
+                                    +
+                                </DarkButton>
+                            </Form.Group>
+
+                            <ul className="mt-2">
+                                {tempRecipeIngredientList?.map((item, index) => (
+                                    <li key={index}>
+                                        {item.quantity}{" "}
+                                        {item.unit === "WHOLE" ? "" : item.unit.toLowerCase()}{" "}
+                                        {item.ingredient.name.toLowerCase()}
+                                        <DarkButton
+                                            className="add-or-remove-button"
+                                            onClick={() => handleRemoveIngredient(item.ingredient.id)}
+                                        >
+                                            -
+                                        </DarkButton>
+                                    </li>
+                                ))}
+                            </ul>
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className="d-flex gap-2 mb-2">
+                            <PrimaryButton onClick={handleCloseIngredients}>
+                                Close
+                            </PrimaryButton>
+                            <PrimaryButton onClick={handleSaveIngredients}>
+                                Save
+                            </PrimaryButton>
+                        </div>
+                    </Modal.Footer>
+                </Modal>
+
+
+                <Modal show={showSteps} onHide={handleCloseSteps}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add steps</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group className="mb-3" controlId="steps">
+                            <Form.Label>Steps</Form.Label>
+
+                            <div>
+                                <p className="mb-0">{tempStepListUI.length + 1}.</p>
+
+                                <Form.Control
+                                    as="textarea"
+                                    rows={2}
+                                    className="w-50"
+                                    value={stepInput}
+                                    onChange={(e) => setStepInput(e.target.value)}
+                                />
+
+                                <DarkButton
+                                    onClick={handleAddStep}
+                                    className="mt-2 add-or-remove-button"
+                                >
+                                    +
+                                </DarkButton>
+                            </div>
+
+                            <ol className="mt-2">
+                                {tempStepListUI?.map((step, index) => (
+                                    <li key={index}>
+                                        {step.instructionText}
+                                        <DarkButton
+                                            size="sm"
+                                            className="add-or-remove-button"
+                                            onClick={() => handleRemoveStep(step)}
+                                        >
+                                            -
+                                        </DarkButton>
+                                    </li>
+                                ))}
+                            </ol>
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <PrimaryButton onClick={handleCloseSteps}>Close</PrimaryButton>
+                        <PrimaryButton onClick={handleSaveSteps}>Save</PrimaryButton>
+                    </Modal.Footer>
+                </Modal>
+
             </Form>
         </div>
     );

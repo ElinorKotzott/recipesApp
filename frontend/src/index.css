@@ -191,12 +191,12 @@ button.btn-primary.primary-button:hover {
 
 .create-container, .profile-container {
     background: linear-gradient(to bottom right, white, #f2f2f2);
-    width: 800px;
-    padding: 20px;
+    width: 860px;
+    padding: 40px 60px;
     border-radius: 20px;
 }
 
-.create-page {
+.create-page, .profile-page {
     width: 100%;
     display: flex;
     justify-content: center;

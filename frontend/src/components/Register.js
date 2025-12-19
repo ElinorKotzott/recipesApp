@@ -32,7 +32,6 @@ const Register = ({
                         className="form-control mb-2 mt-3"
                     />
 
-
                     <input
                         type="text"
                         id="lastName"
@@ -43,8 +42,6 @@ const Register = ({
                         onChange={(e) => setLastName(e.target.value)}
                         className="form-control mb-2"
                     />
-
-
 
                     <input
                         type="email"
@@ -57,8 +54,6 @@ const Register = ({
                         className="form-control mb-2"
                     />
 
-
-
                     <input
                         type="text"
                         id="username"
@@ -70,8 +65,6 @@ const Register = ({
                         className="form-control mb-2"
                     />
 
-
-
                     <input
                         type="password"
                         id="password"
@@ -82,13 +75,16 @@ const Register = ({
                         onChange={(e) => setPassword(e.target.value)}
                         className="form-control mb-2"
                     />
-                    <PrimaryButton type="submit">Register</PrimaryButton>
+                    <div className="button-container">
+                        <PrimaryButton type="submit">Register</PrimaryButton>
+                    </div>
 
                     <p className="mt-4 mb-1">Already have an account?</p>
-
-                    <PrimaryButton type="submit" onClick={() => navigate("/login")}>
-                        Login
-                    </PrimaryButton>
+                    <div className="button-container">
+                        <PrimaryButton type="submit" onClick={() => navigate("/login")}>
+                            Login
+                        </PrimaryButton>
+                    </div>
 
                 </form>
             </div>

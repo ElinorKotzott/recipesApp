@@ -42,14 +42,18 @@ const Login = ({
                                 className="form-control mb-2"
                             />
                         </Form.Group>
-                        <PrimaryButton type="submit">Login</PrimaryButton>
+                        <div className="button-container">
+                            <PrimaryButton className="w-100" type="submit">Login</PrimaryButton>
+                        </div>
 
 
                         <p className="mt-4 mb-1">Don't have an account yet?</p>
 
-                        <PrimaryButton type="button" onClick={() => navigate("/register")}>
-                            Register
-                        </PrimaryButton>
+                        <div className="button-container">
+                            <PrimaryButton className="w-100" type="button" onClick={() => navigate("/register")}>
+                                Register
+                            </PrimaryButton>
+                        </div>
 
                     </form>
                 </div>
