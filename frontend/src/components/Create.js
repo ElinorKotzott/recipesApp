@@ -34,7 +34,8 @@ function Create({
                     addStep,
                     removeStep,
                     allDifficulties,
-                    isUpdate
+                    isUpdate,
+                    isClicked
                 }) {
 
     const [selectedIngredient, setSelectedIngredient] = useState("");
@@ -273,7 +274,7 @@ function Create({
 
                 <Row>
                     <Col>
-                        <PrimaryButton className="mt-3 w-100" type="submit">
+                        <PrimaryButton disabled={isClicked} className="mt-3 w-100" type="submit">
                             {isUpdate ? "Update" : "Create"}
                         </PrimaryButton>
                     </Col>

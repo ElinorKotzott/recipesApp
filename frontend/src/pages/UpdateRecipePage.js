@@ -31,8 +31,9 @@ const UpdateRecipePage = () => {
     const [allTags, setAllTags] = useState([]);
     const [allDifficulties, setAllDifficulties] = useState([]);
     const [units, setUnits] = useState([]);
+    const [isClicked, setIsClicked] = useState(false);
 
-    // Load ingredients, units, tags, difficulties
+
     useEffect(() => {
         (async () => {
             try {
@@ -120,6 +121,7 @@ const UpdateRecipePage = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+        if (isClicked) return;
 
         const stepList = stepListUI.map((step, i) => ({
             id: step.id,
@@ -142,6 +144,8 @@ const UpdateRecipePage = () => {
             return;
         }
 
+        setIsClicked(true);
+
         try {
             await request("put", `/recipes/${id}`, {
                 ...recipe,
@@ -153,6 +157,7 @@ const UpdateRecipePage = () => {
             alert("Recipe updated successfully!");
             navigate(`/recipes/${id}`);
         } catch (error) {
+            setIsClicked(false);
             if (error.response) {
                 alert("Update failed: " + error.response.data.message);
             } else {
@@ -185,6 +190,7 @@ const UpdateRecipePage = () => {
             allDifficulties={allDifficulties}
             units={units}
             isUpdate={true}
+            isClicked={isClicked}
         />
     );
 };

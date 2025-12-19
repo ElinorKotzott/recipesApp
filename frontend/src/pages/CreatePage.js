@@ -28,6 +28,7 @@ const CreatePage = () => {
     const [recipeIngredientList, setRecipeIngredientList] = useState([]);
     const [tagList, setTagList] = useState([]);
     const navigate = useNavigate();
+    const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -111,6 +112,7 @@ const CreatePage = () => {
 
     const handleCreate = async (e) => {
             e.preventDefault();
+        if (isClicked) return;
 
             let stepList = [];
             for (let i = 1; i <= stepListUI.length; i++) {
@@ -137,6 +139,8 @@ const CreatePage = () => {
                 return;
             }
 
+        setIsClicked(true);
+
             try {
                 console.log(recipe);
                 await request(
@@ -154,6 +158,7 @@ const CreatePage = () => {
                 alert("Recipe created successfully!");
             } catch
                 (error) {
+                setIsClicked(false);
                 if (error.response) {
                     alert("Submission failed: " + error.response.data.message);
                 } else {
@@ -189,6 +194,7 @@ const CreatePage = () => {
             saveStepListUI={saveStepListUI}
             allDifficulties={allDifficulties}
             isUpdate={false}
+            isClicked={isClicked}
         />
     );
 };
