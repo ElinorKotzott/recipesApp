@@ -68,6 +68,7 @@ hr {
 
 .auth {
     display: inline-block;
+    width: 20em;
     margin: 60px;
     padding: 30px 30px;
     border-radius: 25px;
@@ -189,14 +190,14 @@ button.btn-primary.primary-button:hover {
     color: #1aa67f;
 }
 
-.create-container, .profile-container {
+.create-container, .profile-container, .recipe-closeup {
     background: linear-gradient(to bottom right, white, #f2f2f2);
     width: 860px;
     padding: 40px 60px;
     border-radius: 20px;
 }
 
-.create-page, .profile-page {
+.create-page, .profile-page, .recipe-closeup-page {
     width: 100%;
     display: flex;
     justify-content: center;

@@ -75,13 +75,13 @@ const Register = ({
                         onChange={(e) => setPassword(e.target.value)}
                         className="form-control mb-2"
                     />
-                    <div className="button-container">
-                        <PrimaryButton type="submit">Register</PrimaryButton>
+                    <div className="button-container w-100">
+                        <PrimaryButton type="submit" className="w-100">Register</PrimaryButton>
                     </div>
 
                     <p className="mt-4 mb-1">Already have an account?</p>
                     <div className="button-container">
-                        <PrimaryButton type="submit" onClick={() => navigate("/login")}>
+                        <PrimaryButton type="submit" className="w-100" onClick={() => navigate("/login")}>
                             Login
                         </PrimaryButton>
                     </div>

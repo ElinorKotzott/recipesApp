@@ -8,16 +8,21 @@ import Col from "react-bootstrap/Col";
 
 function Favorites({
                        favorites,
-                       setFavorites,
                        fetchFavorites,
                        currentPage,
                        totalPages,
                    }) {
-    const handleToggle = (recipeId) => (newFavoriteState) => {
+    const handleToggle = async (newFavoriteState) => {
         if (!newFavoriteState) {
-            setFavorites((prev) => prev.filter((recipe) => recipe.id !== recipeId));
+            if (favorites.length === 1 && currentPage > 0) {
+                await fetchFavorites(currentPage - 1);
+            } else {
+                await fetchFavorites(currentPage);
+            }
         }
     };
+
+
     return (
         <div className="display-flex-column-center">
             <Container className="recipe-card-section-container m-0">
@@ -66,7 +71,7 @@ function Favorites({
                                                 className="favorite-button"
                                                 recipeId={recipe.id}
                                                 initialIsFavorite={recipe.favorite}
-                                                onToggle={handleToggle(recipe.id)}
+                                                onToggle={handleToggle}
                                             />
                                         </div>
 
@@ -93,7 +98,6 @@ function Favorites({
             </Container>
         </div>
     );
-
 }
 
 export default Favorites;

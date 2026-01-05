@@ -27,8 +27,8 @@ function FavoritesPage() {
 
     useEffect(() => {
 
-        fetchFavorites(0);
-    }, [token]);
+        fetchFavorites(currentPage);
+    }, [token, currentPage]);
 
     return (
         <>

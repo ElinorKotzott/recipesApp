@@ -42,7 +42,7 @@ const Login = ({
                                 className="form-control mb-2"
                             />
                         </Form.Group>
-                        <div className="button-container">
+                        <div className="button-container w-100">
                             <PrimaryButton className="w-100" type="submit">Login</PrimaryButton>
                         </div>
 
