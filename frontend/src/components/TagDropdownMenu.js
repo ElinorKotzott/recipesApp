@@ -4,6 +4,7 @@ import Select from "react-select";
 function TagDropdownMenu({selectedTags = [], onChange, tags = []}) {
     const difficultyTags = ["easy", "medium", "difficult"];
 
+
     const selectedDifficultyTag = selectedTags.find(tag =>
         difficultyTags.includes(tag.text)
     );
