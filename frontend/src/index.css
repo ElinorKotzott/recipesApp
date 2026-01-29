@@ -202,3 +202,12 @@ button.btn-primary.primary-button:hover {
     display: flex;
     justify-content: center;
 }
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.profile-options-dropdown-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #20c997;
+}

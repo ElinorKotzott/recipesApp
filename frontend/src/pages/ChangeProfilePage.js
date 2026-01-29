@@ -1,56 +1,31 @@
-import {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { request } from "../axiosHelper";
 import ChangeProfile from "../components/ChangeProfile";
-import {request} from "../axiosHelper";
-import {useNavigate} from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 function ChangeProfilePage() {
-    const emptyProfile = {
-        username: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        bio: "",
-        image: {
-            imageData: "",
-            imageType: "",
-            cropParameters: null
-        }
-    };
-    const [profile, setProfile] = useState(emptyProfile);
-
-    const token = sessionStorage.getItem("token");
+    const { profile, setProfile } = useUser();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchProfile = async () => {
-            if (!token) return;
-            try {
-                const response = await request("get", "/profile", null, true);
-                setProfile(response.data);
-            } catch (error) {
-                console.error("Error fetching profile:", error);
-            }
-        };
-
-        fetchProfile();
-    }, [token]);
+    if (!profile) return null;
 
     const handleProfileUpdate = async (e) => {
         e.preventDefault();
         try {
-            await request(
+            const response = await request(
                 "put",
                 "/profile/change",
                 profile,
                 true
             );
+            setProfile(response.data);
             navigate("/profile");
+
         } catch (error) {
             console.error("Error updating profile:", error);
             alert("Update failed!");
         }
     };
-
 
     return (
         <ChangeProfile

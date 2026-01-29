@@ -1,31 +1,14 @@
-import {useEffect, useState} from "react";
-import {request} from "../axiosHelper";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import PrimaryButton from "../components/buttons/PrimaryButton.js";
 import DrawImage from "../components/DrawImage.js";
+import {useUser} from "../context/UserContext";
+
 
 function ProfilePage() {
-    const [profile, setProfile] = useState({});
     const navigate = useNavigate();
-    const location = useLocation();
-    const token = sessionStorage.getItem("token");
+    const { profile = {} } = useUser();
 
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            if (!token) return;
-            try {
-                const response = await request("get", "/profile", null, true);
-                const data = response.data;
-                setProfile(data);
-
-            } catch (error) {
-                console.error("Error fetching profile:", error);
-            }
-        };
-
-        fetchProfile();
-    }, [token, location.state]);
+    if (!profile) return null;
 
     return (
         <div className="profile-page">
@@ -33,7 +16,7 @@ function ProfilePage() {
                 <h2>My Profile</h2>
 
                 <div>
-                    {(profile.image?.imageData && profile.image?.imageType) ?
+                    {(profile?.image?.imageData && profile?.image?.imageType) ?
 
                         <DrawImage
                             cropParameters={profile.image.cropParameters}
