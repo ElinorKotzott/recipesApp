@@ -12,15 +12,6 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-    /*useEffect(() => {
-      document.body.style.backgroundImage = "url('/veggies2.jpg')";
-      document.body.style.backgroundSize = "cover";
-      document.body.style.backgroundRepeat = "no-repeat";
-
-      return () => {
-        document.body.style.backgroundImage = "";
-      };
-    }, []);*/
 
   const handleRegister = async (e) => {
     e.preventDefault();

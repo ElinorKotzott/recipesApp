@@ -33,7 +33,7 @@ public class ProfileService {
         return userMapper.toDTO(user);
     }
 
-    public void updateUserProfile(UserDTO updatedUser) {
+    public UserDTO updateUserProfile(UserDTO updatedUser) {
         User user = userRepository.findById(updatedUser.getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
@@ -47,5 +47,7 @@ public class ProfileService {
         }
 
         userRepository.save(user);
+
+        return userMapper.toDTO(user);
     }
 }

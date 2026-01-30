@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { request } from "../axiosHelper";
+import {createContext, useContext, useEffect, useState} from "react";
+import {request} from "../axiosHelper";
 
 const UserContext = createContext(null);
 
-export function UserProvider({ children }) {
+export function UserProvider({children}) {
     const [profile, setProfile] = useState({
         username: "",
         email: "",
@@ -17,7 +17,10 @@ export function UserProvider({ children }) {
         }
     });
 
-    const token = sessionStorage.getItem("token");
+    const [token, setToken] = useState(
+        () => sessionStorage.getItem("token")
+    );
+
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -39,7 +42,7 @@ export function UserProvider({ children }) {
     }, [token]);
 
     return (
-        <UserContext.Provider value={{ profile, setProfile }}>
+        <UserContext.Provider value={{profile, setProfile, token, setToken}}>
             {children}
         </UserContext.Provider>
     );

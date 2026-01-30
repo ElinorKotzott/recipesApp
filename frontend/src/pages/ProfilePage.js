@@ -8,8 +8,6 @@ function ProfilePage() {
     const navigate = useNavigate();
     const { profile = {} } = useUser();
 
-    if (!profile) return null;
-
     return (
         <div className="profile-page">
             <div className="profile-container">
