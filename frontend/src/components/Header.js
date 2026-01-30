@@ -1,8 +1,9 @@
 import LogoutButton from "./buttons/LogoutButton";
 import Nav from 'react-bootstrap/Nav';
-import DrawImage from "./DrawImage";
 import {useUser} from "../context/UserContext";
-import Dropdown from 'react-bootstrap/Dropdown';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+import DrawImage from "./DrawImage";
 
 function Header() {
 
@@ -30,46 +31,38 @@ function Header() {
                 </div>
 
 
-
-                <Dropdown>
-                    <Dropdown.Toggle
-                        className="profile-options-dropdown-toggle p-0 border-0 bg-transparent"
-                        style={{borderRadius: "50%"}}
-                    >
+                <OverlayTrigger
+                    trigger="click"
+                    placement="bottom"
+                    rootClose
+                    overlay={
+                        <Popover className="profile-popover">
+                            <Popover.Body>
+                                <a className="profile-options-link" href="/Create">Create</a>
+                                <a className="profile-options-link" href="/profile">Profile</a>
+                                <a className="profile-options-link" href="/favorites">Favorites</a>
+                                <LogoutButton/>
+                            </Popover.Body>
+                        </Popover>
+                    }
+                >
+                    <div className="profile-avatar">
                         {profile?.image?.imageData && profile?.image?.imageType ? (
                             <DrawImage
                                 cropParameters={profile.image.cropParameters}
                                 imageData={profile.image.imageData}
                                 imageType={profile.image.imageType}
-                                imageStyle={{
-                                    width: "100px",
-                                    height: "100px",
-                                    borderRadius: "50%",
-                                    objectFit: "cover",
-                                    display: "block"
-                                }}
+                                imageStyle={{objectFit: "cover"}}
                             />
                         ) : (
                             <img
                                 src="/default-profile-picture-all-grey.png"
-                                alt="default-profile-picture"
-                                style={{
-                                    width: "100px",
-                                    height: "100px",
-                                    borderRadius: "50%",
-                                    objectFit: "cover",
-                                    display: "block"
-                                }}
+                                alt="default profile"
                             />
                         )}
-                    </Dropdown.Toggle>
+                    </div>
+                </OverlayTrigger>
 
-                    <Dropdown.Menu className="mt-2" >
-                        <Dropdown.Item style={{ display: "flex", justifyContent: "center"}}>
-                            <LogoutButton />
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
 
             </div>
             <hr/>
