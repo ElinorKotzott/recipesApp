@@ -40,7 +40,7 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getRecipesCreatedByUser(username, page, size));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<RecipeDTO> getRecipeById(
             Authentication authentication,
             @PathVariable("id") Long recipeId) {
@@ -66,9 +66,8 @@ public class RecipeController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update")
     public ResponseEntity<?> updateUserRecipe(
-            @PathVariable Long id,
             @RequestBody RecipeDTO updatedRecipeDTO,
             Authentication authentication) {
 
@@ -78,7 +77,7 @@ public class RecipeController {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         try {
-            recipeService.updateRecipe(id, updatedRecipeDTO, user);
+            recipeService.updateRecipe(updatedRecipeDTO);
             return ResponseEntity.ok().build();
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.notFound().build();

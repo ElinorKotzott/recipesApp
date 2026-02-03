@@ -3,6 +3,7 @@ package com.elinor.recipes.mapper;
 import com.elinor.recipes.dto.UserDTO;
 import com.elinor.recipes.model.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring", uses = {ImageMapper.class})
@@ -12,5 +13,6 @@ public interface UserMapper {
 
     User toEntity(UserDTO userDTO);
 
+    @Mapping(target = "id", ignore = true)
     User updateEntity(UserDTO dto, @MappingTarget User entity);
 }

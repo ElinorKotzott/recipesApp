@@ -10,7 +10,7 @@ function RecipeCloseupPage() {
     useEffect(() => {
         const fetchRecipe = async () => {
             try {
-                const r = await request("get", `/recipes/${id}`, null, true);
+                const r = await request("get", `/recipes/getById/${id}`, null, true);
                 const recipeData = r.data;
                 const renamedRecipe = {
                     ...recipeData,

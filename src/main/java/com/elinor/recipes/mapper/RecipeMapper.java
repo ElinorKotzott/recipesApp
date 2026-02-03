@@ -6,6 +6,7 @@ import com.elinor.recipes.model.RecipeIngredient;
 import com.elinor.recipes.model.Step;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
@@ -48,4 +49,9 @@ public interface RecipeMapper {
             }
         }
     }
+
+    @Mapping(target = "stepList", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    void updateEntity(RecipeDTO dto, @MappingTarget Recipe entity);
 }

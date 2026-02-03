@@ -3,6 +3,7 @@ package com.elinor.recipes.mapper;
 import com.elinor.recipes.dto.ImageDTO;
 import com.elinor.recipes.model.Image;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
@@ -18,5 +19,6 @@ public interface ImageMapper {
 
     List<Image> toEntityList(List<ImageDTO> dtos);
 
+    @Mapping(target = "id", ignore = true)
     void updateEntity(ImageDTO dto, @MappingTarget Image entity);
 }

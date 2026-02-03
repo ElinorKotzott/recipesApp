@@ -8,6 +8,7 @@ const UpdateRecipePage = () => {
     const navigate = useNavigate();
 
     const [recipe, setRecipe] = useState({
+        id: 0,
         title: "",
         description: "",
         prepTime: 0,
@@ -60,10 +61,11 @@ const UpdateRecipePage = () => {
     useEffect(() => {
         const fetchRecipe = async () => {
             try {
-                const response = await request("get", `/recipes/${id}`, null, true);
+                const response = await request("get", `/recipes/getById/${id}`, null, true);
                 const data = response.data;
 
                 setRecipe({
+                    id: data.id,
                     title: data.title,
                     description: data.description,
                     prepTime: data.prepTime,
@@ -147,7 +149,7 @@ const UpdateRecipePage = () => {
         setIsClicked(true);
 
         try {
-            await request("put", `/recipes/${id}`, {
+            await request("put", `/recipes/update`, {
                 ...recipe,
                 recipeIngredientList,
                 tagList,

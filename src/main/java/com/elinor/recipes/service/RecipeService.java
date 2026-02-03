@@ -1,12 +1,11 @@
 package com.elinor.recipes.service;
 
-import com.elinor.recipes.dto.NutritionInfoDTO;
-import com.elinor.recipes.dto.PageInfoDTO;
-import com.elinor.recipes.dto.RecipeDTO;
-import com.elinor.recipes.dto.RecipeIngredientDTO;
+import com.elinor.recipes.dto.*;
 import com.elinor.recipes.mapper.RecipeIngredientMapper;
 import com.elinor.recipes.mapper.RecipeMapper;
+import com.elinor.recipes.mapper.StepMapper;
 import com.elinor.recipes.model.Recipe;
+import com.elinor.recipes.model.Step;
 import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.RecipeIngredientRepository;
 import com.elinor.recipes.repository.RecipeRepository;
@@ -43,6 +42,9 @@ public class RecipeService {
 
     @Autowired
     private RecipeMapper recipeMapper;
+
+    @Autowired
+    private StepMapper stepMapper;
 
     @Autowired
     private RecipeIngredientMapper recipeIngredientMapper;
@@ -155,9 +157,28 @@ public class RecipeService {
         recipeRepository.delete(recipe);
     }
 
-    public void updateRecipe(Long id, RecipeDTO updatedRecipeDTO, User user) {
+    public void updateRecipe(RecipeDTO updatedRecipeDTO) {
+        Recipe recipe = recipeRepository.findById(updatedRecipeDTO.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Recipe not found"));
+
+        List<StepDTO> updatedStepList = updatedRecipeDTO.getStepList();
+        List<Step> stepList = recipe.getStepList();
+
+        stepList.removeIf(step ->
+                updatedStepList.stream()
+                        .noneMatch(dtoStep ->
+                                Objects.equals(dtoStep.getId(), step.getId())
+                        )
+        );
+
+        for (StepDTO dtoStep : updatedStepList) {
+            if (dtoStep.getId() == null) {
+                stepList.add(stepMapper.toEntity(dtoStep));
+            }
+        }
+
+        List<RecipeIngredientDTO> currentRecipeIngredientList = recipeIngredientMapper.toDTOList(recipe.getRecipeIngredientList());
         List<RecipeIngredientDTO> updatedRecipeIngredientList = updatedRecipeDTO.getRecipeIngredientList();
-        List<RecipeIngredientDTO> currentRecipeIngredientList = recipeIngredientMapper.toDTOList(recipeIngredientRepository.findById(id).stream().toList());
 
         if (!areEqual(updatedRecipeIngredientList, currentRecipeIngredientList)) {
             NutritionInfoDTO updatedRecipeNutritionInfoDTO = nutritionService.calculateNutrition(updatedRecipeIngredientList, updatedRecipeDTO.getServings());
@@ -167,10 +188,7 @@ public class RecipeService {
             updatedRecipeDTO.setProteinPerServing(updatedRecipeNutritionInfoDTO.getProteinPerServing());
         }
 
-        Recipe updatedRecipe = recipeMapper.toEntity(updatedRecipeDTO);
-        updatedRecipe.setUser(user);
-        updatedRecipe.setId(id);
-        recipeRepository.save(updatedRecipe);
+        recipeMapper.updateEntity(updatedRecipeDTO, recipe);
     }
 
 
