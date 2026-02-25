@@ -87,7 +87,7 @@ function RecipeCloseup({recipe}) {
                         recipe.recipeIngredientList.map((item, index) => (
                             <li key={index}>
                                 {item.quantity}{" "}
-                                {item.unit !== "WHOLE" ? item.unit.toLowerCase() + " " : ""}
+                                {item.unit === "WHOLE" ? "" : item.unit.toLowerCase() + " " }
                                 {item.ingredient?.name.toLowerCase() || "Unnamed ingredient"}
                             </li>
                         ))

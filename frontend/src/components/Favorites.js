@@ -7,10 +7,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 
 function Favorites({
-                       favorites,
-                       fetchFavorites,
-                       currentPage,
-                       totalPages,
+                       favorites, fetchFavorites, currentPage, totalPages,
                    }) {
     const handleToggle = async (newFavoriteState) => {
         if (!newFavoriteState) {
@@ -23,23 +20,17 @@ function Favorites({
     };
 
 
-    return (
-        <div className="display-flex-column-center">
+    return (<div className="display-flex-column-center">
             <Container className="recipe-card-section-container m-0">
                 <div className="recipe-card-section">
                     <h2>Your Favorites</h2>
 
-                    {favorites.length === 0 ? (
-                        <p>You haven't added any recipes to your favorites yet.</p>
-                    ) : (
-                        <Row>
-                            {favorites.map(recipe => (
-                                <Col key={recipe.id} xs={12} sm={6} md={3}>
+                    {favorites.length === 0 ? (<p>You haven't added any recipes to your favorites yet.</p>) : (<Row>
+                            {favorites.map(recipe => (<Col key={recipe.id} xs={12} sm={6} md={3}>
                                     <div className="recipe-card">
                                         <div className="favorite-button-container">
                                             <Link to={`/recipes/${recipe.id}`}>
-                                                {recipe.image?.imageData ? (
-                                                    <DrawImage
+                                                {recipe.image?.imageData ? (<DrawImage
                                                         imageData={recipe.image.imageData}
                                                         imageType={recipe.image.imageType}
                                                         cropParameters={recipe.image.cropParameters}
@@ -51,9 +42,7 @@ function Favorites({
                                                             margin: "1rem 0"
                                                         }}
                                                         className="recipe-card-image"
-                                                    />
-                                                ) : (
-                                                    <img
+                                                    />) : (<img
                                                         className="recipe-card-image"
                                                         alt={recipe.title}
                                                         src="/image-placeholder.jpeg"
@@ -63,8 +52,7 @@ function Favorites({
                                                             objectFit: "cover",
                                                             margin: "1rem 0"
                                                         }}
-                                                    />
-                                                )}
+                                                    />)}
                                             </Link>
 
                                             <ToggleFavoritesButton
@@ -83,10 +71,8 @@ function Favorites({
 
                                         <p>{recipe.description}</p>
                                     </div>
-                                </Col>
-                            ))}
-                        </Row>
-                    )}
+                                </Col>))}
+                        </Row>)}
 
                     <Pagination
                         fetchRecipes={fetchFavorites}
@@ -96,8 +82,7 @@ function Favorites({
 
                 </div>
             </Container>
-        </div>
-    );
+        </div>);
 }
 
 export default Favorites;

@@ -6,26 +6,38 @@ body, html {
     background-size: cover;
 }
 
+body {
+    padding-top: 170px;
+}
+
 #root {
     height: 100%;
     display: flex;
     justify-content: center;
+    background: linear-gradient(to bottom right, white, #4fc47f) no-repeat fixed;
+    background-size: cover;
 }
 
 .page-container {
     width: 80vw;
+    background: inherit;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Toppan Bunkyu Midashi Gothic", sans-serif;
+    font-family: Georgia, serif;
 }
-
 
 header {
     width: 80vw;
     display: flex;
     flex-direction: column;
-    margin: 20px 0 0 0;
+    background: inherit;
+    top: 0;
+    position: fixed;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: 0 25px 30px -20px rgba(32, 201, 151, 0.5);
+
 }
 
 .display-flex-column-center {
@@ -37,7 +49,6 @@ header {
 .header-top {
     display: flex;
     justify-content: space-between;
-    width: 100%;
 }
 
 footer {
@@ -51,11 +62,6 @@ footer {
 
 nav {
     margin-top: 5px;
-}
-
-hr {
-    width: 100%;
-    margin-bottom: 40px !important;
 }
 
 .auth-container {
@@ -179,8 +185,6 @@ button.btn-primary.primary-button {
 button.btn-primary.primary-button:hover {
     transform: scale(1.05);
     background-color: #1aa67f;
-
-
 }
 
 .nav-link.primary-nav-link {

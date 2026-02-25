@@ -65,7 +65,6 @@ function Header() {
 
 
             </div>
-            <hr/>
         </header>
 
     );
