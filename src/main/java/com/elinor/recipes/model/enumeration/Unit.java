@@ -6,6 +6,7 @@ public enum Unit {
     WHOLE,
     ML,
     L,
+    CAN,
     TBSP,
     TSP,
     PINCH,

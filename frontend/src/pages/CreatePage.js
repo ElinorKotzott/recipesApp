@@ -142,7 +142,6 @@ const CreatePage = () => {
         setIsClicked(true);
 
             try {
-                console.log(recipe);
                 await request(
                     "post",
                     "/recipes",

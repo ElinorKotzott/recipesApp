@@ -86,7 +86,7 @@ const ChangeProfile = ({
                         onSaveImage={(imageObj) => updateProfile("image", imageObj)}
                     />
 
-                    <PrimaryButton type="submit">Save Changes</PrimaryButton>
+                    <PrimaryButton className = "mt-3" type="submit">Save Changes</PrimaryButton>
 
                 </form>
             </div>

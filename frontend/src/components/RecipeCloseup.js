@@ -6,13 +6,25 @@ import DrawImage from "./DrawImage";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/esm/Modal";
+import {useState} from "react";
 
 function RecipeCloseup({recipe}) {
     const navigate = useNavigate();
     const currentUser = JSON.parse(sessionStorage.getItem("user"));
     const isOwner = currentUser && Number(currentUser.id) === Number(recipe.creatorId);
 
+    const [showDelete, setShowDelete] = useState(false);
+    const handleShowDelete = () => {
+        setShowDelete(true);
+    };
+
+    const handleCloseDelete = () => setShowDelete(false);
+
     const handleDelete = () => {
+        console.log("Recipe ID:", recipe?.id);
+        console.log("User in session:", sessionStorage.getItem("user"));
+        console.log("Token:", sessionStorage.getItem("jwt"));
         request("DELETE", `/recipes/${recipe.id}`, null, true)
             .then(() => {
                 alert("Recipe deleted");
@@ -24,6 +36,8 @@ function RecipeCloseup({recipe}) {
     const handleUpdate = () => {
         navigate(`/recipes/update/${recipe.id}`);
     };
+
+
 
     return (
         <div className="recipe-closeup-page">
@@ -174,10 +188,32 @@ function RecipeCloseup({recipe}) {
                     )}
 
                     {isOwner && (
-                        <PrimaryButton onClick={handleDelete}>
+                        <PrimaryButton onClick={handleShowDelete}>
                             Delete
                         </PrimaryButton>
                     )}
+
+
+                    <Modal show={showDelete} onHide={handleCloseDelete}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Delete recipe</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Do you really want to delete the recipe "{recipe.title}"?</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <div className="d-flex gap-2 mb-2">
+                                <PrimaryButton onClick={handleCloseDelete}>
+                                    Close
+                                </PrimaryButton>
+                                <PrimaryButton onClick={handleDelete}>
+                                    Delete
+                                </PrimaryButton>
+                            </div>
+                        </Modal.Footer>
+                    </Modal>
+
+
                 </div>
 
 
