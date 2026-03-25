@@ -1,7 +1,8 @@
 import Button from 'react-bootstrap/Button';
 
 function Pagination({fetchRecipes, currentPage, totalPages}) {
-    return (<div className="pagination-buttons">
+    if (totalPages === 0) return null;
+    return (<div className="pagination-container">
         <Button
             variant="light"
             className="button pagination-button pagination-button-previous"

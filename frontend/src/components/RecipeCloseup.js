@@ -88,8 +88,6 @@ function RecipeCloseup({recipe}) {
                     />
                 )}
 
-                //TODO className="image-closeup" - would it be better to use className and style that with css instead of passing style?
-
 
                 <h3>Prep Time:</h3>
                 <p>{recipe.prepTime} min</p>

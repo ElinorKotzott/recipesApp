@@ -177,7 +177,9 @@ button.add-or-remove-button {
     border-radius: 20px;
 }
 
-.pagination-buttons {
+.pagination-container {
+    display: flex;
+    align-items: center;
     margin-top: 15px;
 }
 
@@ -192,6 +194,7 @@ button.add-or-remove-button {
 button.btn-primary.primary-button {
     background-color: #20c997;
     border: none;
+    transition: transform 0.2s ease;
 }
 
 button.btn-primary.primary-button:hover {
@@ -203,7 +206,7 @@ button.btn-primary.primary-button:hover {
     color: #20c997;
 }
 
-.nav-link.primary-nav-link:hover {
+.nav-link.primary-nav-link:hover, .nav-link.primary-nav-link:active, .nav-link.primary-nav-link:focus {
     color: #1aa67f;
 }
 
@@ -226,7 +229,7 @@ button.btn-primary.primary-button:hover {
     border-radius: 50%;
     cursor: pointer;
     overflow: hidden;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .profile-avatar:hover, .profile-popover:hover  {
