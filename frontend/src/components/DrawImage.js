@@ -15,8 +15,8 @@ function DrawImage({cropParameters, imageData, imageType, imageStyle, className}
             const zoom = cropParameters?.zoom || 1;
 
 
-            const destWidth = cropParameters.width * zoom;
-            const destHeight = cropParameters.height * zoom;
+            const destWidth = cropParameters?.width * zoom;
+            const destHeight = cropParameters?.height * zoom;
 
             canvas.width = destWidth;
             canvas.height = destHeight;
@@ -24,10 +24,10 @@ function DrawImage({cropParameters, imageData, imageType, imageStyle, className}
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(
                 img,
-                cropParameters.x,
-                cropParameters.y,
-                cropParameters.width,
-                cropParameters.height,
+                cropParameters?.x,
+                cropParameters?.y,
+                cropParameters?.width,
+                cropParameters?.height,
                 0,
                 0,
                 destWidth,

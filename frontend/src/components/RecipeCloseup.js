@@ -38,7 +38,6 @@ function RecipeCloseup({recipe}) {
     };
 
 
-
     return (
         <div className="recipe-closeup-page">
             <div className="recipe-closeup">
@@ -63,18 +62,34 @@ function RecipeCloseup({recipe}) {
                         : "no tags found"}
                 </p>
 
-                <DrawImage
-                    imageData={recipe.image.imageData}
-                    imageType={recipe.image.imageType}
-                    cropParameters={recipe.image.cropParameters}
-                    imageStyle={{
-                        display: "block",
-                        width: "300px",
-                        objectFit: "cover",
-                        margin: "1rem 0"
-                    }}
-                    //TODO className="image-closeup" - would it be better to use className and style that with css instead of passing style?
-                />
+                {recipe?.image?.imageData ? (
+                    <DrawImage
+                        imageData={recipe.image.imageData}
+                        imageType={recipe.image.imageType}
+                        cropParameters={recipe.image.cropParameters}
+                        imageStyle={{
+                            display: "block",
+                            width: "300px",
+                            objectFit: "cover",
+                            margin: "1rem 0"
+                        }}
+                    />
+                ) : (
+                    <img
+                        src="/image-placeholder.jpeg"
+                        alt="Recipe placeholder"
+                        style={{
+                            display: "block",
+                            width: "300px",
+                            maxHeight: "381px",
+                            objectFit: "cover",
+                            margin: "1rem 0"
+                        }}
+                    />
+                )}
+
+                //TODO className="image-closeup" - would it be better to use className and style that with css instead of passing style?
+
 
                 <h3>Prep Time:</h3>
                 <p>{recipe.prepTime} min</p>

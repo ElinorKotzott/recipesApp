@@ -111,61 +111,60 @@ const CreatePage = () => {
     }
 
     const handleCreate = async (e) => {
-            e.preventDefault();
+        e.preventDefault();
         if (isClicked) return;
 
-            let stepList = [];
-            for (let i = 1; i <= stepListUI.length; i++) {
-                stepList.push({
-                    stepNumber: i,
-                    instructionText: stepListUI[i - 1].instructionText,
-                });
-            }
+        let stepList = [];
+        for (let i = 1; i <= stepListUI.length; i++) {
+            stepList.push({
+                stepNumber: i,
+                instructionText: stepListUI[i - 1].instructionText,
+            });
+        }
 
-            const errors = [];
+        const errors = [];
 
-            if (!recipe.title.trim()) errors.push("Title is required!");
-            if (!recipe.description.trim()) errors.push("Description is required!");
-            if (recipe.prepTime <= 0) errors.push("Preparation time must be greater than 0!");
-            if (recipe.cookingTime <= 0) errors.push("Cooking time must be greater than 0!");
-            if (recipe.servings <= 0) errors.push("Servings must be at least 1!");
-            if (recipeIngredientList.length === 0) errors.push("At least one ingredient is required!");
-            if (stepList.length === 0) errors.push("At least one step is required!");
-            if (!recipe.difficulty) errors.push("Please select a difficulty!");
-            if (recipe.title.length > 30) errors.push("Title must be less than 30 characters long!");
+        if (!recipe.title.trim()) errors.push("Title is required!");
+        if (!recipe.description.trim()) errors.push("Description is required!");
+        if (recipe.prepTime <= 0) errors.push("Preparation time must be greater than 0!");
+        if (recipe.cookingTime <= 0) errors.push("Cooking time must be greater than 0!");
+        if (recipe.servings <= 0) errors.push("Servings must be at least 1!");
+        if (recipeIngredientList.length === 0) errors.push("At least one ingredient is required!");
+        if (stepList.length === 0) errors.push("At least one step is required!");
+        if (!recipe.difficulty) errors.push("Please select a difficulty!");
+        if (recipe.title.length > 30) errors.push("Title must be less than 30 characters long!");
 
-            if (errors.length > 0) {
-                alert(errors.join("\n"));
-                return;
-            }
+        if (errors.length > 0) {
+            alert(errors.join("\n"));
+            return;
+        }
 
         setIsClicked(true);
 
-            try {
-                await request(
-                    "post",
-                    "/recipes",
-                    {
-                        ...recipe,
-                        recipeIngredientList,
-                        tagList,
-                        stepList
-                    },
-                    true
-                );
-                navigate("/home");
-                alert("Recipe created successfully!");
-            } catch
-                (error) {
-                setIsClicked(false);
-                if (error.response) {
-                    alert("Submission failed: " + error.response.data.message);
-                } else {
-                    alert("Error: " + error.message);
-                }
+        try {
+            await request(
+                "post",
+                "/recipes",
+                {
+                    ...recipe,
+                    recipeIngredientList,
+                    tagList,
+                    stepList
+                },
+                true
+            );
+            navigate("/home");
+            alert("Recipe created successfully!");
+        } catch
+            (error) {
+            setIsClicked(false);
+            if (error.response) {
+                alert("Submission failed: " + error.response.data.message);
+            } else {
+                alert("Error: " + error.message);
             }
         }
-    ;
+    };
 
     return (
         <Create
