@@ -6,6 +6,7 @@ import com.elinor.recipes.model.User;
 import com.elinor.recipes.repository.UserRepository;
 import com.elinor.recipes.service.RecipeService;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -60,7 +61,7 @@ public class RecipeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserRecipe(
             Authentication authentication,
-            @PathVariable("id") Long recipeId) {
+            @PathVariable("id") Long recipeId) throws BadRequestException {
         String currentUsername = authentication.getName();
         recipeService.deleteRecipe(currentUsername, recipeId);
         return ResponseEntity.noContent().build();

@@ -14,7 +14,7 @@ function ChangeProfilePage() {
         try {
             const response = await request(
                 "put",
-                "/profile/change",
+                "/profile",
                 profile,
                 true
             );

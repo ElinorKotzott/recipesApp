@@ -8,6 +8,8 @@ body, html {
 
 body {
     padding-top: 170px;
+    display: flex;
+    flex-direction: column;
 }
 
 #root {
@@ -37,7 +39,6 @@ header {
     z-index: 1000;
     padding: 20px;
     box-shadow: 0 25px 30px -20px rgba(32, 201, 151, 0.5);
-
 }
 
 .display-flex-column-center {
@@ -52,12 +53,23 @@ header {
 }
 
 footer {
+    width: 80vw;
     margin-top: 2rem;
+    position: fixed;
+    bottom: 0;
 }
 
 .title-and-nav {
     display: flex;
     flex-direction: column;
+}
+
+.app-title a,
+.app-title a:visited,
+.app-title a:hover,
+.app-title a:active {
+    text-decoration: none;
+    color: inherit;
 }
 
 nav {

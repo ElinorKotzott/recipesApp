@@ -66,14 +66,14 @@ function RecipeCloseup({recipe}) {
                 <DrawImage
                     imageData={recipe.image.imageData}
                     imageType={recipe.image.imageType}
-                    cropParameters={recipe.image.cropParameters} //cropParameters are flat here, not nested! same structure as in backend
+                    cropParameters={recipe.image.cropParameters}
                     imageStyle={{
                         display: "block",
                         width: "300px",
                         objectFit: "cover",
                         margin: "1rem 0"
                     }}
-                    //className="image-closeup" - would it be better to use className and style that with css instead of passing style?
+                    //TODO className="image-closeup" - would it be better to use className and style that with css instead of passing style?
                 />
 
                 <h3>Prep Time:</h3>

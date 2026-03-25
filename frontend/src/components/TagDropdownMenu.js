@@ -1,27 +1,11 @@
 import React from "react";
 import Select from "react-select";
 
-function TagDropdownMenu({selectedTags = [], onChange, tags = []}) {
-    const difficultyTags = ["easy", "medium", "difficult"];
-
-
-    const selectedDifficultyTag = selectedTags.find(tag =>
-        difficultyTags.includes(tag.text)
-    );
-
-    const options = tags.map(tag => {
-        const isDifficultyTag = difficultyTags.includes(tag.text);
-        const isDisabled =
-            selectedDifficultyTag &&
-            isDifficultyTag &&
-            tag.text !== selectedDifficultyTag.text;
-
-        return {
-            value: tag.id,
-            label: tag.text,
-            isDisabled: isDisabled,
-        };
-    });
+function TagDropdownMenu({ selectedTags = [], onChange, tags = [] }) {
+    const options = tags.map(tag => ({
+        value: tag.id,
+        label: tag.text,
+    }));
 
     const selectedOptions = selectedTags.map(tag => ({
         value: tag.id,
@@ -47,7 +31,6 @@ function TagDropdownMenu({selectedTags = [], onChange, tags = []}) {
             closeMenuOnSelect={false}
             isMulti
             placeholder="Tags"
-            isOptionDisabled={(option) => option.isDisabled}
         />
     );
 }

@@ -4,6 +4,7 @@ import {useUser} from "../context/UserContext";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import DrawImage from "./DrawImage";
+import {Link} from "react-router-dom";
 
 function Header() {
 
@@ -12,21 +13,19 @@ function Header() {
     return (<header>
             <div className="header-top">
                 <div className="title-and-nav">
-                    <h1>My recipes app</h1>
+                    <h1 className="app-title">
+                        <Link to="/home">
+                            My recipes app
+                        </Link>
+                    </h1>
 
-                    <Nav variant="underline">
-                        <Nav.Item>
-                            <Nav.Link href="/home" className="primary-nav-link">Home</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/create" className="primary-nav-link">Create</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/favorites" className="primary-nav-link">Favorites</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/profile" className="primary-nav-link">Profile</Nav.Link>
-                        </Nav.Item>
+                    <Nav>
+                        <Nav.Link as={Link} to="/home" className="primary-nav-link">
+                            Home
+                        </Nav.Link>
+                        <Nav.Link as={Link} to="/create" className="primary-nav-link">
+                            Create Recipe
+                        </Nav.Link>
                     </Nav>
                 </div>
 
@@ -38,9 +37,8 @@ function Header() {
                     overlay={
                         <Popover className="profile-popover">
                             <Popover.Body>
-                                <a className="profile-options-link" href="/Create">Create</a>
-                                <a className="profile-options-link" href="/profile">Profile</a>
-                                <a className="profile-options-link" href="/favorites">Favorites</a>
+                                <Link className="profile-options-link" to="/profile">Profile</Link>
+                                <Link className="profile-options-link" to="/favorites">Favorites</Link>
                                 <LogoutButton/>
                             </Popover.Body>
                         </Popover>

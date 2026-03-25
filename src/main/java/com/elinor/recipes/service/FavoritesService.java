@@ -65,8 +65,7 @@ public class FavoritesService {
             user.getFavoriteRecipesList().remove(recipe);
         }
         userRepository.save(user);
-
-
     }
+
 
 }

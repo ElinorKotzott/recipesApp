@@ -12,6 +12,7 @@ import com.elinor.recipes.repository.RecipeRepository;
 import com.elinor.recipes.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -147,13 +148,17 @@ public class RecipeService {
         return result;
     }
 
-    public void deleteRecipe(String currentUsername, Long recipeId) {
+    public void deleteRecipe(String currentUsername, Long recipeId) throws BadRequestException {
         Recipe recipe = recipeRepository.findById(recipeId)
                 .orElseThrow(() -> new EntityNotFoundException("Recipe not found"));
-        if (!recipe.getUser().getUsername().equals(currentUsername)) {
+        if (recipe == null) {
             throw new EntityNotFoundException("Recipe not found");
         }
+        if (!recipe.getUser().getUsername().equals(currentUsername)) {
+            throw new BadRequestException("Users do not match!");
+        }
 
+        userRepository.deleteFavoriteConnectionsByRecipeId(recipeId);
         recipeRepository.delete(recipe);
     }
 

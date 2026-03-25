@@ -31,15 +31,13 @@ function FavoritesPage() {
     }, [token, currentPage]);
 
     return (
-        <>
-            <Favorites
-                favorites={favorites}
-                setFavorites={setFavorites}
-                fetchFavorites={fetchFavorites}
-                currentPage={currentPage}
-                totalPages={totalPages}
-            />
-        </>
+        <Favorites
+            favorites={favorites}
+            setFavorites={setFavorites}
+            fetchFavorites={fetchFavorites}
+            currentPage={currentPage}
+            totalPages={totalPages}
+        />
     );
 }
 
